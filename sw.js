@@ -1,6 +1,6 @@
 // Service worker: cache-first para el HTML y los recursos locales.
 // Sube CACHE (v2 -> v3...) cuando publiques una nueva versión del panel.
-const CACHE = 'panel-v3';
+const CACHE = 'panel-v4';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -15,7 +15,10 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  const u = new URL(req.url);
+  // Nunca cachear Google (login, API de Drive): van directo a la red
+  if (/(^|\.)google(apis)?\.com$|gstatic\.com$|googleusercontent\.com$/.test(u.hostname)) return;
+  if (req.method !== 'GET' || u.origin !== self.location.origin) return;
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(hit => {
       if (hit) {

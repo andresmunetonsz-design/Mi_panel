@@ -1074,6 +1074,19 @@
       </div>
 
       <div class="card p-5 mb-6">
+        <h3 class="font-semibold mb-2">☁️ Sincronizar con Google Drive</h3>
+        <p class="text-sm text-[var(--muted)] mb-3">Guarda una copia privada en tu Google Drive (carpeta oculta de la app) para ver los mismos datos en el PC y en el iPhone. Pasos en GUIA_GOOGLE_CLOUD.md.</p>
+        <label class="text-sm block mb-1" for="gs-client-id">Google Client ID</label>
+        <input id="gs-client-id" class="input-sm w-full mb-3" type="text" autocomplete="off" spellcheck="false" placeholder="xxxx.apps.googleusercontent.com" onchange="gsSaveClientId(this.value)">
+        <div class="flex flex-col sm:flex-row gap-2">
+          <button class="btn" onclick="gsConectar()">🔗 Conectar con Google</button>
+          <button class="btn btn-ghost" onclick="gsSyncAhora()">🔄 Sincronizar ahora</button>
+          <button class="btn btn-ghost" onclick="gsDesconectar()">⛔ Desconectar</button>
+        </div>
+        <p class="text-sm text-[var(--muted)] mt-3" id="gs-status"></p>
+      </div>
+
+      <div class="card p-5 mb-6">
         <h3 class="font-semibold mb-2">Respaldo de datos</h3>
         <p class="text-sm text-[var(--muted)] mb-4" id="backup-status"></p>
         <div class="flex flex-col sm:flex-row gap-2">
@@ -1136,7 +1149,7 @@
 
 <script>
 // ================= CONSTANTES =================
-const APP_VERSION = '6.0';
+const APP_VERSION = '6.1';
 const STORAGE_KEY = 'andres_panel_v1';
 const LOCK_KEY = 'andres_panel_lock';
 const DEFAULT_PLAN_DAYS = 90;
@@ -1614,8 +1627,10 @@ function loadState() {
 
 function saveState() {
   try {
+    if (!window.__gsApplying) state.updatedAt = new Date().toISOString();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     if (typeof autoBkSchedule === 'function') autoBkSchedule();
+    if (!window.__gsApplying && typeof gsSchedulePush === 'function') gsSchedulePush();
   } catch (e) {
     toast('No se pudo guardar. Descarga un respaldo por si acaso.');
   }
@@ -4492,6 +4507,7 @@ function renderAjustes() {
   document.getElementById('fechas-ajustes').innerHTML = fechasForm('aj');
   document.getElementById('backup-status').textContent = backupText(false) + ` Te recordaremos cada ${BACKUP_EVERY_DAYS} días.`;
   renderAutoBk();
+  if (typeof gsRender === 'function') gsRender();
   document.getElementById('install-btn').classList.toggle('hidden', !deferredPrompt);
   const sw = document.getElementById('sw-status');
   if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) sw.textContent = 'Estás usando la app instalada. Funciona sin internet.';
@@ -5141,8 +5157,214 @@ function applyConfigData(data) {
   buildNav();
 }
 
+// ================= SINCRONIZACIÓN GOOGLE DRIVE =================
+// Usa Google Identity Services (token) + Drive REST con el ámbito drive.appdata.
+// Un único archivo panel-data.json en la carpeta oculta appDataFolder: { state, images, updatedAt }.
+// El Client ID NO va en el código: se escribe en Ajustes y se guarda en localStorage.
+// La clave de bloqueo (andres_panel_lock) nunca se sincroniza.
+const GS_META = 'andres_panel_gsync'; // { clientId, connected, lastSync, lastRemote, email }
+const GS_TOKEN = 'andres_panel_gsync_tok'; // { token, exp } (caduca en ~1 h)
+const GS_SCOPE = 'https://www.googleapis.com/auth/drive.appdata';
+const GS_FILE = 'panel-data.json';
+let gsTokenClient = null, gsPushTimer = null, gsBusy = false, gsPending = null, gsMsg = '';
+function gsMeta() { try { return JSON.parse(localStorage.getItem(GS_META)) || {}; } catch (e) { return {}; } }
+function gsSetMeta(p) { try { localStorage.setItem(GS_META, JSON.stringify(Object.assign(gsMeta(), p))); } catch (e) {} }
+function gsGetToken() {
+  try { const t = JSON.parse(localStorage.getItem(GS_TOKEN)); if (t && t.token && t.exp > Date.now() + 60000) return t.token; } catch (e) {}
+  return null;
+}
+function gsStatus(msg) { gsMsg = msg || ''; gsRender(); }
+function gsRender() {
+  const inp = document.getElementById('gs-client-id');
+  const st = document.getElementById('gs-status');
+  if (!inp || !st) return;
+  const m = gsMeta();
+  if (document.activeElement !== inp) inp.value = m.clientId || '';
+  let t = m.connected ? 'Conectado.' : 'No conectado.';
+  t += m.lastSync ? ' Última sincronización: ' + new Date(m.lastSync).toLocaleString('es') + '.' : ' Aún no se ha sincronizado.';
+  if (gsMsg) t += ' ' + gsMsg;
+  st.textContent = t;
+}
+function gsSaveClientId(v) {
+  v = String(v || '').trim();
+  if (v !== (gsMeta().clientId || '')) { gsTokenClient = null; try { localStorage.removeItem(GS_TOKEN); } catch (e) {} }
+  gsSetMeta({ clientId: v });
+  gsRender();
+}
+function gsLoadGis() {
+  if (window.google && google.accounts && google.accounts.oauth2) return Promise.resolve();
+  if (!navigator.onLine) return Promise.reject(new Error('offline'));
+  return new Promise((res, rej) => {
+    let sc = document.getElementById('gis-script');
+    if (!sc) { sc = document.createElement('script'); sc.id = 'gis-script'; sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true; document.head.appendChild(sc); }
+    sc.addEventListener('load', () => res());
+    sc.addEventListener('error', () => { sc.remove(); rej(new Error('No se pudo cargar Google')); });
+  });
+}
+// prompt: '' = silencioso si ya diste permiso; 'consent' = pide permiso
+function gsRequestToken(prompt) {
+  const cid = gsMeta().clientId;
+  if (!cid) return Promise.reject(new Error('Falta el Google Client ID'));
+  return gsLoadGis().then(() => new Promise((res, rej) => {
+    if (!gsTokenClient) {
+      gsTokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: cid, scope: GS_SCOPE, callback: () => {},
+        error_callback: err => { if (gsPending) { gsPending.rej(new Error(err && err.type === 'popup_failed_to_open' ? 'popup' : (err && err.type) || 'auth')); gsPending = null; } }
+      });
+    }
+    gsPending = { res, rej };
+    gsTokenClient.callback = r => {
+      const p = gsPending; gsPending = null;
+      if (!p) return;
+      if (r && r.access_token && (!google.accounts.oauth2.hasGrantedAllScopes || google.accounts.oauth2.hasGrantedAllScopes(r, GS_SCOPE))) {
+        try { localStorage.setItem(GS_TOKEN, JSON.stringify({ token: r.access_token, exp: Date.now() + (Number(r.expires_in) || 3600) * 1000 })); } catch (e) {}
+        p.res(r.access_token);
+      } else p.rej(new Error((r && r.error) || 'Permiso denegado'));
+    };
+    gsTokenClient.requestAccessToken({ prompt });
+  }));
+}
+async function gsToken(interactive) {
+  const t = gsGetToken();
+  if (t) return t;
+  try { return await gsRequestToken(''); }
+  catch (e) { if (interactive && e.message !== 'offline') return gsRequestToken('consent'); throw e; }
+}
+async function gsFetch(url, opts, interactive) {
+  let tok = await gsToken(interactive);
+  const go = t => fetch(url, Object.assign({}, opts, { headers: Object.assign({}, (opts && opts.headers) || {}, { Authorization: 'Bearer ' + t }) }));
+  let r = await go(tok);
+  if (r.status === 401) { // token caducado: pedir otro
+    try { localStorage.removeItem(GS_TOKEN); } catch (e) {}
+    tok = await gsToken(interactive);
+    r = await go(tok);
+  }
+  if (!r.ok) throw new Error('Drive respondió ' + r.status);
+  return r;
+}
+async function gsFindFile(interactive) {
+  const q = encodeURIComponent(`name='${GS_FILE}'`);
+  const r = await gsFetch(`https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=${q}&fields=files(id,modifiedTime)&pageSize=10`, {}, interactive);
+  const j = await r.json();
+  return j.files && j.files[0] ? j.files[0].id : null;
+}
+function gsLocalPayload() {
+  const images = {};
+  const ids = typeof idsEnUso === 'function' ? idsEnUso() : Object.keys(imgCache);
+  ids.forEach(id => { if (imgCache[id]) images[id] = imgCache[id]; });
+  return { app: 'andres-panel', version: 3, updatedAt: state.updatedAt || null, state, images };
+}
+function gsLocalHasData() { return !!(state && state.days && Object.keys(state.days).length); }
+async function gsPush(interactive, fileId) {
+  if (!fileId) fileId = await gsFindFile(interactive);
+  if (!state.updatedAt) state.updatedAt = new Date().toISOString();
+  const body = JSON.stringify(gsLocalPayload());
+  if (fileId) {
+    await gsFetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body }, interactive);
+  } else {
+    const b = 'gs' + Date.now();
+    const multi = `--${b}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify({ name: GS_FILE, parents: ['appDataFolder'] })}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${b}--`;
+    await gsFetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', { method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + b }, body: multi }, interactive);
+  }
+  gsSetMeta({ lastSync: new Date().toISOString(), lastRemote: state.updatedAt });
+}
+function gsApplyRemote(d) {
+  window.__gsApplying = true;
+  try {
+    state = migrate(d.state);
+    state.updatedAt = d.updatedAt || d.state.updatedAt;
+    applyPlanConfig();
+    saveState();
+  } finally { window.__gsApplying = false; }
+  const imgs = d.images && typeof d.images === 'object' ? d.images : {};
+  Object.entries(imgs).forEach(([id, v]) => {
+    if (typeof v === 'string' && v.startsWith('data:image/') && imgCache[id] !== v) { imgCache[id] = v; imgPut(id, v).catch(e => console.warn('gs imgPut', e)); }
+  });
+  applyUI(); buildNav();
+  showSection(currentSection);
+}
+// Baja la copia de Drive, compara updatedAt y gana la más nueva.
+async function gsSync(interactive) {
+  if (gsBusy) return;
+  if (!navigator.onLine) { gsStatus('Sin internet: se sincronizará cuando vuelva la conexión.'); return; }
+  gsBusy = true; gsStatus('Sincronizando…');
+  try {
+    const first = !gsMeta().lastSync;
+    const fileId = await gsFindFile(interactive);
+    gsSetMeta({ connected: true });
+    let remote = null;
+    if (fileId) {
+      const r = await gsFetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {}, interactive);
+      remote = await r.json().catch(() => null);
+    }
+    const rT = remote && remote.state ? Date.parse(remote.updatedAt || remote.state.updatedAt || 0) || 0 : -1;
+    const lT = Date.parse(state.updatedAt || 0) || 0;
+    if (rT < 0) { await gsPush(interactive, fileId); gsStatus('Datos subidos a Drive.'); }
+    else if (rT > lT || (first && rT !== lT)) {
+      let ok = true;
+      if (first && gsLocalHasData()) {
+        ok = confirm('Hay datos en Google Drive (guardados ' + new Date(rT).toLocaleString('es') + '). ¿Reemplazar los datos de este dispositivo con los de Drive?\n\nCancelar = conservar los de este dispositivo y subirlos a Drive.');
+      }
+      if (ok) { gsApplyRemote(remote); gsSetMeta({ lastSync: new Date().toISOString(), lastRemote: remote.updatedAt }); gsStatus('Datos traídos de Drive.'); }
+      else if (confirm('¿Seguro? Los datos de Drive se reemplazarán con los de este dispositivo.')) { await gsPush(interactive, fileId); gsStatus('Datos subidos a Drive.'); }
+      else gsStatus('Sin cambios.');
+    } else if (rT < lT) { await gsPush(interactive, fileId); gsStatus('Datos subidos a Drive.'); }
+    else { gsSetMeta({ lastSync: new Date().toISOString() }); gsStatus('Todo al día.'); }
+  } catch (e) {
+    console.warn('gsSync', e);
+    if (e.message === 'popup') gsStatus('Toca «Conectar con Google» para continuar (el navegador bloqueó la ventana).');
+    else if (e.message === 'offline' || !navigator.onLine) gsStatus('Sin internet: se sincronizará más tarde.');
+    else gsStatus('No se pudo sincronizar (' + e.message + ').');
+  } finally { gsBusy = false; }
+}
+function gsSchedulePush() {
+  if (!gsMeta().connected || !gsMeta().clientId) return;
+  clearTimeout(gsPushTimer);
+  gsPushTimer = setTimeout(gsPushNow, 3000);
+}
+async function gsPushNow() {
+  clearTimeout(gsPushTimer); gsPushTimer = null;
+  if (gsBusy || !navigator.onLine || !gsMeta().connected) return;
+  if (gsMeta().lastRemote === state.updatedAt) return; // nada nuevo
+  gsBusy = true;
+  try { await gsPush(false); gsStatus('Guardado en Drive.'); }
+  catch (e) { console.warn('gsPush', e); gsStatus(e.message === 'popup' ? 'Toca «Sincronizar ahora» para volver a conectar.' : 'Pendiente de subir (sin conexión o sesión caducada).'); }
+  finally { gsBusy = false; }
+}
+function gsConectar() {
+  const inp = document.getElementById('gs-client-id');
+  if (inp) gsSaveClientId(inp.value);
+  if (!gsMeta().clientId) { toast('Primero pega tu Google Client ID'); return; }
+  if (!navigator.onLine) { toast('Necesitas internet para conectar'); return; }
+  // Pide el token directo desde el clic (Safari/iOS exige el gesto para abrir la ventana)
+  gsRequestToken(gsMeta().connected ? '' : 'consent')
+    .catch(e => e.message === 'popup' || gsMeta().connected ? gsRequestToken('consent') : Promise.reject(e))
+    .then(() => { gsSetMeta({ connected: true }); return gsSync(true); })
+    .catch(e => { console.warn('gsConectar', e); gsStatus('No se pudo conectar (' + e.message + ').'); });
+}
+function gsSyncAhora() {
+  if (!gsMeta().clientId) { toast('Primero pega tu Google Client ID'); return; }
+  if (gsGetToken()) gsSync(true);
+  else gsConectar();
+}
+function gsDesconectar() {
+  const t = gsGetToken();
+  try { if (t && window.google && google.accounts) google.accounts.oauth2.revoke(t, () => {}); } catch (e) {}
+  try { localStorage.removeItem(GS_TOKEN); } catch (e) {}
+  gsSetMeta({ connected: false, lastSync: null, lastRemote: null });
+  gsTokenClient = null;
+  gsStatus('Desconectado. Tus datos siguen en este dispositivo.');
+}
+function gsInit() {
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && gsMeta().connected) gsPushNow(); });
+  window.addEventListener('online', () => { if (gsMeta().connected) gsSync(false); });
+  const m = gsMeta();
+  if (m.connected && m.clientId && navigator.onLine) imgsReady.then(() => gsSync(false));
+}
+
 // ================= INICIO =================
 function init() {
+  try { gsInit(); } catch (e) { console.warn('gsInit', e); }
   buildNav();
   showSection('habitos');
   setInterval(tickAyuno, 1000);
