@@ -1,7 +1,46 @@
 // Service worker: cache-first para el HTML y los recursos locales.
-// Sube CACHE (v2 -> v3...) cuando publiques una nueva versión del panel.
-const CACHE = 'panel-v5';
-const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+// Sube CACHE (v5 -> v6...) cuando publiques una nueva versión del panel.
+const CACHE = 'panel-v6';
+const ASSETS = [
+  './', './index.html', './alimentos.js', './manifest.json', './icon-192.png', './icon-512.png',
+  './img/accesorio-auriculares.webp',
+  './img/accesorio-banda.webp',
+  './img/accesorio-birrete.webp',
+  './img/accesorio-bufanda.webp',
+  './img/accesorio-casco.webp',
+  './img/accesorio-corona.webp',
+  './img/accesorio-cuerda.webp',
+  './img/accesorio-gafas.webp',
+  './img/accesorio-gorra.webp',
+  './img/accesorio-raqueta.webp',
+  './img/mascota-ajolote-1.webp',
+  './img/mascota-ajolote-2.webp',
+  './img/mascota-ajolote-3.webp',
+  './img/mascota-ballena-1.webp',
+  './img/mascota-ballena-2.webp',
+  './img/mascota-ballena-3.webp',
+  './img/mascota-conejita-1.webp',
+  './img/mascota-conejita-2.webp',
+  './img/mascota-conejita-3.webp',
+  './img/mascota-dino-1.webp',
+  './img/mascota-dino-2.webp',
+  './img/mascota-dino-3.webp',
+  './img/mascota-gato-atigrado-1.webp',
+  './img/mascota-gato-atigrado-2.webp',
+  './img/mascota-gato-atigrado-3.webp',
+  './img/mascota-gato-naranja-1.webp',
+  './img/mascota-gato-naranja-2.webp',
+  './img/mascota-gato-naranja-3.webp',
+  './img/mascota-gato-tuxedo-1.webp',
+  './img/mascota-gato-tuxedo-2.webp',
+  './img/mascota-gato-tuxedo-3.webp',
+  './img/mascota-perrito-1.webp',
+  './img/mascota-perrito-2.webp',
+  './img/mascota-perrito-3.webp',
+  './img/mascota-zorro-1.webp',
+  './img/mascota-zorro-2.webp',
+  './img/mascota-zorro-3.webp',
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

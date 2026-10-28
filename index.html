@@ -99,6 +99,137 @@
   .wiz-res { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; }
   .wiz-kcal { font-size: 34px; font-weight: 800; color: var(--accent2); }
   @media (min-width: 640px) { .rec-form { grid-template-columns: 1fr 170px auto; } }
+  /* ===== Mascota (v8) ===== */
+  .pet-fig { position: relative; width: 100%; aspect-ratio: 1/1; }
+  .pet-body { position: absolute; inset: 0; transform-origin: 50% 92%; }
+  .pet-img, .pet-acc { position: absolute; user-select: none; -webkit-user-select: none; pointer-events: none; -webkit-user-drag: none; }
+  .pet-img { inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .pet-acc { object-fit: contain; max-width: none; }
+  .pet-anim .pet-body { animation: petBounce 2.6s ease-in-out infinite; }
+  .pet-anim .pet-img { animation: petBlink 5s infinite; }
+  @keyframes petBounce { 0%, 100% { transform: translateY(0) scale(1, 1); } 45% { transform: translateY(-3.5%) scale(.985, 1.015); } 55% { transform: translateY(-3.5%) scale(.985, 1.015); } 90% { transform: translateY(0) scale(1.02, .98); } }
+  @keyframes petBlink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.94); } }
+  .pet-fig.pet-tap .pet-body { animation: petTap .6s ease; }
+  @keyframes petTap { 0% { transform: scale(1); } 30% { transform: scale(1.1, .9) translateY(2%); } 60% { transform: scale(.95, 1.07) translateY(-6%); } 100% { transform: scale(1); } }
+  .pet-fig.pet-come .pet-body { animation: petCome .5s ease 3; }
+  @keyframes petCome { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06, .94); } }
+  .pet-feliz .pet-img { filter: saturate(1.15) drop-shadow(0 0 10px color-mix(in srgb, var(--warning) 45%, transparent)); }
+  .pet-triste .pet-img { filter: grayscale(.55) brightness(.9); }
+  .pet-triste.pet-anim .pet-body { animation: petSway 4s ease-in-out infinite; }
+  @keyframes petSway { 0%, 100% { transform: rotate(-2deg) translateY(2%); } 50% { transform: rotate(2deg) translateY(2%); } }
+  .pet-dormido .pet-img { filter: brightness(.72) saturate(.75); }
+  .pet-dormido.pet-anim .pet-body { animation: petBreath 4s ease-in-out infinite; }
+  @keyframes petBreath { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.02, .975); } }
+  .pet-zz { position: absolute; right: 6%; top: 4%; font-weight: 800; color: var(--accent2); font-size: 18px; pointer-events: none; }
+  .pet-zz span { display: inline-block; animation: petZz 2.4s infinite; }
+  .pet-zz span:last-child { animation-delay: .8s; font-size: .8em; }
+  @keyframes petZz { 0% { opacity: 0; transform: translate(0, 6px); } 40% { opacity: 1; } 100% { opacity: 0; transform: translate(8px, -14px); } }
+  .pet-float { position: absolute; left: 50%; top: 10%; transform: translateX(-50%); font-weight: 800; font-size: 15px; color: var(--warning); pointer-events: none; animation: petFloat 1.5s ease-out forwards; white-space: nowrap; text-shadow: 0 1px 3px rgba(0,0,0,.35); }
+  .pet-heart { font-size: 22px; }
+  @keyframes petFloat { 0% { opacity: 0; transform: translate(-50%, 10px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -40px); } }
+  .pet-sil, .pet-fig.pet-sil .pet-img { filter: grayscale(1) brightness(0) invert(.55); opacity: .55; }
+  .pet-hoy { display: flex; gap: 12px; align-items: center; }
+  .pet-hoy-fig { width: 104px; flex-shrink: 0; cursor: pointer; padding-top: 6px; }
+  .pet-hoy-info { flex: 1; min-width: 0; }
+  .pet-hoy-info .pet-meter + .pet-meter { margin-top: 8px; }
+  .pet-hoy-link { display: block; margin: 8px 0 0 auto; font-size: 12px; color: var(--accent); background: none; border: 0; cursor: pointer; }
+  .pet-hoy-vacia { display: flex; align-items: center; gap: 12px; }
+  .pet-mini-row { display: flex; }
+  .pet-mini-row img { width: 40px; height: 40px; object-fit: contain; margin-right: -10px; }
+  .pet-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent2); white-space: nowrap; }
+  .pet-meter-bar { width: 100%; height: 8px; background: var(--card2); border-radius: 999px; overflow: hidden; }
+  .pet-meter-bar > div { height: 100%; border-radius: 999px; transition: width .6s; }
+  .pet-bubble { position: relative; margin-top: 10px; background: var(--card2); border: 1px solid var(--border); border-radius: 14px; padding: 8px 12px; font-size: 13px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .pet-bubble span { flex: 1; min-width: 60%; }
+  .pet-bubble::before { content: ''; position: absolute; top: -7px; left: 40px; width: 12px; height: 12px; background: var(--card2); border-left: 1px solid var(--border); border-top: 1px solid var(--border); transform: rotate(45deg); }
+  .pet-hero .pet-bubble::before { left: 50%; margin-left: -6px; }
+  .pet-stage { width: 220px; max-width: 70%; margin: 0 auto; padding-top: 18px; cursor: pointer; background: radial-gradient(circle at 50% 62%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 66%); border-radius: 50%; }
+  .pet-evo-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pet-evo-item, .pet-acc-item, .pet-col-item { background: var(--card2); border: 2px solid transparent; border-radius: 14px; padding: 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--text); }
+  .pet-evo-item.on, .pet-acc-item.on, .pet-col-item.on { border-color: var(--accent); }
+  .pet-evo-item .pet-fig, .pet-col-item .pet-fig { width: 72px; }
+  .pet-evo-item .t, .pet-acc-item .t, .pet-col-item .t { font-size: 12px; font-weight: 600; }
+  .pet-evo-item .r, .pet-acc-item .r, .pet-col-item .r { font-size: 10px; color: var(--muted); line-height: 1.25; }
+  .pet-acc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pet-acc-item { cursor: pointer; }
+  .pet-acc-item img { width: 46px; height: 46px; object-fit: contain; }
+  .pet-acc-item.bloq, .pet-col-item.bloq { cursor: default; }
+  .pet-col-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pet-col-item { cursor: pointer; }
+  .pet-tabla { width: 100%; font-size: 12px; border-collapse: collapse; }
+  .pet-tabla th { text-align: left; font-weight: 600; color: var(--muted); padding: 4px 6px; border-bottom: 1px solid var(--border); }
+  .pet-tabla td { padding: 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pet-tabla tr.ok td { color: var(--success); }
+  .pet-elegir { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .pet-opcion { background: var(--card2); border: 2px solid transparent; border-radius: 16px; padding: 8px 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer; }
+  .pet-opcion.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--card2)); }
+  .pet-opcion .pet-fig { width: 84px; }
+  .pet-evo { position: fixed; inset: 0; z-index: 95; background: rgba(0,0,0,.72); display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .pet-evo.hidden { display: none; }
+  .pet-evo-box { position: relative; width: 100%; max-width: 340px; background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 22px 18px 18px; text-align: center; overflow: hidden; }
+  .pet-evo-t { font-size: 18px; font-weight: 800; }
+  .pet-evo-sub { font-size: 13px; color: var(--muted); margin: 8px 0 14px; }
+  .pet-evo-stage { position: relative; width: 200px; height: 200px; margin: 14px auto 0; }
+  .pet-evo-old, .pet-evo-new { position: absolute; inset: 0; }
+  .pet-evo-old { animation: evoOld 1.6s ease-in forwards; }
+  .pet-evo-new { opacity: 0; animation: evoNew .9s cubic-bezier(.2,1.6,.4,1) 1.5s forwards; }
+  .pet-evo-flash { position: absolute; inset: -20%; border-radius: 50%; background: radial-gradient(circle, #fff 0%, color-mix(in srgb, var(--warning) 60%, transparent) 40%, transparent 70%); opacity: 0; animation: evoFlash 1s ease-out 1.1s forwards; pointer-events: none; }
+  @keyframes evoOld { 0% { filter: brightness(1); transform: scale(1); } 60% { filter: brightness(2.2); transform: scale(1.04); } 70%, 80% { transform: scale(.96); } 100% { filter: brightness(6); opacity: 0; transform: scale(1.1); } }
+  @keyframes evoNew { 0% { opacity: 0; transform: scale(.3); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes evoFlash { 0% { opacity: 0; transform: scale(.4); } 30% { opacity: 1; } 100% { opacity: 0; transform: scale(1.4); } }
+  .pet-confeti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .pet-confeti i { position: absolute; top: -12px; width: 8px; height: 12px; border-radius: 2px; opacity: 0; animation: confeti 2.6s ease-in 1.6s forwards; }
+  @keyframes confeti { 0% { opacity: 1; transform: translateY(0) rotate(0); } 100% { opacity: 0; transform: translateY(420px) rotate(540deg); } }
+  @media (prefers-reduced-motion: reduce) { .pet-anim .pet-body, .pet-anim .pet-img, .pet-zz span { animation: none !important; } }
+  /* ===== Nutrición (v8) ===== */
+  .nutri-top { display: flex; gap: 16px; align-items: center; }
+  .nutri-ring { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+  .nutri-ring svg { width: 100%; height: 100%; }
+  .nutri-ring circle { transition: stroke-dashoffset .6s; }
+  .nutri-ring-t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .nutri-ring-t strong { font-size: 22px; line-height: 1.1; }
+  .nutri-ring-t span { font-size: 11px; color: var(--muted); }
+  .nutri-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+  .nutri-tipos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .nutri-tipo { background: var(--card2); border: 1px solid var(--border); border-radius: 12px; padding: 8px 2px; font-size: 12px; color: var(--text); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .nutri-tipo.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--card2)); font-weight: 600; }
+  .nutri-sugs { position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 25; background: var(--card); border: 1px solid var(--border); border-radius: 14px; max-height: 320px; overflow-y: auto; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+  .nutri-sug { display: block; width: 100%; text-align: left; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--border); background: none; color: var(--text); cursor: pointer; }
+  .nutri-sug:last-child { border-bottom: 0; }
+  .nutri-sug:hover, .nutri-sug.on { background: var(--card2); }
+  .nutri-sug .n { display: block; font-size: 14px; }
+  .nutri-sug .d { display: block; font-size: 11px; color: var(--muted); }
+  .nutri-tag { font-size: 10px; padding: 1px 6px; border-radius: 999px; background: color-mix(in srgb, var(--accent2) 22%, transparent); color: var(--accent2); vertical-align: 1px; }
+  .nutri-selbox, .nutri-platobox { margin-top: 10px; background: var(--card2); border-radius: 14px; padding: 12px; }
+  .nutri-platobox { border: 1px dashed var(--border); background: transparent; }
+  .nutri-selrow { display: grid; grid-template-columns: 128px 1fr; gap: 8px; margin-top: 8px; }
+  .nutri-step { display: grid; grid-template-columns: 36px 1fr 36px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); }
+  .nutri-step button { background: none; border: 0; color: var(--text); font-size: 20px; cursor: pointer; }
+  .nutri-step input { border: 0 !important; border-radius: 0 !important; text-align: center; padding: 8px 2px !important; background: transparent !important; min-width: 0; }
+  .nutri-li { display: flex; align-items: center; gap: 8px; font-size: 14px; padding: 6px 0; }
+  .nutri-li + .nutri-li { border-top: 1px solid var(--border); }
+  .guia-cats { display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .guia-cats .chip { white-space: nowrap; flex-shrink: 0; }
+  .guia-lista { padding: 0; overflow: hidden; }
+  .guia-item + .guia-item { border-top: 1px solid var(--border); }
+  .guia-head { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; padding: 10px 14px; background: none; border: 0; color: var(--text); cursor: pointer; }
+  .guia-head span:last-child { text-align: right; line-height: 1.2; }
+  .guia-item.on { background: color-mix(in srgb, var(--accent) 7%, transparent); }
+  .guia-body { padding: 0 14px 14px; }
+  .w-24 { width: 6rem; }
+  .pt-2 { padding-top: .5rem; }
+  .text-\[var\(--accent\)\] { color: var(--accent); }
+
+/* Buscadores (type=search) con el mismo estilo que los demás campos */
+input[type="search"] {
+  -webkit-appearance: none; appearance: none;
+  background: var(--card2); border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); padding: 10px 14px; width: 100%; font-size: 16px;
+}
+input[type="search"]::placeholder { color: var(--muted); }
+.nutri-macro { min-width: 0; }
+.nutri-macro .mac-lbl { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nutri-macro .mac-val { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
 </style>
 <script>/* Chart.js 4.4.1 */
 /*!
@@ -337,6 +468,9 @@
           <button class="btn btn-ghost btn-sm" onclick="changeDay(1)" id="btn-siguiente" aria-label="Día siguiente">Siguiente →</button>
         </div>
       </div>
+
+      <!-- Mascota -->
+      <div class="card p-3 mb-4" id="pet-hoy"></div>
 
       <!-- Nivel, XP y racha -->
       <div class="card p-4 mb-4" id="hx-nivel"></div>
@@ -622,38 +756,46 @@
 
       <div id="nutri-banner" class="space-y-2 mb-4"></div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Consumidas</p>
-          <p class="text-2xl font-bold" id="nutri-consumidas">0</p>
-          <p class="text-[10px] text-[var(--muted)]" id="nutri-meta-label">kcal</p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Te quedan</p>
-          <p class="text-2xl font-bold" id="nutri-restantes">0</p>
-          <p class="text-[10px] text-[var(--muted)]">kcal para tu meta</p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Déficit del día</p>
-          <p class="text-2xl font-bold" id="nutri-deficit">-</p>
-          <p class="text-[10px] text-[var(--muted)]" id="nutri-deficit-sub">gasto − consumo</p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Proteína</p>
-          <p class="text-2xl font-bold" id="nutri-prot">0 g</p>
-          <p class="text-[10px] text-[var(--muted)]" id="nutri-prot-sub">meta</p>
-        </div>
-      </div>
+      <div class="card p-4 mb-5" id="nutri-resumen"></div>
 
-      <div class="card p-5 mb-5">
-        <div class="flex items-center justify-between mb-2 text-sm">
-          <span class="text-[var(--muted)]">Calorías del día</span>
-          <span class="font-medium" id="nutri-bar-label"></span>
+      <!-- Registrar comida -->
+      <div class="card p-4 mb-5" id="nutri-registrar">
+        <div class="flex items-center justify-between gap-2 mb-1">
+          <h3 class="font-semibold">Registrar comida</h3>
+          <button class="text-xs text-[var(--accent)]" onclick="showSection('porciones')">📏 Guía de porciones</button>
         </div>
-        <div class="w-full h-3 bg-[var(--card2)] rounded-full overflow-hidden">
-          <div id="nutri-bar" class="h-full rounded-full transition-all duration-500" style="width:0%"></div>
+        <p class="text-xs text-[var(--muted)] mb-3">Busca el alimento, elige la porción y cuántas. Puedes armar el plato completo (2 huevos + 1 pan) y registrarlo de una vez. Los valores son aproximados.</p>
+        <div class="nutri-tipos" id="nutri-tipos" role="group" aria-label="Comida del día"></div>
+        <div class="relative mt-3">
+          <input type="search" id="nutri-buscar" placeholder="Buscar: huevo, arepa, bandeja paisa..." autocomplete="off" aria-label="Buscar alimento" role="combobox" aria-controls="nutri-sugs" oninput="nutriBuscar(this.value)" onkeydown="nutriBuscarTecla(event)" onfocus="if(this.value)nutriBuscar(this.value)" onblur="setTimeout(()=>{if(document.activeElement!==this)document.getElementById('nutri-sugs').classList.add('hidden')},150)">
+          <div id="nutri-sugs" class="nutri-sugs hidden" role="listbox"></div>
         </div>
-        <p class="text-xs text-[var(--muted)] mt-3" id="nutri-semana"></p>
+        <div id="nutri-sel"></div>
+        <div id="nutri-plato"></div>
+        <div id="nutri-rapidos"></div>
+        <details class="mt-4 pt-3 border-t border-[var(--border)]" id="nutri-manual">
+          <summary class="text-sm font-medium flex items-center gap-2"><span class="chev">›</span> Escribir a mano o crear un alimento propio</summary>
+          <div class="grid gap-2 mt-3">
+            <input type="text" id="comida-desc" list="alimentos-lista" placeholder="¿Qué comiste?" aria-label="Qué comiste" oninput="autofillAlimento(this.value)">
+            <div class="grid grid-cols-3 gap-2">
+              <input type="number" id="comida-kcal" inputmode="numeric" placeholder="kcal" aria-label="Calorías">
+              <input type="number" id="comida-gramos" inputmode="decimal" placeholder="Gramos" aria-label="Gramos de la porción">
+              <input type="number" id="comida-prot" inputmode="decimal" placeholder="Prot g" aria-label="Proteína en gramos">
+              <input type="number" id="comida-carb" inputmode="decimal" placeholder="Carbs g" aria-label="Carbohidratos en gramos">
+              <input type="number" id="comida-grasa" inputmode="decimal" placeholder="Grasa g" aria-label="Grasa en gramos">
+              <button class="btn btn-sm whitespace-nowrap" onclick="addComida()" id="comida-add">+ Añadir</button>
+            </div>
+          </div>
+          <datalist id="alimentos-lista"></datalist>
+          <label class="flex items-center gap-2 text-xs text-[var(--muted)] mt-2 cursor-pointer w-fit">
+            <input type="checkbox" id="comida-fav" class="accent-[var(--accent)]"> Guardar como comida frecuente
+          </label>
+          <label class="flex items-center gap-2 text-xs text-[var(--muted)] mt-2 cursor-pointer w-fit">
+            <input type="checkbox" id="comida-propio" class="accent-[var(--accent)]"> Guardar como alimento propio (aparece en la búsqueda)
+          </label>
+          <div id="nutri-propios"></div>
+        </details>
+        <div class="mt-5 pt-4 border-t border-[var(--border)] space-y-4" id="comidas-list"></div>
       </div>
 
       <!-- Ayuno -->
@@ -667,28 +809,6 @@
           <summary class="text-sm font-medium flex items-center gap-2"><span class="chev">›</span> Historial de ayunos</summary>
           <div class="space-y-2 mt-3" id="ayuno-historial"></div>
         </details>
-      </div>
-
-      <!-- Registrar comida -->
-      <div class="card p-5 mb-5">
-        <h3 class="font-semibold mb-1">Registrar comida</h3>
-        <p class="text-xs text-[var(--muted)] mb-3">Escribe lo que comiste. Si eliges algo de la lista, las calorías se llenan solas (son aproximadas).</p>
-        <div class="grid gap-2 sm:grid-cols-[130px_1fr_96px_84px_auto]">
-          <select id="comida-tipo" aria-label="Tipo de comida" onchange="comidaTipoTocado=true"></select>
-          <input type="text" id="comida-desc" list="alimentos-lista" placeholder="¿Qué comiste?" aria-label="Qué comiste" oninput="autofillAlimento(this.value)">
-          <input type="number" id="comida-kcal" inputmode="numeric" placeholder="kcal" aria-label="Calorías">
-          <input type="number" id="comida-prot" inputmode="decimal" placeholder="Prot g" aria-label="Proteína en gramos">
-          <button class="btn btn-sm whitespace-nowrap" onclick="addComida()">+ Añadir</button>
-        </div>
-        <datalist id="alimentos-lista"></datalist>
-        <label class="flex items-center gap-2 text-xs text-[var(--muted)] mt-2 cursor-pointer w-fit">
-          <input type="checkbox" id="comida-fav" class="accent-[var(--accent)]"> Guardar como comida frecuente (para añadirla con un toque)
-        </label>
-        <div id="favoritas-wrap" class="mt-4">
-          <p class="text-xs text-[var(--muted)] mb-2">Frecuentes: toca para añadir</p>
-          <div class="flex flex-wrap gap-2" id="favoritas"></div>
-        </div>
-        <div class="mt-5 pt-4 border-t border-[var(--border)] space-y-4" id="comidas-list"></div>
       </div>
 
       <div class="card p-5 mb-5">
@@ -708,7 +828,7 @@
 
       <details class="card p-5" id="perfil-details">
         <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> Tu perfil y meta de calorías</summary>
-        <p class="text-xs text-[var(--muted)] mt-3 mb-4">Con estos datos se calcula cuánto gastas al día (fórmula Mifflin-St Jeor) y tu meta con déficit. Es una estimación: ajústala según cómo cambie tu peso en 2-3 semanas.</p>
+        <p class="text-xs text-[var(--muted)] mt-3 mb-4">Con estos datos se calcula cuánto gastas al día (fórmula Mifflin-St Jeor) y tu meta con déficit (para bajar) o superávit (para subir). Es una estimación: ajústala según cómo cambie tu peso en 2-3 semanas.</p>
         <div class="grid sm:grid-cols-2 gap-3">
           <div>
             <label for="perfil-sexo" class="text-xs text-[var(--muted)]">Sexo</label>
@@ -736,13 +856,35 @@
             <select id="perfil-actividad" onchange="setPerfil('actividad', this.value)"></select>
           </div>
           <div class="sm:col-span-2">
-            <label for="perfil-deficit" class="text-xs text-[var(--muted)]">Déficit diario</label>
+            <label for="perfil-deficit" class="text-xs text-[var(--muted)]">Ajuste diario (déficit o superávit)</label>
             <select id="perfil-deficit" onchange="setPerfil('deficit', this.value)"></select>
           </div>
         </div>
         <div class="grid grid-cols-3 gap-2 mt-4" id="perfil-calculo"></div>
         <p class="text-xs mt-3" id="perfil-aviso"></p>
       </details>
+    </section>
+
+    <!-- ========== MASCOTA ========== -->
+    <section id="sec-mascota" class="section">
+      <div class="mb-5">
+        <h2 class="text-2xl font-bold">Mascota</h2>
+        <p class="text-[var(--muted)] text-sm mt-1">Crece y evoluciona con el XP que ganas cuidándote.</p>
+      </div>
+      <div id="pet-main"></div>
+    </section>
+
+    <!-- ========== GUÍA DE PORCIONES ========== -->
+    <section id="sec-porciones" class="section">
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold">Guía de porciones</h2>
+        <p class="text-[var(--muted)] text-sm mt-1">Cuánto es una porción y cuántas calorías tiene. Toca un alimento para calcular por gramos.</p>
+      </div>
+      <input type="search" id="guia-buscar" placeholder="Buscar: arroz, papa, aguacate..." autocomplete="off" aria-label="Buscar en la guía" oninput="guiaQ=this.value;guiaAbierto=null;renderGuia()">
+      <div class="guia-cats" id="guia-cats"></div>
+      <p class="text-xs text-[var(--muted)] mb-2" id="guia-cuenta"></p>
+      <div class="card guia-lista" id="guia-lista"></div>
+      <p class="text-[11px] text-[var(--muted)] mt-3" id="guia-nota"></p>
     </section>
 
     <!-- ========== CUERPO ========== -->
@@ -1159,6 +1301,7 @@
   <div class="flex justify-around py-2" id="mobile-nav"></div>
 </nav>
 
+<div id="pet-evo" class="pet-evo hidden" role="dialog" aria-modal="true" aria-label="Evolución de tu mascota"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="autobk-banner" class="hidden fixed left-1/2 -translate-x-1/2 z-[70] card px-4 py-2 flex items-center gap-3 text-sm" style="top:calc(10px + env(safe-area-inset-top, 0px))">
   <span>🔄 Respaldo automático en pausa</span>
@@ -1195,9 +1338,10 @@
   </div>
 </div>
 
+<script src="alimentos.js"></script>
 <script>
 // ================= CONSTANTES =================
-const APP_VERSION = '7.0';
+const APP_VERSION = '8.0';
 const STORAGE_KEY = 'andres_panel_v1';
 const LOCK_KEY = 'andres_panel_lock';
 const DEFAULT_PLAN_DAYS = 90;
@@ -1240,7 +1384,9 @@ const PRESUPUESTO_NEUTRAL = [
 
 const NAV = [
   { id: 'habitos', label: 'Hoy', icon: '✅' },
+  { id: 'mascota', label: 'Mascota', icon: '🐾' },
   { id: 'nutricion', label: 'Nutrición', icon: '🍽️' },
+  { id: 'porciones', label: 'Guía de porciones', icon: '📏' },
   { id: 'finanzas', label: 'Finanzas', icon: '💰' },
   { id: 'cuerpo', label: 'Cuerpo', icon: '💪' },
   { id: 'recordatorios', label: 'Recordatorios', icon: '🔔' },
@@ -1280,7 +1426,7 @@ const COLORES = [
 const TEMAS = [['oscuro', 'Oscuro', '#0f1117'], ['oled', 'Negro', '#000000'], ['light', 'Claro', '#f4f5f9']];
 const UI_DEFAULT = {
   tema: 'oscuro', acento: '#6366f1', texto: 'normal', radio: 16, nombre: 'Mi Panel', avatar: null,
-  ocultas: [], barra: ['habitos', 'recordatorios', 'nutricion', 'finanzas', 'trabajo'],
+  ocultas: [], barra: ['habitos', 'mascota', 'recordatorios', 'nutricion', 'finanzas'],
 };
 const NAV_FIJAS = ['habitos', 'ajustes'];
 const BARRA_MAX = 5;
@@ -1292,16 +1438,18 @@ const ACTIVIDAD = [
   { v: 1.725, label: 'Alto: ejercicio 6-7 días por semana' },
 ];
 const DEFICITS = [
-  { v: 0, label: 'Mantener peso (sin déficit)' },
-  { v: 250, label: 'Suave: −250 kcal/día (≈ 0.25 kg por semana)' },
-  { v: 500, label: 'Recomendado: −500 kcal/día (≈ 0.5 kg por semana)' },
-  { v: 750, label: 'Agresivo: −750 kcal/día (≈ 0.7 kg por semana)' },
+  { v: 0, label: 'Mantener peso (sin déficit ni superávit)' },
+  { v: 250, label: 'Bajar suave: -250 kcal/día (≈ 0.25 kg por semana)' },
+  { v: 500, label: 'Bajar recomendado: -500 kcal/día (≈ 0.5 kg por semana)' },
+  { v: 750, label: 'Bajar rápido: -750 kcal/día (≈ 0.7 kg por semana)' },
+  { v: -300, label: 'Subir recomendado: +300 kcal/día (≈ 0.25 kg por semana)' },
+  { v: -500, label: 'Subir rápido: +500 kcal/día (≈ 0.45 kg por semana)' },
 ];
 const TIPOS_COMIDA = [
   { id: 'desayuno', label: 'Desayuno', icon: '🍳' },
   { id: 'almuerzo', label: 'Almuerzo', icon: '🍛' },
   { id: 'cena', label: 'Cena', icon: '🍲' },
-  { id: 'snack', label: 'Snack', icon: '🍎' },
+  { id: 'snack', label: 'Snacks', icon: '🍎' },
 ];
 const ALIMENTOS = [
   { n: 'Huevo entero (1 und)', k: 72, p: 6 },
@@ -1667,6 +1815,7 @@ function migrate(raw) {
   s.caidas = s.caidas.filter(c => c.vicio !== 'Porno');
   s.schema = 4;
   migrateV5(s, raw);
+  migrateV6(s, raw);
   return s;
 }
 
@@ -1710,7 +1859,7 @@ const HERRAMIENTAS = [
   { id: 'aplazadas', icon: '🐢', label: 'Aviso de tareas aplazadas', desc: 'Marca las tareas que llevan 3 días o más sin hacerse.' },
 ];
 const HOYCFG_DEFAULT = {
-  minActividades: 3, xpTarea: 10, xpSubtarea: 2, xpCinco: 5, diasAplazada: 3,
+  minActividades: 3, xpTarea: 10, xpSubtarea: 2, xpCinco: 5, diasAplazada: 3, xpComida: 3,
   pomo: { trabajo: 25, descanso: 5, xp: 10 },
   herramientas: { clave: true, cinco: true, pomodoro: true, subtareas: true, aplazadas: true },
 };
@@ -1799,6 +1948,7 @@ function hxNormCfg(rc) {
     xpSubtarea: hxNum(rc.xpSubtarea, d.xpSubtarea, 0, 500),
     xpCinco: hxNum(rc.xpCinco, d.xpCinco, 0, 500),
     diasAplazada: hxNum(rc.diasAplazada, d.diasAplazada, 1, 60),
+    xpComida: hxNum(rc.xpComida, d.xpComida, 0, 100),
     pomo: {
       trabajo: hxNum(rp.trabajo, d.pomo.trabajo, 1, 180),
       descanso: hxNum(rp.descanso, d.pomo.descanso, 1, 60),
@@ -1826,6 +1976,12 @@ function hxDayXp(s, k) {
     (t.subtareas || []).forEach(st => { if (st.hecha && st.hechaEn === k) xp += cfg.xpSubtarea; });
   });
   if (day) xp += (Number(day.pomos) || 0) * cfg.pomo.xp + (Number(day.cinco) || 0) * cfg.xpCinco;
+  // Registrar comidas da XP: una vez por tipo de comida (máximo 4 al día)
+  const nd = s.nutri && s.nutri.dias && s.nutri.dias[k];
+  if (nd && Array.isArray(nd.comidas) && cfg.xpComida) {
+    const tipos = new Set(nd.comidas.filter(c => c && c.xp).map(c => c.tipo));
+    xp += Math.min(4, tipos.size) * cfg.xpComida;
+  }
   return xp;
 }
 function hxDayHechas(s, k) {
@@ -1974,6 +2130,7 @@ function renderHabitos() {
   document.getElementById('btn-siguiente').disabled = currentDayOffset >= 0;
   document.getElementById('btn-hoy').disabled = currentDayOffset === 0;
   hxTotals(state);
+  petRenderHoy();
   hxRenderNivel(key);
   hxRenderRecs();
   hxRenderClave(key, day);
@@ -2630,7 +2787,7 @@ function hxSetTool(id, on) {
 }
 
 // ---------- Entrevista inicial (onboarding) ----------
-const WIZ_PASOS = ['hola', 'objetivos', 'datos', 'peso', 'actividad', 'ejercicios', 'actividades', 'herramientas', 'moneda', 'secciones', 'listo'];
+const WIZ_PASOS = ['hola', 'objetivos', 'datos', 'peso', 'actividad', 'ejercicios', 'actividades', 'herramientas', 'moneda', 'secciones', 'mascota', 'listo'];
 let wizI = 0;
 let wizD = null;
 
@@ -2648,9 +2805,10 @@ function hxSugeridas(d) {
   return out;
 }
 function wizSeccionesSugeridas(objs) {
-  const set = new Set(['recordatorios']);
+  const set = new Set(['mascota', 'recordatorios']);
   (objs || []).forEach(o => (SECCIONES_OBJ[o] || []).forEach(x => set.add(x)));
   if (!(objs || []).length) ['nutricion', 'finanzas', 'proyectos'].forEach(x => set.add(x));
+  if (set.has('nutricion')) set.add('porciones');
   return [...set];
 }
 function wizSeccionesDisponibles() { return NAV.filter(n => !NAV_FIJAS.includes(n.id)); }
@@ -2678,6 +2836,8 @@ function wizAbrir() {
     sel: null,
     minActividades: state.hoyCfg.minActividades,
     herramientas: { ...state.hoyCfg.herramientas },
+    mascota: PET_INICIALES.includes(state.mascota.activa) ? state.mascota.activa : (state.mascota.inicial || null),
+    mascotaNombre: null,
     moneda: p.moneda || state.config.moneda || 'COP',
     secciones: Array.isArray(p.secciones) ? [...p.secciones] : null,
   };
@@ -2826,6 +2986,13 @@ function wizRender() {
     if (!d.secciones) d.secciones = wizSeccionesSugeridas(d.objetivos);
     html = H('🧩', '¿Qué secciones quieres ver?', 'Hoy y Ajustes siempre están. Las demás puedes mostrarlas después en Ajustes.') + `
       <div class="wiz-chips">${wizSeccionesDisponibles().map(n => wizChip(d.secciones.includes(n.id), `wizToggle('secciones', '${n.id}')`, n.icon + ' ' + esc(n.label))).join('')}</div>`;
+  } else if (paso === 'mascota') {
+    const nom = d.mascotaNombre != null ? d.mascotaNombre : (d.mascota ? petNombre(d.mascota) : '');
+    html = H('🐾', 'Elige tu mascota', 'Te acompaña en Hoy y crece con el XP que ganas. Más adelante desbloqueas otras. Puedes saltar este paso.') + `
+      <div class="pet-elegir">${PET_INICIALES.map(id => `<button type="button" class="pet-opcion ${d.mascota === id ? 'on' : ''}" data-wiz-pet="${id}" aria-pressed="${d.mascota === id}" onclick="wizPet('${id}')">
+        ${petFigura(id, 1, { cls: d.mascota === id ? 'pet-anim' : '' })}<span>${esc(petAnimal(id).label)}</span></button>`).join('')}</div>
+      ${d.mascota ? `<label class="wiz-lbl" for="wiz-petnombre">¿Cómo se llama?</label>
+      <input type="text" id="wiz-petnombre" maxlength="24" value="${esc(nom)}" oninput="wizSet('mascotaNombre', this.value)">` : ''}`;
   } else if (paso === 'listo') {
     const k = wizCalorias(d);
     const objs = d.objetivos.map(id => (OBJETIVOS.find(o => o.id === id) || {}).label).filter(Boolean);
@@ -2838,11 +3005,17 @@ function wizRender() {
         <p class="mt-1"><strong>Actividades:</strong> ${wizSel().length} · el día cuenta con ${d.minActividades}</p>
         <p class="mt-1"><strong>Herramientas:</strong> ${HERRAMIENTAS.filter(h => d.herramientas[h.id]).map(h => h.icon).join(' ') || 'ninguna'}</p>
         <p class="mt-1"><strong>Moneda:</strong> ${esc(d.moneda)}</p>
+        ${d.mascota ? `<p class="mt-1"><strong>Mascota:</strong> ${esc((d.mascotaNombre || '').trim() || petNombre(d.mascota))} (${esc(petAnimal(d.mascota).label.toLowerCase())})</p>` : ''}
       </div>`;
   }
   const body = document.getElementById('wiz-body');
   body.innerHTML = html;
   body.dataset.paso = paso;
+}
+function wizPet(id) {
+  if (wizD.mascota !== id && (wizD.mascotaNombre == null || PET_ANIMALES.some(a => a.nombre === wizD.mascotaNombre))) wizD.mascotaNombre = null;
+  wizD.mascota = id;
+  wizRender();
 }
 function wizPaso(dir) {
   const paso = WIZ_PASOS[wizI];
@@ -2886,7 +3059,8 @@ function wizTerminar() {
   if (n(d.edad)) np.edad = n(d.edad);
   if (n(d.estatura)) np.estatura = n(d.estatura);
   np.actividad = Number(d.actividad) || np.actividad;
-  np.deficit = d.objetivos.includes('bajar') ? 500 : 0;
+  np.deficit = d.objetivos.includes('bajar') ? 500 : d.objetivos.includes('subir') ? -300 : 0;
+  np.modoMigrado = true;
   if (k) np.confirmado = true;
   const p = n(d.peso);
   if (p && p >= 30 && p <= 300) {
@@ -2898,7 +3072,13 @@ function wizTerminar() {
   if (n(d.pesoMeta)) state.config.metaPeso = n(d.pesoMeta);
   const secs = d.secciones || wizSeccionesSugeridas(d.objetivos);
   state.ui.ocultas = wizSeccionesDisponibles().map(x => x.id).filter(id => !secs.includes(id));
-  state.ui.barra = ['habitos'].concat(secs.filter(id => !NAV_FIJAS.includes(id))).slice(0, BARRA_MAX);
+  state.ui.barra = ['habitos'].concat(secs.filter(id => !NAV_FIJAS.includes(id) && id !== 'porciones')).slice(0, BARRA_MAX);
+  if (d.mascota) {
+    const m = state.mascota;
+    const nom = (d.mascotaNombre || '').trim();
+    if (!m.inicial) petAdoptarId(d.mascota, nom);
+    else if (m.desbloqueadas.includes(d.mascota)) { m.activa = d.mascota; if (nom) m.nombres[d.mascota] = nom.slice(0, 24); }
+  }
   if (d.nombre.trim() && (!state.ui.nombre || state.ui.nombre === 'Mi Panel')) state.ui.nombre = 'Panel de ' + d.nombre.trim().split(/\s+/)[0];
   hxRecalc(todayKey());
   saveState();
@@ -2908,6 +3088,571 @@ function wizTerminar() {
   currentDayOffset = 0;
   showSection('habitos');
   toast('¡Tu panel está listo!');
+}
+
+// ================= MASCOTA (v8) =================
+// Todo vive en state.mascota (entra al respaldo y a Google Drive):
+//   { activa, inicial, nombres: { idMascota: nombre }, desbloqueadas: [ids], accesorios: [ids],
+//     equipo: { cabeza, otro }, etapaVista, creada: 'AAAA-MM-DD', cfg: { etapa2, etapa3, metaXpDia } }
+// La mascota se alimenta con el XP del día (state.gamification) y nunca muere: si la descuidas se pone triste o con sueño.
+const PET_IMG = 'img/';
+const PET_ANIMALES = [
+  { id: 'gato-naranja', label: 'Gato naranja', nombre: 'Michi' },
+  { id: 'zorro', label: 'Zorro', nombre: 'Canelo' },
+  { id: 'perrito', label: 'Perrito', nombre: 'Toby' },
+  { id: 'conejita', label: 'Conejita', nombre: 'Nube' },
+  { id: 'dino', label: 'Dino', nombre: 'Rex' },
+  { id: 'ballena', label: 'Ballena', nombre: 'Azul' },
+  { id: 'ajolote', label: 'Ajolote', nombre: 'Axo' },
+  { id: 'gato-tuxedo', label: 'Gato tuxedo', nombre: 'Frac' },
+  { id: 'gato-atigrado', label: 'Gato atigrado', nombre: 'Tigre' },
+];
+const PET_INICIALES = ['gato-naranja', 'zorro', 'perrito'];
+const PET_ETAPAS = { 1: 'Bebé', 2: 'Joven', 3: 'Adulto' };
+// Nuevas mascotas: cada 7 días de racha (mejor racha) o cada 3 niveles
+const PET_DESBLOQUEOS = [
+  { tipo: 'nivel', n: 3, pet: 'dino' },
+  { tipo: 'racha', n: 7, pet: 'conejita' },
+  { tipo: 'nivel', n: 6, pet: 'ajolote' },
+  { tipo: 'racha', n: 14, pet: 'ballena' },
+  { tipo: 'nivel', n: 9, pet: 'gato-atigrado' },
+  { tipo: 'racha', n: 21, pet: 'gato-tuxedo' },
+  { tipo: 'nivel', n: 12, pet: '@inicial1' },
+  { tipo: 'racha', n: 28, pet: '@inicial2' },
+];
+const petMejor = (a, b) => (a[0] / a[1] >= b[0] / b[1] ? a : b);
+const PET_ACCESORIOS = [
+  { id: 'bufanda', label: 'Bufanda', slot: 'otro', req: 'Racha de 3 días', p: st => [st.racha, 3] },
+  { id: 'auriculares', label: 'Auriculares', slot: 'cabeza', req: 'Tu primer Pomodoro', p: st => [st.pomos, 1] },
+  { id: 'gorra', label: 'Gorra', slot: 'cabeza', req: 'Llega al nivel 5', p: st => [st.nivel, 5] },
+  { id: 'casco', label: 'Casco', slot: 'cabeza', req: '5 sesiones de enfoque (Pomodoro o 5 minutos)', p: st => [st.enfoque, 5] },
+  { id: 'birrete', label: 'Birrete', slot: 'cabeza', req: 'Completa 10 tareas', p: st => [st.tareas, 10] },
+  { id: 'banda', label: 'Banda deportiva', slot: 'cabeza', req: '10 actividades de ejercicio', p: st => [st.ejercicio, 10] },
+  { id: 'gafas', label: 'Gafas', slot: 'otro', req: 'Racha de 14 días', p: st => [st.racha, 14] },
+  { id: 'raqueta', label: 'Raqueta', slot: 'otro', req: '5 días de tenis o 20 actividades de ejercicio', p: st => petMejor([st.tenis, 5], [st.ejercicio, 20]) },
+  { id: 'cuerda', label: 'Cuerda de saltar', slot: 'otro', req: '5 días de saltar cuerda o 30 actividades de ejercicio', p: st => petMejor([st.cuerda, 5], [st.ejercicio, 30]) },
+  { id: 'corona', label: 'Corona', slot: 'cabeza', req: 'Llega al nivel 10', p: st => [st.nivel, 10] },
+];
+// Geometría de cada mascota en coordenadas de 512 px: [centro x, coronilla, ancho de cabeza, ojos, cuello]
+const PET_GEO = {"ajolote-1":[250,75,300,205,290],"ajolote-2":[250,80,270,215,300],"ajolote-3":[256,75,210,150,215],"ballena-1":[205,45,260,215,290],"ballena-2":[270,75,250,220,290],"ballena-3":[258,45,190,170,230],"conejita-1":[250,150,270,265,355],"conejita-2":[255,155,210,255,320],"conejita-3":[256,135,150,205,260],"dino-1":[200,60,250,190,260],"dino-2":[270,80,230,200,270],"dino-3":[256,80,180,165,230],"gato-atigrado-1":[260,110,300,220,300],"gato-atigrado-2":[260,120,290,220,290],"gato-atigrado-3":[256,100,190,170,220],"gato-naranja-1":[260,110,340,220,300],"gato-naranja-2":[265,120,260,200,265],"gato-naranja-3":[258,100,210,165,215],"gato-tuxedo-1":[195,100,280,185,260],"gato-tuxedo-2":[288,120,245,200,260],"gato-tuxedo-3":[256,100,190,165,210],"perrito-1":[256,60,330,220,300],"perrito-2":[256,70,300,225,300],"perrito-3":[256,75,230,165,220],"zorro-1":[245,110,300,215,290],"zorro-2":[255,130,270,210,270],"zorro-3":[258,100,230,175,230]};
+// Cómo se coloca cada accesorio: punto de anclaje, escala respecto al ancho de la cabeza y punto del accesorio que cae en el ancla
+const ACC_GEO = {
+  gorra: { at: 'top', s: 1, ax: 0.44, ay: 0.6 },
+  corona: { at: 'top', s: 0.62, ax: 0.5, ay: 0.74 },
+  birrete: { at: 'top', s: 0.95, ax: 0.5, ay: 0.6 },
+  casco: { at: 'top', s: 1, ax: 0.5, ay: 0.5 },
+  banda: { at: 'band', s: 1, sy: 0.6, ax: 0.5, ay: 0.5 },
+  auriculares: { at: 'top', s: 1.85, sy: 0.5, ax: 0.5, ay: 0.1 },
+  gafas: { at: 'eye', s: 0.85, ax: 0.5, ay: 0.5 },
+  bufanda: { at: 'neck', s: 0.72, sy: 0.72, ax: 0.5, ay: 0.16 },
+  cuerda: { at: 'side', s: 0.6, ax: 0.5, ay: 0.5 },
+  raqueta: { at: 'side', s: 0.55, ax: 0.5, ay: 0.5 },
+};
+const MASCOTA_CFG_DEFAULT = { etapa2: 5, etapa3: 10, metaXpDia: 30 };
+const PET_EJ_RE = /trot|corr|camin|bici|yoga|ejerc|gym|gimnas|entren|cuerda|tenis|nad[ao]|nataci|f[uú]tbol|bail|rutina|fuerza|mover|deporte|pesas|cardio/i;
+
+function petAnimal(id) { return PET_ANIMALES.find(a => a.id === id) || PET_ANIMALES[0]; }
+function petAcc(id) { return PET_ACCESORIOS.find(a => a.id === id); }
+function petNormCfg(c) {
+  c = c && typeof c === 'object' ? c : {};
+  const e2 = hxNum(c.etapa2, MASCOTA_CFG_DEFAULT.etapa2, 2, 60);
+  const e3 = Math.max(e2 + 1, hxNum(c.etapa3, MASCOTA_CFG_DEFAULT.etapa3, 3, 99));
+  return { etapa2: e2, etapa3: e3, metaXpDia: hxNum(c.metaXpDia, MASCOTA_CFG_DEFAULT.metaXpDia, 5, 2000) };
+}
+function petNorm(rm) {
+  rm = rm && typeof rm === 'object' ? rm : {};
+  const ids = PET_ANIMALES.map(a => a.id);
+  const activa = ids.includes(rm.activa) ? rm.activa : null;
+  const inicial = PET_INICIALES.includes(rm.inicial) ? rm.inicial : (activa && PET_INICIALES.includes(activa) ? activa : null);
+  let des = (Array.isArray(rm.desbloqueadas) ? rm.desbloqueadas : []).filter(x => ids.includes(x));
+  if (inicial && !des.includes(inicial)) des.unshift(inicial);
+  if (activa && !des.includes(activa)) des.push(activa);
+  des = des.filter((x, i) => des.indexOf(x) === i);
+  let acc = (Array.isArray(rm.accesorios) ? rm.accesorios : []).filter(x => petAcc(x));
+  acc = acc.filter((x, i) => acc.indexOf(x) === i);
+  const eq = rm.equipo && typeof rm.equipo === 'object' ? rm.equipo : {};
+  const okEq = (id, slot) => (acc.includes(id) && petAcc(id).slot === slot ? id : null);
+  const nombres = {};
+  if (rm.nombres && typeof rm.nombres === 'object') {
+    Object.keys(rm.nombres).forEach(k => {
+      const v = rm.nombres[k];
+      if (ids.includes(k) && typeof v === 'string' && v.trim()) nombres[k] = v.trim().slice(0, 24);
+    });
+  }
+  return {
+    activa, inicial, nombres, desbloqueadas: des, accesorios: acc,
+    equipo: { cabeza: okEq(eq.cabeza, 'cabeza'), otro: okEq(eq.otro, 'otro') },
+    etapaVista: [1, 2, 3].includes(rm.etapaVista) ? rm.etapaVista : null,
+    creada: /^\d{4}-\d{2}-\d{2}$/.test(rm.creada || '') ? rm.creada : null,
+    cfg: petNormCfg(rm.cfg),
+  };
+}
+
+// ---------- Migración v6 (idempotente) ----------
+// raw es el estado tal como estaba guardado; s ya pasó por migrate/migrateV5.
+function migrateV6(s, raw) {
+  raw = raw || {};
+  const esNuevo = !(Number(raw.schema) >= 6);
+  s.mascota = petNorm(raw.mascota);
+  // Nutrición: campos nuevos (migrate solo conserva perfil, dias y favoritas)
+  const rn = raw.nutri && typeof raw.nutri === 'object' ? raw.nutri : {};
+  s.nutri.recientes = (Array.isArray(rn.recientes) ? rn.recientes : []).filter(r => r && r.ref && r.n).slice(0, 15);
+  s.nutri.propios = (Array.isArray(rn.propios) ? rn.propios : []).filter(f => f && f.id && f.n).map(f => ({
+    id: String(f.id), n: String(f.n).slice(0, 80),
+    k: Math.max(0, Number(f.k) || 0), p: Math.max(0, Number(f.p) || 0), c: Math.max(0, Number(f.c) || 0), g: Math.max(0, Number(f.g) || 0),
+    por: Array.isArray(f.por) && f.por.length ? f.por.filter(x => Array.isArray(x) && x[0] && Number(x[1]) > 0) : [['porción', 100]],
+  }));
+  s.nutri.platos = (Array.isArray(rn.platos) ? rn.platos : []).filter(d => d && d.id && d.n && Array.isArray(d.items));
+  s.nutri.favoritas = s.nutri.favoritas.filter(f => f && f.desc);
+  const p = s.nutri.perfil;
+  p.deficit = Math.min(1000, Math.max(-1000, Number(p.deficit) || 0));
+  // Arreglo v8: si el objetivo era subir de peso, antes no se aplicaba el superávit. Solo una vez.
+  if (!p.modoMigrado) {
+    const objs = (s.profile && Array.isArray(s.profile.objetivos)) ? s.profile.objetivos : [];
+    if (objs.includes('subir') && p.deficit === 0) p.deficit = -300;
+    p.modoMigrado = true;
+  }
+  if (esNuevo && raw.ui) {
+    // Secciones nuevas: Guía de porciones sigue a Nutrición; la mascota entra a la barra si hay espacio
+    if (s.ui.ocultas.includes('nutricion') && !s.ui.ocultas.includes('porciones')) s.ui.ocultas.push('porciones');
+    if (!s.ui.barra.includes('mascota') && s.ui.barra.length < BARRA_MAX) s.ui.barra.splice(Math.min(1, s.ui.barra.length), 0, 'mascota');
+  }
+  // Recalcula el XP de hoy (incluye el XP por comidas registradas)
+  if (s.gamification && s.days) { hxSetHist(s, todayKey()); hxTotals(s); }
+  s.schema = 6;
+  return s;
+}
+
+// ---------- Cálculos ----------
+function petEtapa(level, cfg) { cfg = cfg || state.mascota.cfg; return level >= cfg.etapa3 ? 3 : level >= cfg.etapa2 ? 2 : 1; }
+function petLevelBaseXp(L) { let b = 0; for (let l = 1; l < L; l++) b += 100 + (l - 1) * 50; return b; }
+function petEsEjercicio(a) { return /^s_ej_/.test(a.id) || a.id === 's_mover' || a.id === 's_fuerza' || PET_EJ_RE.test(a.label || ''); }
+function petStats(s) {
+  const g = s.gamification;
+  const st = { nivel: g.level, racha: Math.max(Number(g.streak) || 0, Number(g.bestStreak) || 0), pomos: 0, cinco: 0, tareas: 0, ejercicio: 0, tenis: 0, cuerda: 0 };
+  const ej = s.actividades.filter(petEsEjercicio);
+  const ten = ej.filter(a => a.id === 's_ej_tenis' || /tenis|raqueta|p[aá]del|squash|b[aá]dminton/i.test(a.label));
+  const cue = ej.filter(a => a.id === 's_ej_cuerda' || /cuerda/i.test(a.label));
+  Object.values(s.days || {}).forEach(d => {
+    st.pomos += Number(d.pomos) || 0;
+    st.cinco += Number(d.cinco) || 0;
+    const h = d.habits || {};
+    ej.forEach(a => { if (h[a.id] === true) st.ejercicio++; });
+    if (ten.some(a => h[a.id] === true)) st.tenis++;
+    if (cue.some(a => h[a.id] === true)) st.cuerda++;
+  });
+  st.tareas = (s.tareas || []).filter(t => t.hecha).length;
+  st.enfoque = st.pomos + st.cinco;
+  return st;
+}
+function petDesbId(d) {
+  if (!d.pet.startsWith('@inicial')) return d.pet;
+  const resto = PET_INICIALES.filter(x => x !== state.mascota.inicial);
+  return resto[Number(d.pet.slice(8)) - 1] || null;
+}
+function petDesbCur(d, st) { return d.tipo === 'nivel' ? st.nivel : st.racha; }
+function petDesbTxt(d) { return d.tipo === 'nivel' ? `Llega al nivel ${d.n}` : `Racha de ${d.n} días`; }
+function petNombre(id) { const m = state.mascota; id = id || m.activa; return (m.nombres[id] || petAnimal(id).nombre); }
+// Felicidad: arranca en 70, sube con cada día activo y baja suave con cada día sin actividad (nunca llega a 0)
+function petFelicidad(s) {
+  const hist = s.gamification.history;
+  const hoy = todayKey();
+  const desde = s.mascota.creada || hoy;
+  let f = 70;
+  for (let i = 20; i >= 0; i--) {
+    const k = addDays(hoy, -i);
+    if (k < desde) continue;
+    const xp = (hist[k] && hist[k].xp) || 0;
+    if (xp > 0) f = Math.min(100, f + 15);
+    else if (k !== hoy) f = Math.max(10, f - 10);
+  }
+  return Math.round(f);
+}
+function petInfo() {
+  const m = state.mascota, g = state.gamification, cfg = m.cfg;
+  const etapa = petEtapa(g.level, cfg);
+  const hoy = todayKey();
+  const xpHoy = (g.history[hoy] && g.history[hoy].xp) || 0;
+  const comida = Math.min(100, Math.round(xpHoy / cfg.metaXpDia * 100));
+  const animo = petFelicidad(state);
+  const hora = new Date().getHours();
+  const ayer = g.history[addDays(hoy, -1)];
+  let estado = 'normal';
+  if (animo < 40) estado = 'triste';
+  else if (!xpHoy && (hora >= 22 || hora < 6 || !(ayer && ayer.xp))) estado = 'dormido';
+  else if (comida >= 100) estado = 'feliz';
+  let evo = null;
+  if (etapa < 3) {
+    const nivelSig = etapa === 1 ? cfg.etapa2 : cfg.etapa3;
+    const desde = etapa === 1 ? 0 : petLevelBaseXp(cfg.etapa2);
+    const meta = petLevelBaseXp(nivelSig);
+    evo = { nivel: nivelSig, falta: Math.max(0, meta - g.xp), pct: Math.max(0, Math.min(100, (g.xp - desde) / Math.max(1, meta - desde) * 100)) };
+  }
+  const info = { id: m.activa, nombre: petNombre(), etapa, xpHoy, comida, animo, estado, evo, cfg };
+  info.msgs = petMensajes(info);
+  return info;
+}
+function petMensajes(info) {
+  const out = [];
+  if (info.estado === 'triste') out.push({ t: 'Te extrañé. Un pasito pequeño hoy ya cuenta, ¿marcamos una actividad?' });
+  if (info.estado === 'dormido') out.push({ t: 'Zzz... Despiértame marcando tu primera actividad del día.' });
+  const apl = hxOn('aplazadas') ? state.tareas.filter(hxEsAplazada) : [];
+  if (apl.length) {
+    out.push(hxOn('cinco')
+      ? { t: 'Tienes una tarea aplazada, ¿la hacemos 5 min?', a: { label: '⏱️ Empezar 5 min', js: `petCinco(${jsArg(apl[0].id)})` } }
+      : { t: 'Tienes una tarea aplazada. ¿La partimos en pasos pequeños?' });
+  }
+  const day = state.days[todayKey()];
+  const clave = day && day.clave && state.tareas.find(t => t.id === day.clave && !t.hecha);
+  if (clave && hxOn('clave')) out.push({ t: 'Tu tarea clave te espera. Yo te acompaño.' });
+  if (!info.xpHoy) { if (info.estado !== 'dormido') out.push({ t: '¡Hola! ¿Marcamos la primera actividad de hoy?' }); }
+  else if (info.comida < 100) out.push({ t: `¡Ñam! Me faltan ${info.cfg.metaXpDia - info.xpHoy} XP para llenarme hoy.` });
+  else out.push({ t: '¡Estoy lleno! Gracias por cuidarte hoy.' });
+  if (!state.ui.ocultas.includes('nutricion') && !hasComidas(state.nutri.dias[todayKey()]) && new Date().getHours() >= 10) out.push({ t: '¿Ya anotaste lo que comiste hoy? Yo también tengo hambre.' });
+  if (state.gamification.streak >= 3) out.push({ t: `¡Llevamos ${state.gamification.streak} días seguidos! Estoy orgulloso de ti.` });
+  out.push({ t: 'Respira hondo. Vas mejor de lo que crees.' }, { t: 'Toma un vaso de agua conmigo.' }, { t: 'Hecho es mejor que perfecto.' });
+  return out;
+}
+
+// ---------- Desbloqueos y evolución ----------
+function petRevisar(silencio) {
+  const m = state.mascota;
+  const st = petStats(state);
+  const nuevos = [];
+  PET_ACCESORIOS.forEach(a => {
+    if (m.accesorios.includes(a.id)) return;
+    const [c, n] = a.p(st);
+    if (c >= n) { m.accesorios.push(a.id); nuevos.push(`🎁 Nuevo accesorio: ${a.label}`); }
+  });
+  if (m.inicial) {
+    PET_DESBLOQUEOS.forEach(d => {
+      const id = petDesbId(d);
+      if (!id || m.desbloqueadas.includes(id) || petDesbCur(d, st) < d.n) return;
+      m.desbloqueadas.push(id);
+      nuevos.push(`🐾 Nueva mascota: ${petAnimal(id).label}`);
+    });
+  }
+  if (nuevos.length) {
+    saveState();
+    if (!silencio) nuevos.forEach((t, i) => setTimeout(() => toast(t), 1500 + i * 1800));
+  }
+  return nuevos;
+}
+function petEvoCheck() {
+  const m = state.mascota;
+  if (!m.activa) return;
+  const e = petEtapa(state.gamification.level);
+  // Solo se celebra una vez por etapa: si el nivel baja (por desmarcar algo), no se vuelve a celebrar.
+  if (m.etapaVista == null) { m.etapaVista = e; saveState(); return; }
+  if (e > m.etapaVista) {
+    const de = m.etapaVista;
+    m.etapaVista = e;
+    saveState();
+    petCelebrar(de, e);
+  }
+}
+let petComerPend = null;
+let petMsgI = 0;
+let petSel = null;
+window.panelHooks.onXp.push((g, info) => {
+  if (!state.mascota) return;
+  const gan = g.xp - (Number(info && info.antes) || 0);
+  if (gan > 0 && state.mascota.activa) petComerPend = { n: gan, t: Date.now() };
+  petMsgI = 0;
+  petRevisar(false);
+  petEvoCheck();
+});
+
+// ---------- Dibujo ----------
+function petImgSrc(id, etapa) { return `${PET_IMG}mascota-${id}-${etapa}.webp`; }
+function petCapa(id, geo) {
+  const a = ACC_GEO[id];
+  if (!a || !geo) return '';
+  const [cx, top, hw, eye, neck] = geo;
+  let X = cx, Y = top, base = hw;
+  if (a.at === 'band') Y = top + (eye - top) * 0.45;
+  else if (a.at === 'eye') Y = eye;
+  else if (a.at === 'neck') Y = neck;
+  else if (a.at === 'side') { X = 420; Y = 360; base = 512; }
+  const S = base * a.s, sy = a.sy || 1;
+  const pc = v => (v / 512 * 100).toFixed(2) + '%';
+  return `<img class="pet-acc" data-acc="${id}" src="${PET_IMG}accesorio-${id}.webp" alt="" draggable="false" style="left:${pc(X - S * a.ax)};top:${pc(Y - S * sy * a.ay)};width:${pc(S)};height:${pc(S * sy)}">`;
+}
+function petFigura(id, etapa, o) {
+  o = o || {};
+  const eq = o.equipo || {};
+  const geo = PET_GEO[id + '-' + etapa];
+  const capas = ['cabeza', 'otro'].map(sl => eq[sl]).filter(Boolean).map(a => petCapa(a, geo)).join('');
+  return `<div class="pet-fig ${o.cls || ''}" ${o.attrs || ''}><div class="pet-body"><img class="pet-img" src="${petImgSrc(id, etapa)}" alt="${esc(o.alt || '')}" draggable="false">${capas}</div>${o.extra || ''}</div>`;
+}
+function petFiguraActiva(info, cls) {
+  const m = state.mascota;
+  return petFigura(m.activa, info.etapa, {
+    equipo: m.equipo, alt: info.nombre,
+    cls: `pet-anim pet-${info.estado} ${cls || ''}`, attrs: 'data-pet-activa="1"',
+    extra: info.estado === 'dormido' ? '<span class="pet-zz" aria-hidden="true">Z<span>z</span><span>z</span></span>' : '',
+  });
+}
+function petMedidores(info) {
+  const bar = (lbl, pct, color, txt, id) => `<div class="pet-meter" id="${id}">
+      <div class="flex justify-between text-[11px] text-[var(--muted)] mb-1"><span>${lbl}</span><span>${txt}</span></div>
+      <div class="pet-meter-bar" role="progressbar" aria-label="${lbl}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(pct)}"><div style="width:${pct}%;background:${color}"></div></div></div>`;
+  const animoTxt = info.animo >= 70 ? 'Feliz' : info.animo >= 40 ? 'Tranquilo' : 'Triste';
+  return bar('🍖 Comida de hoy', info.comida, 'var(--warning)', `${Math.min(info.xpHoy, info.cfg.metaXpDia)}/${info.cfg.metaXpDia} XP`, 'pet-m-comida') +
+    bar('💛 Ánimo', info.animo, info.animo >= 40 ? 'var(--success)' : 'var(--danger)', `${animoTxt} · ${info.animo}%`, 'pet-m-animo');
+}
+function petBurbuja(info) {
+  const msg = info.msgs[petMsgI % info.msgs.length];
+  return `<div class="pet-bubble" id="pet-msg"><span>${esc(msg.t)}</span>${msg.a ? ` <button class="hx-mini" onclick="event.stopPropagation();${msg.a.js}">${esc(msg.a.label)}</button>` : ''}</div>`;
+}
+function petAplicarComida() {
+  if (!petComerPend || Date.now() - petComerPend.t > 4000) return;
+  const n = petComerPend.n;
+  petComerPend = null;
+  document.querySelectorAll('.section.active [data-pet-activa]').forEach(f => {
+    f.classList.add('pet-come');
+    f.insertAdjacentHTML('beforeend', `<span class="pet-float">+${n} XP 😋</span>`);
+    setTimeout(() => { f.classList.remove('pet-come'); const x = f.querySelector('.pet-float'); if (x) x.remove(); }, 1600);
+  });
+}
+function petTap(ev) {
+  const f = ev && ev.currentTarget ? ev.currentTarget.querySelector('[data-pet-activa]') : null;
+  if (f) {
+    f.classList.remove('pet-tap');
+    void f.offsetWidth;
+    f.classList.add('pet-tap');
+    const emo = ['💖', '✨', '😊', '🎵'][Math.floor(Math.random() * 4)];
+    f.insertAdjacentHTML('beforeend', `<span class="pet-float pet-heart">${emo}</span>`);
+    setTimeout(() => { f.classList.remove('pet-tap'); f.querySelectorAll('.pet-heart').forEach(x => x.remove()); }, 900);
+  }
+  petMsgI++;
+  const b = document.querySelector('.section.active #pet-msg');
+  if (b && state.mascota.activa) b.outerHTML = petBurbuja(petInfo());
+}
+function petCinco(tid) {
+  showSection('habitos');
+  hxStartTimer('cinco', 't:' + tid);
+}
+
+// ---------- Hoy ----------
+function petRenderHoy() {
+  const el = document.getElementById('pet-hoy');
+  if (!el) return;
+  const oculto = state.ui.ocultas.includes('mascota');
+  el.classList.toggle('hidden', oculto);
+  if (oculto) return;
+  const m = state.mascota;
+  if (!m.activa) {
+    el.innerHTML = `<div class="pet-hoy-vacia">
+      <div class="pet-mini-row">${PET_INICIALES.map(id => `<img src="${petImgSrc(id, 1)}" alt="">`).join('')}</div>
+      <div class="flex-1 min-w-0"><p class="font-semibold">Adopta una mascota</p><p class="text-xs text-[var(--muted)]">Crece contigo: cada XP que ganas la alimenta.</p></div>
+      <button class="btn btn-sm" onclick="showSection('mascota')" id="pet-hoy-elegir">Elegir</button></div>`;
+    return;
+  }
+  const info = petInfo();
+  el.innerHTML = `<div class="pet-hoy">
+      <div class="pet-hoy-fig" onclick="petTap(event)" role="button" tabindex="0" aria-label="Acariciar a ${esc(info.nombre)}">${petFiguraActiva(info)}</div>
+      <div class="pet-hoy-info">
+        <div class="flex items-center gap-2 mb-2 min-w-0"><p class="font-semibold truncate" id="pet-hoy-nombre">${esc(info.nombre)}</p><span class="pet-badge">${PET_ETAPAS[info.etapa]}</span></div>
+        ${petMedidores(info)}
+      </div>
+    </div>
+    ${petBurbuja(info)}
+    <button class="pet-hoy-link" onclick="showSection('mascota')">Ver a ${esc(info.nombre)} ›</button>`;
+  petAplicarComida();
+}
+
+// ---------- Pantalla Mascota ----------
+function renderMascota() {
+  const el = document.getElementById('pet-main');
+  const m = state.mascota;
+  hxTotals(state);
+  petRevisar(false);
+  if (!m.activa) { el.innerHTML = petHtmlElegir(); return; }
+  petEvoCheck();
+  const info = petInfo();
+  const g = state.gamification;
+  const st = petStats(state);
+  const cfg = m.cfg;
+  const rangos = { 1: `Nivel 1 a ${cfg.etapa2 - 1}`, 2: `Nivel ${cfg.etapa2} a ${cfg.etapa3 - 1}`, 3: `Nivel ${cfg.etapa3} o más` };
+  const accHtml = PET_ACCESORIOS.map(a => {
+    const tiene = m.accesorios.includes(a.id);
+    const puesto = m.equipo[a.slot] === a.id;
+    const [c, n] = a.p(st);
+    return `<button class="pet-acc-item ${tiene ? '' : 'bloq'} ${puesto ? 'on' : ''}" data-acc-item="${a.id}" ${tiene ? `onclick="petEquipar('${a.id}')"` : 'aria-disabled="true"'} aria-pressed="${puesto}">
+      <img src="${PET_IMG}accesorio-${a.id}.webp" alt="" class="${tiene ? '' : 'pet-sil'}">
+      <span class="t">${esc(a.label)}</span>
+      <span class="r">${tiene ? (puesto ? '✓ Puesto' : (a.slot === 'cabeza' ? 'Cabeza' : 'Accesorio')) : `🔒 ${esc(a.req)} (${Math.min(c, n)}/${n})`}</span>
+    </button>`;
+  }).join('');
+  const colHtml = PET_ANIMALES.map(a => {
+    const tiene = m.desbloqueadas.includes(a.id);
+    const activa = m.activa === a.id;
+    let req = '';
+    if (!tiene) {
+      const d = PET_DESBLOQUEOS.find(x => petDesbId(x) === a.id);
+      req = d ? `${petDesbTxt(d)} (${Math.min(petDesbCur(d, st), d.n)}/${d.n})` : 'Mascota inicial';
+    }
+    return `<button class="pet-col-item ${tiene ? '' : 'bloq'} ${activa ? 'on' : ''}" data-pet-item="${a.id}" ${tiene && !activa ? `onclick="petActivar('${a.id}')"` : ''}>
+      ${petFigura(a.id, tiene ? info.etapa : 1, { cls: tiene ? '' : 'pet-sil' })}
+      <span class="t">${tiene ? esc(petNombre(a.id)) : esc(a.label)}</span>
+      <span class="r">${activa ? '✓ Contigo' : tiene ? 'Toca para elegir' : '🔒 ' + esc(req)}</span>
+    </button>`;
+  }).join('');
+  const filas = PET_DESBLOQUEOS.map(d => ({ txt: petDesbTxt(d), premio: '🐾 ' + (petDesbId(d) ? petAnimal(petDesbId(d)).label : 'Mascota'), ok: m.desbloqueadas.includes(petDesbId(d)), ord: d.tipo === 'nivel' ? d.n * 2.4 : d.n }))
+    .concat(PET_ACCESORIOS.map(a => ({ txt: a.req, premio: '🎁 ' + a.label, ok: m.accesorios.includes(a.id), ord: 99 })))
+    .concat([{ txt: `Llega al nivel ${cfg.etapa2}`, premio: '⭐ Evoluciona a Joven', ok: info.etapa >= 2, ord: 0 }, { txt: `Llega al nivel ${cfg.etapa3}`, premio: '⭐ Evoluciona a Adulto', ok: info.etapa >= 3, ord: 0 }]);
+  el.innerHTML = `
+    <div class="card p-4 mb-4 pet-hero">
+      <div class="pet-stage" onclick="petTap(event)" role="button" tabindex="0" aria-label="Acariciar a ${esc(info.nombre)}">${petFiguraActiva(info, 'pet-grande')}</div>
+      ${petBurbuja(info)}
+      <div class="flex items-center justify-between gap-2 mt-3 mb-1">
+        <span class="pet-badge" id="pet-etapa">Etapa ${info.etapa} de 3 · ${PET_ETAPAS[info.etapa]}</span>
+        <span class="text-xs text-[var(--muted)]">Nivel ${g.level} · ${g.xp} XP</span>
+      </div>
+      <label for="pet-nombre" class="text-xs text-[var(--muted)] block mt-2 mb-1">Nombre</label>
+      <input type="text" id="pet-nombre" maxlength="24" value="${esc(info.nombre)}" onchange="petSetNombre(this.value)">
+      <div class="mt-3 space-y-2">${petMedidores(info)}</div>
+      <div class="mt-3" id="pet-evo-prog">
+        ${info.evo ? `<div class="flex justify-between text-[11px] text-[var(--muted)] mb-1"><span>⭐ Próxima evolución (nivel ${info.evo.nivel})</span><span>Faltan ${info.evo.falta} XP</span></div>
+        <div class="hx-bar"><div style="width:${info.evo.pct}%"></div></div>` : `<p class="text-xs text-[var(--muted)]">⭐ ¡Etapa final! ${esc(info.nombre)} ya es adulto.</p>`}
+      </div>
+      <p class="text-[11px] text-[var(--muted)] mt-3">Cada XP que ganas en Hoy la alimenta. Si pasas días sin actividad se pone triste, pero nunca se va.</p>
+    </div>
+    <div class="card p-4 mb-4">
+      <h3 class="font-semibold mb-3">Evolución</h3>
+      <div class="pet-evo-row">${[1, 2, 3].map(e => `<div class="pet-evo-item ${e === info.etapa ? 'on' : ''}">
+        ${petFigura(m.activa, e, { cls: e > info.etapa ? 'pet-sil' : '' })}
+        <span class="t">${PET_ETAPAS[e]}</span><span class="r">${rangos[e]}</span></div>`).join('')}</div>
+    </div>
+    <div class="card p-4 mb-4">
+      <h3 class="font-semibold mb-1">Accesorios</h3>
+      <p class="text-xs text-[var(--muted)] mb-3">Puede llevar uno en la cabeza y otro aparte. Toca para poner o quitar.</p>
+      <div class="pet-acc-grid" id="pet-acc-grid">${accHtml}</div>
+    </div>
+    <div class="card p-4 mb-4">
+      <h3 class="font-semibold mb-1">Colección</h3>
+      <p class="text-xs text-[var(--muted)] mb-3">Desbloqueas una mascota nueva cada 7 días de racha o cada 3 niveles.</p>
+      <div class="pet-col-grid" id="pet-col-grid">${colHtml}</div>
+    </div>
+    <div class="card p-4 mb-4">
+      <h3 class="font-semibold mb-3">Tabla de premios</h3>
+      <table class="pet-tabla" id="pet-tabla"><thead><tr><th>Cómo</th><th>Premio</th><th></th></tr></thead><tbody>
+        ${filas.sort((a, b) => a.ord - b.ord).map(f => `<tr class="${f.ok ? 'ok' : ''}"><td>${esc(f.txt)}</td><td>${esc(f.premio)}</td><td>${f.ok ? '✓' : ''}</td></tr>`).join('')}
+      </tbody></table>
+    </div>
+    <details class="card p-4 mb-4" id="pet-ajustes">
+      <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> Ajustes de la mascota</summary>
+      <div class="grid grid-cols-2 gap-3 mt-3">
+        <label class="text-xs text-[var(--muted)]">Evoluciona a Joven en el nivel<input type="number" inputmode="numeric" data-petcfg="etapa2" value="${cfg.etapa2}" onchange="petSetCfg('etapa2', this.value)"></label>
+        <label class="text-xs text-[var(--muted)]">Evoluciona a Adulto en el nivel<input type="number" inputmode="numeric" data-petcfg="etapa3" value="${cfg.etapa3}" onchange="petSetCfg('etapa3', this.value)"></label>
+        <label class="text-xs text-[var(--muted)]">XP para llenarse cada día<input type="number" inputmode="numeric" data-petcfg="metaXpDia" value="${cfg.metaXpDia}" onchange="petSetCfg('metaXpDia', this.value)"></label>
+        <label class="text-xs text-[var(--muted)]">XP por registrar una comida<input type="number" inputmode="numeric" data-petcfg="xpComida" value="${state.hoyCfg.xpComida}" onchange="petSetCfg('xpComida', this.value)"></label>
+      </div>
+      <p class="text-[11px] text-[var(--muted)] mt-2">El XP por comida cuenta una vez por cada tipo (desayuno, almuerzo, cena, snacks) al día.</p>
+    </details>`;
+  petAplicarComida();
+}
+function petHtmlElegir() {
+  const sel = petSel || PET_INICIALES[0];
+  return `<div class="card p-4 mb-4" id="pet-elegir">
+    <h3 class="font-semibold text-lg mb-1">Elige tu primera mascota</h3>
+    <p class="text-sm text-[var(--muted)] mb-4">Crece contigo: el XP que ganas la alimenta y la hace evolucionar. Más adelante desbloqueas otras.</p>
+    <div class="pet-elegir">${PET_INICIALES.map(id => `<button class="pet-opcion ${sel === id ? 'on' : ''}" data-pet-opcion="${id}" aria-pressed="${sel === id}" onclick="petElegirSel('${id}')">
+      ${petFigura(id, 1, { cls: sel === id ? 'pet-anim' : '' })}<span>${esc(petAnimal(id).label)}</span></button>`).join('')}</div>
+    <label for="pet-nombre-nuevo" class="text-xs text-[var(--muted)] block mt-4 mb-1">¿Cómo se va a llamar?</label>
+    <input type="text" id="pet-nombre-nuevo" maxlength="24" value="${esc(petAnimal(sel).nombre)}">
+    <button class="btn w-full mt-4" id="pet-adoptar" onclick="petAdoptar()">🐾 Adoptar</button>
+  </div>`;
+}
+function petElegirSel(id) {
+  const inp = document.getElementById('pet-nombre-nuevo');
+  const tocado = inp && inp.value.trim() && inp.value.trim() !== petAnimal(petSel || PET_INICIALES[0]).nombre ? inp.value : null;
+  petSel = id;
+  renderMascota();
+  if (tocado) document.getElementById('pet-nombre-nuevo').value = tocado;
+}
+function petAdoptarId(id, nombre) {
+  const m = state.mascota;
+  if (!PET_INICIALES.includes(id)) return;
+  m.activa = id;
+  if (!m.inicial) m.inicial = id;
+  if (!m.desbloqueadas.includes(id)) m.desbloqueadas.unshift(id);
+  if (nombre && nombre.trim()) m.nombres[id] = nombre.trim().slice(0, 24);
+  m.creada = m.creada || todayKey();
+  m.etapaVista = petEtapa(state.gamification.level);
+}
+function petAdoptar() {
+  const id = petSel || PET_INICIALES[0];
+  const inp = document.getElementById('pet-nombre-nuevo');
+  petAdoptarId(id, inp ? inp.value : '');
+  saveState();
+  toast(`🐾 ¡${petNombre()} ya vive contigo!`);
+  petRevisar(false);
+  renderMascota();
+}
+function petSetNombre(v) {
+  const m = state.mascota;
+  v = String(v || '').trim().slice(0, 24);
+  if (v) m.nombres[m.activa] = v; else delete m.nombres[m.activa];
+  saveState();
+  renderMascota();
+}
+function petActivar(id) {
+  const m = state.mascota;
+  if (!m.desbloqueadas.includes(id)) return;
+  m.activa = id;
+  saveState();
+  toast(`${petNombre(id)} te acompaña ahora`);
+  renderMascota();
+}
+function petEquipar(id) {
+  const m = state.mascota;
+  const a = petAcc(id);
+  if (!a || !m.accesorios.includes(id)) return;
+  m.equipo[a.slot] = m.equipo[a.slot] === id ? null : id;
+  saveState();
+  renderMascota();
+}
+function petSetCfg(campo, val) {
+  if (campo === 'xpComida') {
+    state.hoyCfg.xpComida = hxNum(val, HOYCFG_DEFAULT.xpComida, 0, 100);
+    hxRecalc(todayKey());
+  } else {
+    const c = { ...state.mascota.cfg };
+    c[campo] = val;
+    state.mascota.cfg = petNormCfg(c);
+  }
+  saveState();
+  renderMascota();
+  const d = document.getElementById('pet-ajustes');
+  if (d) d.open = true;
+}
+function petCelebrar(de, a) {
+  const m = state.mascota;
+  const ov = document.getElementById('pet-evo');
+  if (!ov) return;
+  const confeti = Array.from({ length: 18 }, (_, i) => `<i style="left:${(i * 37) % 100}%;animation-delay:${(i % 6) * 0.12}s;background:${['#f59e0b', '#ec4899', '#10b981', '#6366f1', '#06b6d4'][i % 5]}"></i>`).join('');
+  ov.innerHTML = `<div class="pet-evo-box">
+    <p class="pet-evo-t">¡${esc(petNombre())} está evolucionando!</p>
+    <div class="pet-evo-stage">
+      <div class="pet-evo-old">${petFigura(m.activa, de, { equipo: m.equipo })}</div>
+      <div class="pet-evo-new">${petFigura(m.activa, a, { equipo: m.equipo, cls: 'pet-anim' })}</div>
+      <div class="pet-evo-flash"></div>
+    </div>
+    <p class="pet-evo-sub">Ahora es ${PET_ETAPAS[a]} (etapa ${a} de 3). ¡Gracias por cuidarte!</p>
+    <div class="pet-confeti" aria-hidden="true">${confeti}</div>
+    <button class="btn w-full" id="pet-evo-ok" onclick="petCerrarEvo()">¡Genial!</button>
+  </div>`;
+  ov.classList.remove('hidden');
+  ov.dataset.etapa = a;
+}
+function petCerrarEvo() {
+  const ov = document.getElementById('pet-evo');
+  ov.classList.add('hidden');
+  ov.innerHTML = '';
+  if (currentSection === 'mascota') renderMascota();
+  else if (currentSection === 'habitos') petRenderHoy();
 }
 
 // ================= ESTADO =================
@@ -3021,6 +3766,8 @@ function buildNav() {
 
 const RENDERERS = {
   habitos: () => renderHabitos(),
+  mascota: () => renderMascota(),
+  porciones: () => renderGuia(),
   finanzas: () => renderFinanzas(),
   nutricion: () => renderNutricion(),
   plan: () => renderPlan(),
@@ -3671,26 +4418,44 @@ function removeHormiga(idx) {
 function fmtKcal(n) { return Math.round(Number(n) || 0).toLocaleString('es-CO'); }
 function pesoActual() { return state.pesos.length ? state.pesos[state.pesos.length - 1].peso : null; }
 
+// ---------- Meta de calorías (Mifflin-St Jeor) ----------
+// perfil.deficit > 0 = déficit para bajar; < 0 = superávit para subir; 0 = mantener
 function calcNutri() {
   const p = state.nutri.perfil;
   const peso = pesoActual();
+  const def = Number(p.deficit) || 0;
+  const modo = def > 0 ? 'bajar' : def < 0 ? 'subir' : 'mantener';
+  const piso = p && p.sexo === 'm' ? 1200 : 1500;
+  const macros = (meta, prot) => {
+    const grasa = Math.round(meta * 0.3 / 9);
+    return { grasa, carb: Math.max(0, Math.round((meta - prot * 4 - grasa * 9) / 4)) };
+  };
   if (!perfilListo(p) || !peso) {
+    // Sin perfil completo: usa la meta calculada en la entrevista (profile.calorias), si existe
+    const pc = state.profile && state.profile.calorias;
+    if (pc && Number(pc.tdee) > 0) {
+      const gasto = Number(pc.tdee);
+      const meta = Math.max(1200, gasto - def);
+      const prot = Math.round((peso || Number(state.profile.peso) || 0) * 1.6);
+      return { incompleto: false, fuente: 'entrevista', peso: peso || 0, sinPeso: !peso, tmb: Number(pc.bmr) || 0, gasto, meta, piso: 1200,
+        limitado: def > 0 && gasto - def < 1200, deficitPct: def > 0 ? def / gasto : 0, prot, modo, ajuste: -def, ...macros(meta, prot) };
+    }
     return {
       incompleto: true, peso: peso || 0, sinPeso: !peso,
-      tmb: 0, gasto: 0, meta: 0, piso: p && p.sexo === 'm' ? 1200 : 1500,
+      tmb: 0, gasto: 0, meta: 0, piso, modo, ajuste: -def, grasa: 0, carb: 0,
       limitado: false, deficitPct: 0, prot: peso ? Math.round(peso * 1.6) : 0,
     };
   }
   const tmb = 10 * peso + 6.25 * Number(p.estatura) - 5 * Number(p.edad) + (p.sexo === 'm' ? -161 : 5);
   const gasto = Math.round(tmb * p.actividad);
-  const piso = p.sexo === 'm' ? 1200 : 1500;
-  const metaBruta = gasto - p.deficit;
+  const metaBruta = gasto - def;
   const meta = Math.max(piso, metaBruta);
+  const prot = Math.round(peso * 1.6);
   return {
-    peso, sinPeso: !pesoActual(), tmb: Math.round(tmb), gasto, meta, piso,
-    limitado: metaBruta < piso,
-    deficitPct: gasto ? p.deficit / gasto : 0,
-    prot: Math.round(peso * 1.6),
+    peso, sinPeso: !pesoActual(), tmb: Math.round(tmb), gasto, meta, piso, modo, ajuste: -def,
+    limitado: def > 0 && metaBruta < piso,
+    deficitPct: def > 0 && gasto ? def / gasto : 0,
+    prot, ...macros(meta, prot),
   };
 }
 function nutriDay(k, create) {
@@ -3702,6 +4467,7 @@ function nutriDay(k, create) {
 }
 function kcalDia(d) { return d ? d.comidas.reduce((s, c) => s + (Number(c.kcal) || 0), 0) : 0; }
 function protDia(d) { return d ? d.comidas.reduce((s, c) => s + (Number(c.prot) || 0), 0) : 0; }
+function macroDia(d, campo) { return d ? d.comidas.reduce((s, c) => s + (Number(c[campo]) || 0), 0) : 0; }
 function hasComidas(d) { return !!(d && d.comidas && d.comidas.length); }
 function deficitDia(d, nc) { return nc.gasto + (Number(d && d.quemadas) || 0) - kcalDia(d); }
 function nutriKey() { return addDays(todayKey(), nutriOffset); }
@@ -3709,11 +4475,16 @@ function tipoPorHora() {
   const h = new Date().getHours();
   return h < 11 ? 'desayuno' : h < 15 ? 'almuerzo' : h < 18 ? 'snack' : 'cena';
 }
-
 function changeNutriDay(dir) {
   if (dir === 0) nutriOffset = 0;
   else nutriOffset = Math.min(0, nutriOffset + dir);
   renderNutricion();
+}
+// Texto del balance del día: positivo = déficit, negativo = superávit
+function nutriBalance(bal, modo) {
+  const esDef = bal >= 0;
+  const bien = modo === 'subir' ? !esDef : modo === 'bajar' ? esDef : Math.abs(bal) <= 200;
+  return { label: esDef ? 'Déficit' : 'Superávit', valor: fmtKcal(Math.abs(bal)), color: bien ? 'var(--success)' : 'var(--warning)' };
 }
 
 function renderHoyNutri(key) {
@@ -3725,7 +4496,7 @@ function renderHoyNutri(key) {
   const pct = nc.meta ? Math.min(100, c / nc.meta * 100) : 0;
   const color = nc.meta && c > nc.meta * 1.1 ? 'var(--danger)' : nc.meta && c > nc.meta ? 'var(--warning)' : 'var(--accent)';
   const a = state.ayuno.activo;
-  const def = hasComidas(d) ? deficitDia(d, nc) : null;
+  const b = hasComidas(d) && nc.gasto ? nutriBalance(deficitDia(d, nc), nc.modo) : null;
   el.innerHTML = `
     <div class="flex items-center justify-between mb-2 gap-2">
       <span class="text-sm text-[var(--muted)]">🍽️ Calorías</span>
@@ -3735,122 +4506,461 @@ function renderHoyNutri(key) {
       <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
     </div>
     <div class="flex items-center justify-between gap-2 mt-2 text-xs text-[var(--muted)] flex-wrap">
-      <span>${def === null ? 'Sin comidas registradas · toca para añadir' : `Déficit: <strong class="${def >= 0 ? 'text-[var(--success)]' : 'text-[var(--danger)]'}">${fmtKcal(def)} kcal</strong>`}</span>
+      <span>${!hasComidas(d) ? 'Sin comidas registradas · toca para añadir' : b ? `${b.label}: <strong style="color:${b.color}">${b.valor} kcal</strong>` : `${d.comidas.length} registros`}</span>
       <span id="hoy-ayuno-txt">${a ? '⏳ Ayunando ' + fmtHM(Date.now() - new Date(a.inicio)) + ' de ' + a.metaH + ' h' : 'Sin ayuno activo'}</span>
     </div>`;
 }
+
+// ---------- Base de alimentos ----------
+const NUTRI_DB = (() => {
+  const db = window.PANEL_ALIMENTOS;
+  if (db && Array.isArray(db.alimentos) && db.alimentos.length) return db;
+  // Respaldo si alimentos.js no cargó: la lista corta de la versión anterior (valores por porción)
+  return {
+    nota: 'No se pudo cargar la base completa de alimentos (alimentos.js). Estos son valores básicos aproximados.',
+    fuentes: {},
+    alimentos: ALIMENTOS.map((a, i) => ({ id: 'basico-' + i, n: a.n, cat: 'Básicos', k: a.k, p: a.p, c: 0, g: 0, por: [['porción', 100]], a: '', src: 'E' })),
+    platos: [],
+  };
+})();
+let nutriItemsCache = null;
+function nutriSinTildes(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+function nutriItems() {
+  if (nutriItemsCache) return nutriItemsCache;
+  const out = [];
+  NUTRI_DB.alimentos.forEach(f => out.push({ ref: 'a:' + f.id, n: f.n, cat: f.cat, k: f.k, p: f.p, c: f.c, g: f.g, por: f.por, a: f.a || '', src: f.src, tipo: 'alimento' }));
+  NUTRI_DB.platos.forEach(d => {
+    const f = 100 / d.gramos;
+    out.push({ ref: 'p:' + d.id, n: d.n, cat: 'Platos preparados', k: d.k * f, p: d.p * f, c: d.c * f, g: d.g * f, por: [[d.porcion, d.gramos]], a: d.a || '', src: 'E', tipo: 'plato', items: d.items, total: d });
+  });
+  (state.nutri.propios || []).forEach(f => out.push({ ref: 'u:' + f.id, n: f.n, cat: 'Mis alimentos', k: f.k, p: f.p, c: f.c, g: f.g, por: f.por, a: '', tipo: 'propio' }));
+  (state.nutri.platos || []).forEach(d => {
+    const gr = Math.max(1, Number(d.gramos) || 1);
+    const f = 100 / gr;
+    out.push({ ref: 'up:' + d.id, n: d.n, cat: 'Mis platos', k: d.k * f, p: d.p * f, c: d.c * f, g: d.g * f, por: [['plato', gr]], a: '', tipo: 'miplato', items: d.items });
+  });
+  out.forEach(x => { x.busca = nutriSinTildes(x.n + ' ' + x.a + ' ' + x.cat); x.nn = nutriSinTildes(x.n); });
+  nutriItemsCache = out;
+  return out;
+}
+function nutriItem(ref) { return nutriItems().find(x => x.ref === ref) || null; }
+function nutriBuscarItems(q, max) {
+  const t = nutriSinTildes(q).trim().split(/\s+/).filter(Boolean);
+  if (!t.length) return [];
+  const rec = (state.nutri.recientes || []).map(r => r.ref);
+  return nutriItems().map(x => {
+    if (!t.every(w => x.busca.includes(w))) return null;
+    let s = 0;
+    if (x.nn.startsWith(t[0])) s += 4;
+    else if ((' ' + x.nn).includes(' ' + t[0])) s += 2;
+    if (t.every(w => x.nn.includes(w))) s += 2;
+    if (rec.includes(x.ref)) s += 1.5;
+    if (x.tipo === 'propio' || x.tipo === 'miplato') s += 1;
+    return { x, s: s - x.n.length / 100 };
+  }).filter(Boolean).sort((a, b) => b.s - a.s).slice(0, max || 12).map(o => o.x);
+}
+
+// ---------- Porciones y textos ----------
+function nutriFem(nombre) { return /(a|ón|dad|ción)$/.test(String(nombre).split(' ')[0]) && !/^(día)$/.test(nombre); }
+function nutriPlural(nombre) {
+  const [w, ...rest] = String(nombre).split(' ');
+  let p;
+  if (/ón$/.test(w)) p = w.slice(0, -2) + 'ones';
+  else if (/z$/.test(w)) p = w.slice(0, -1) + 'ces';
+  else if (/[aeiouáéó]$/.test(w)) p = w + 's';
+  else p = w + 'es';
+  return [p].concat(rest).join(' ');
+}
+function nutriNum(n) { return Number(n).toLocaleString('es-CO', { maximumFractionDigits: 1 }); }
+function nutriCantTxt(cant, nombre) {
+  if (nombre === 'g' || nombre === 'gramos') return `${nutriNum(cant)} g`;
+  return `${nutriNum(cant)} ${cant === 1 ? nombre : nutriPlural(nombre)}`;
+}
+// 1.5 tazas -> "1 taza y media"; 0.5 -> "media taza"; 0.25 -> "un cuarto de taza"
+function nutriFraccion(x, nombre) {
+  const q = Math.round(x * 4) / 4;
+  const fem = nutriFem(nombre);
+  const medio = fem ? 'media' : 'medio';
+  if (q <= 0) return `menos de un cuarto de ${nombre}`;
+  const ent = Math.floor(q), fr = q - ent;
+  if (ent === 0) return fr === 0.5 ? `${medio} ${nombre}` : fr === 0.25 ? `un cuarto de ${nombre}` : `tres cuartos de ${nombre}`;
+  const base = ent === 1 ? `1 ${nombre}` : `${ent} ${nutriPlural(nombre)}`;
+  if (!fr) return base;
+  return fr === 0.5 ? `${base} y ${medio}` : fr === 0.25 ? `${base} y un cuarto` : `${base} y tres cuartos`;
+}
+function nutriPorciones(item) { return (item.por || []).concat([['g', 1]]); }
+function nutriCalc(item, porG, cant) {
+  const g = porG * cant;
+  const f = g / 100;
+  return { g: Math.round(g), kcal: Math.round(item.k * f), prot: Math.round(item.p * f * 10) / 10, carb: Math.round(item.c * f * 10) / 10, grasa: Math.round(item.g * f * 10) / 10 };
+}
+
+// ---------- Estado de la pantalla ----------
+let nutriSel = null;        // { ref, porI, cant }
+let nutriPlato = [];        // lo que está por registrar
+let nutriTipoSel = null;
+let nutriSugI = -1;
+
+function nutriTipoActual() { return nutriTipoSel || tipoPorHora(); }
+function nutriSetTipo(t) { nutriTipoSel = t; comidaTipoTocado = true; renderNutriRegistrar(); }
 
 function renderNutricion() {
   const key = nutriKey();
   const d = nutriDay(key);
   const nc = calcNutri();
   const p = state.nutri.perfil;
-
   document.getElementById('nutri-fecha').textContent =
     (nutriOffset === 0 ? 'Hoy · ' : nutriOffset === -1 ? 'Ayer · ' : '') + fmtDate(key, { weekday: 'long', day: 'numeric', month: 'long' });
   document.getElementById('nutri-btn-sig').disabled = nutriOffset >= 0;
   document.getElementById('nutri-btn-hoy').disabled = nutriOffset === 0;
 
-  // Banner perfil
   const banners = [];
-  if (!p.confirmado || nc.sinPeso) {
+  if ((!p.confirmado || nc.sinPeso) && nc.fuente !== 'entrevista') {
     banners.push(`<div class="card p-3 flex items-center gap-3 border-[var(--accent)]">
       <span class="text-xl">👤</span>
       <p class="text-sm flex-1">${nc.sinPeso ? 'Registra tu peso y completa tu perfil' : 'Completa tu perfil (edad, estatura, actividad)'} para que la meta de calorías sea precisa.</p>
       <button class="btn btn-sm" onclick="abrirPerfil()">Completar</button></div>`);
   }
   document.getElementById('nutri-banner').innerHTML = banners.join('');
-
-  // KPIs
-  const c = kcalDia(d);
-  const rest = (nc.meta || 0) - c;
-  const prot = protDia(d);
-  document.getElementById('nutri-consumidas').textContent = fmtKcal(c);
-  document.getElementById('nutri-meta-label').textContent = nc.meta ? `de ${fmtKcal(nc.meta)} kcal (meta)` : 'completa tu perfil';
-  const restEl = document.getElementById('nutri-restantes');
-  restEl.textContent = rest >= 0 ? fmtKcal(rest) : '+' + fmtKcal(-rest);
-  restEl.className = 'text-2xl font-bold ' + (rest >= 0 ? '' : 'text-[var(--warning)]');
-  restEl.nextElementSibling.textContent = rest >= 0 ? 'kcal para tu meta' : 'kcal por encima de la meta';
-  const defEl = document.getElementById('nutri-deficit');
-  if (hasComidas(d)) {
-    const def = deficitDia(d, nc);
-    defEl.textContent = fmtKcal(def);
-    defEl.className = 'text-2xl font-bold ' + (def >= 0 ? 'text-[var(--success)]' : 'text-[var(--danger)]');
-    document.getElementById('nutri-deficit-sub').textContent = `gasto ${fmtKcal(nc.gasto + (d.quemadas || 0))} − consumo ${fmtKcal(c)}`;
-  } else {
-    defEl.textContent = '-';
-    defEl.className = 'text-2xl font-bold';
-    document.getElementById('nutri-deficit-sub').textContent = `gasto estimado ${fmtKcal(nc.gasto)} kcal`;
-  }
-  const protEl = document.getElementById('nutri-prot');
-  protEl.textContent = Math.round(prot) + ' g';
-  protEl.className = 'text-2xl font-bold ' + (prot >= nc.prot ? 'text-[var(--success)]' : '');
-  document.getElementById('nutri-prot-sub').textContent = `meta ≈ ${nc.prot} g`;
-
-  const pct = nc.meta ? Math.min(100, c / nc.meta * 100) : 0;
-  const bar = document.getElementById('nutri-bar');
-  bar.style.width = pct + '%';
-  bar.style.background = nc.meta && c > nc.meta * 1.1 ? 'var(--danger)' : nc.meta && c > nc.meta ? 'var(--warning)' : 'var(--accent)';
-  document.getElementById('nutri-bar-label').textContent = nc.meta ? `${Math.round(c / nc.meta * 100)}%` : '-';
-
-  const ws = weekStats(weekStartOf(todayKey()));
-  document.getElementById('nutri-semana').innerHTML = ws.deficit === null
-    ? `Meta semanal: ${fmtKcal(p.deficit * 7)} kcal de déficit (≈ ${(p.deficit * 7 / KCAL_POR_KG).toFixed(2)} kg).`
-    : `Déficit acumulado esta semana: <strong class="${ws.deficit >= 0 ? 'text-[var(--success)]' : 'text-[var(--danger)]'}">${fmtKcal(ws.deficit)} kcal</strong> ≈ ${(ws.deficit / KCAL_POR_KG).toFixed(2)} kg (${ws.kcalDias} ${ws.kcalDias === 1 ? 'día registrado' : 'días registrados'}).`;
-
+  renderNutriResumen(d, nc);
   renderAyuno();
-
-  // Formulario comida
-  const tipoSel = document.getElementById('comida-tipo');
-  if (!tipoSel.options.length) {
-    tipoSel.innerHTML = TIPOS_COMIDA.map(t => `<option value="${t.id}">${t.icon} ${t.label}</option>`).join('');
-  }
-  if (!comidaTipoTocado) tipoSel.value = tipoPorHora();
-  const dl = document.getElementById('alimentos-lista');
-  dl.innerHTML = state.nutri.favoritas.map(f => f.desc).concat(ALIMENTOS.map(a => a.n))
-    .filter((v, i, arr) => arr.indexOf(v) === i)
-    .map(n => `<option value="${esc(n)}"></option>`).join('');
-
-  // Frecuentes
-  const favs = state.nutri.favoritas;
-  document.getElementById('favoritas-wrap').classList.toggle('hidden', !favs.length);
-  document.getElementById('favoritas').innerHTML = favs.map((f, i) =>
-    `<span class="chip" role="button" tabindex="0" onclick="addFavorita(${i})" onkeydown="if(event.key==='Enter'){addFavorita(${i})}" title="Añadir ${esc(f.desc)}">
-      ${esc(f.desc)} <span class="text-[var(--muted)]">${fmtKcal(f.kcal)}</span>
-      <span class="x" role="button" aria-label="Quitar de frecuentes" onclick="event.stopPropagation();removeFavorita(${i})">×</span>
-    </span>`).join('');
-
-  // Lista de comidas agrupada
-  const list = document.getElementById('comidas-list');
-  if (!hasComidas(d)) {
-    list.innerHTML = '<p class="text-sm text-[var(--muted)]">Aún no hay comidas registradas este día.</p>';
-  } else {
-    list.innerHTML = TIPOS_COMIDA.map(t => {
-      const items = d.comidas.filter(x => x.tipo === t.id);
-      if (!items.length) return '';
-      const sub = items.reduce((s, x) => s + (x.kcal || 0), 0);
-      return `<div>
-        <div class="flex items-center justify-between text-sm mb-2">
-          <span class="font-medium">${t.icon} ${t.label}</span>
-          <span class="text-[var(--muted)]">${fmtKcal(sub)} kcal</span>
-        </div>
-        <div class="space-y-1.5">${items.map(x => `
-          <div class="flex items-center gap-3 text-sm p-2 rounded-lg bg-[var(--card2)]">
-            <span class="flex-1 min-w-0 truncate">${esc(x.desc)}</span>
-            ${x.prot ? `<span class="text-xs text-[var(--muted)] whitespace-nowrap">${Math.round(x.prot)} g prot</span>` : ''}
-            <span class="font-medium whitespace-nowrap">${fmtKcal(x.kcal)}</span>
-            <button class="text-[var(--danger)] px-1" onclick="removeComida(${x.id})" aria-label="Eliminar ${esc(x.desc)}">×</button>
-          </div>`).join('')}
-        </div>
-      </div>`;
-    }).join('');
-  }
-
+  renderNutriRegistrar();
+  renderNutriLista(d);
   const qEl = document.getElementById('nutri-quemadas');
   if (document.activeElement !== qEl) qEl.value = d && d.quemadas ? d.quemadas : '';
-
   renderPerfil(nc);
   renderNutriChart(nc);
+}
+
+function renderNutriResumen(d, nc) {
+  const p = state.nutri.perfil;
+  const c = kcalDia(d);
+  const meta = nc.meta || 0;
+  const rest = meta - c;
+  const pct = meta ? Math.min(1, c / meta) : 0;
+  const color = meta && c > meta * 1.1 ? 'var(--danger)' : meta && c > meta ? 'var(--warning)' : 'var(--accent)';
+  const R = 52, L = 2 * Math.PI * R;
+  const mac = (id, lbl, val, obj, col) => {
+    const w = obj ? Math.min(100, val / obj * 100) : 0;
+    return `<div class="nutri-macro" id="${id}"><div class="mac-lbl">${lbl}</div><div class="mac-val"><strong style="color:var(--text)">${Math.round(val)}</strong>${obj ? ` / ${obj} g` : ' g'}</div>
+      <div class="pet-meter-bar"><div style="width:${w}%;background:${col}"></div></div></div>`;
+  };
+  const modoTxt = nc.modo === 'subir' ? `superávit de ${fmtKcal(-p.deficit)} kcal para subir` : nc.modo === 'bajar' ? `déficit de ${fmtKcal(p.deficit)} kcal para bajar` : 'mantener tu peso';
+  const b = hasComidas(d) && nc.gasto ? nutriBalance(deficitDia(d, nc), nc.modo) : null;
+  const ws = weekStats(weekStartOf(todayKey()));
+  let semana;
+  if (ws.deficit === null) {
+    semana = p.deficit ? `Meta semanal: ${p.deficit > 0 ? 'déficit' : 'superávit'} de ${fmtKcal(Math.abs(p.deficit) * 7)} kcal (≈ ${(Math.abs(p.deficit) * 7 / KCAL_POR_KG).toFixed(2)} kg).` : 'Meta semanal: mantener tu peso.';
+  } else {
+    const wb = nutriBalance(ws.deficit, nc.modo);
+    semana = `${wb.label} acumulado esta semana: <strong style="color:${wb.color}">${wb.valor} kcal</strong> ≈ ${(Math.abs(ws.deficit) / KCAL_POR_KG).toFixed(2)} kg (${ws.kcalDias} ${ws.kcalDias === 1 ? 'día registrado' : 'días registrados'}).`;
+  }
+  document.getElementById('nutri-resumen').innerHTML = `
+    <div class="nutri-top">
+      <div class="nutri-ring" id="nutri-ring" role="img" aria-label="${fmtKcal(c)} de ${fmtKcal(meta)} kcal">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--card2)" stroke-width="11"/>
+          <circle cx="60" cy="60" r="${R}" fill="none" stroke="${color}" stroke-width="11" stroke-linecap="round" stroke-dasharray="${L.toFixed(1)}" stroke-dashoffset="${(L * (1 - pct)).toFixed(1)}" transform="rotate(-90 60 60)"/></svg>
+        <div class="nutri-ring-t"><strong id="nutri-consumidas">${fmtKcal(c)}</strong><span>${meta ? 'de ' + fmtKcal(meta) : 'kcal'}</span></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-xs text-[var(--muted)]">${rest >= 0 ? 'Te quedan' : 'Por encima de la meta'}</p>
+        <p class="text-3xl font-bold leading-tight" id="nutri-restantes" style="${rest < 0 ? 'color:var(--warning)' : ''}">${meta ? fmtKcal(Math.abs(rest)) : '-'} <span class="text-sm font-normal text-[var(--muted)]">kcal</span></p>
+        <p class="text-[11px] text-[var(--muted)] mt-1" id="nutri-meta-label">${meta ? `Meta <strong id="nutri-meta-num">${fmtKcal(meta)}</strong> kcal: ${modoTxt}.` : 'Completa tu perfil para calcular tu meta.'}</p>
+        ${b ? `<p class="text-[11px] mt-1" id="nutri-balance">${b.label} del día: <strong style="color:${b.color}">${b.valor} kcal</strong></p>` : ''}
+      </div>
+    </div>
+    <div class="nutri-macros">
+      ${mac('macro-prot', '🥩 Proteína', protDia(d), nc.prot, 'var(--success)')}
+      ${mac('macro-carb', '🍚 Carbohidratos', macroDia(d, 'carb'), nc.carb, 'var(--accent2)')}
+      ${mac('macro-grasa', '🥑 Grasa', macroDia(d, 'grasa'), nc.grasa, 'var(--warning)')}
+    </div>
+    <p class="text-xs text-[var(--muted)] mt-3" id="nutri-semana">${semana}</p>`;
+}
+
+function renderNutriRegistrar() {
+  const tipo = nutriTipoActual();
+  document.getElementById('nutri-tipos').innerHTML = TIPOS_COMIDA.map(t =>
+    `<button class="nutri-tipo ${t.id === tipo ? 'on' : ''}" data-tipo="${t.id}" aria-pressed="${t.id === tipo}" onclick="nutriSetTipo('${t.id}')">${t.icon} ${t.label}</button>`).join('');
+  renderNutriSel();
+  renderNutriPlato();
+  renderNutriRapidos();
+  renderNutriPropios();
+}
+function nutriBuscar(q) {
+  const box = document.getElementById('nutri-sugs');
+  const res = nutriBuscarItems(q, 12);
+  nutriSugI = -1;
+  if (!q.trim()) { box.classList.add('hidden'); box.innerHTML = ''; return; }
+  box.innerHTML = res.length ? res.map((x, i) => {
+    const p0 = x.por[0];
+    const kp = Math.round(x.k * p0[1] / 100);
+    return `<button class="nutri-sug" role="option" data-ref="${esc(x.ref)}" data-i="${i}" onmousedown="event.preventDefault()" onclick="nutriElegir(${jsArg(x.ref)})">
+      <span class="n">${esc(x.n)}${x.tipo === 'plato' || x.tipo === 'miplato' ? ' <span class="nutri-tag">plato</span>' : ''}</span>
+      <span class="d">${kp} kcal · 1 ${esc(p0[0])} (${nutriNum(p0[1])} g)</span></button>`;
+  }).join('') : `<p class="text-xs text-[var(--muted)] p-3">Sin resultados. Puedes escribirlo a mano abajo o crear tu propio alimento.</p>`;
+  box.classList.remove('hidden');
+}
+function nutriBuscarTecla(e) {
+  const btns = [...document.querySelectorAll('#nutri-sugs .nutri-sug')];
+  if (!btns.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    nutriSugI = (nutriSugI + (e.key === 'ArrowDown' ? 1 : -1) + btns.length) % btns.length;
+    btns.forEach((b, i) => b.classList.toggle('on', i === nutriSugI));
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    btns[Math.max(0, nutriSugI)].click();
+  } else if (e.key === 'Escape') document.getElementById('nutri-sugs').classList.add('hidden');
+}
+function nutriElegir(ref) {
+  const it = nutriItem(ref);
+  if (!it) return;
+  const rec = (state.nutri.recientes || []).find(r => r.ref === ref);
+  const pors = nutriPorciones(it);
+  let porI = 0;
+  if (rec) { const j = pors.findIndex(p => p[0] === rec.porNombre); if (j >= 0) porI = j; }
+  nutriSel = { ref, porI, cant: 1 };
+  const inp = document.getElementById('nutri-buscar');
+  inp.value = '';
+  document.getElementById('nutri-sugs').classList.add('hidden');
+  renderNutriSel();
+}
+function renderNutriSel() {
+  const el = document.getElementById('nutri-sel');
+  const it = nutriSel && nutriItem(nutriSel.ref);
+  if (!it) { el.innerHTML = ''; return; }
+  const pors = nutriPorciones(it);
+  const por = pors[nutriSel.porI] || pors[0];
+  const r = nutriCalc(it, por[1], nutriSel.cant);
+  el.innerHTML = `<div class="nutri-selbox">
+    <div class="flex items-start justify-between gap-2"><p class="font-medium text-sm">${esc(it.n)}</p><button class="hx-del" onclick="nutriSel=null;renderNutriSel()" aria-label="Cancelar">×</button></div>
+    <div class="nutri-selrow">
+      <div class="nutri-step" aria-label="Cantidad">
+        <button onclick="nutriCant(-1)" aria-label="Menos">−</button>
+        <input type="number" id="nutri-cant" inputmode="decimal" step="any" min="0" value="${nutriSel.cant}" onchange="nutriCantSet(this.value)" aria-label="Cantidad">
+        <button onclick="nutriCant(1)" aria-label="Más" id="nutri-mas">+</button>
+      </div>
+      <select id="nutri-porcion" aria-label="Porción" onchange="nutriPorSet(this.value)">
+        ${pors.map((p, i) => `<option value="${i}" ${i === nutriSel.porI ? 'selected' : ''}>${p[0] === 'g' ? 'gramos' : esc(p[0]) + (p[2] ? ' ' + esc(p[2]) : '') + ` (${nutriNum(p[1])} g)`}</option>`).join('')}
+      </select>
+    </div>
+    <p class="text-xs text-[var(--muted)] mt-2" id="nutri-sel-calc"><strong class="text-[var(--text)]">${r.kcal} kcal</strong> · ${r.g} g · P ${nutriNum(r.prot)} · C ${nutriNum(r.carb)} · G ${nutriNum(r.grasa)}</p>
+    <button class="btn btn-sm w-full mt-3" id="nutri-anadir" onclick="nutriAnadir()">+ Añadir al plato</button>
+  </div>`;
+}
+function nutriCant(dir) {
+  if (!nutriSel) return;
+  const it = nutriItem(nutriSel.ref);
+  const pors = nutriPorciones(it);
+  const esG = pors[nutriSel.porI][0] === 'g';
+  const paso = esG ? 10 : nutriSel.cant < 1 || (dir < 0 && nutriSel.cant <= 1) ? 0.25 : 0.5;
+  nutriSel.cant = Math.max(esG ? 5 : 0.25, Math.round((nutriSel.cant + dir * paso) * 100) / 100);
+  renderNutriSel();
+}
+function nutriCantSet(v) { const n = parseFloat(String(v).replace(',', '.')); if (nutriSel && n > 0) nutriSel.cant = Math.min(5000, n); renderNutriSel(); }
+function nutriPorSet(i) {
+  if (!nutriSel) return;
+  const it = nutriItem(nutriSel.ref);
+  const pors = nutriPorciones(it);
+  const antes = pors[nutriSel.porI], nueva = pors[Number(i)];
+  nutriSel.porI = Number(i);
+  if (nueva[0] === 'g') nutriSel.cant = Math.round(antes[1] * nutriSel.cant);
+  else if (antes[0] === 'g') nutriSel.cant = 1;
+  renderNutriSel();
+}
+function nutriAnadir() {
+  const it = nutriSel && nutriItem(nutriSel.ref);
+  if (!it) return;
+  const por = nutriPorciones(it)[nutriSel.porI];
+  const r = nutriCalc(it, por[1], nutriSel.cant);
+  nutriPlato.push({ ref: it.ref, n: it.n, porNombre: por[0], porG: por[1], cant: nutriSel.cant, ...r });
+  nutriSel = null;
+  renderNutriSel();
+  renderNutriPlato();
+  const inp = document.getElementById('nutri-buscar');
+  if (inp) inp.focus({ preventScroll: true });
+}
+function nutriTotales(items) {
+  return items.reduce((t, x) => ({ kcal: t.kcal + x.kcal, prot: t.prot + x.prot, carb: t.carb + x.carb, grasa: t.grasa + x.grasa, g: t.g + x.g }), { kcal: 0, prot: 0, carb: 0, grasa: 0, g: 0 });
+}
+function renderNutriPlato() {
+  const el = document.getElementById('nutri-plato');
+  if (!nutriPlato.length) { el.innerHTML = ''; return; }
+  const t = nutriTotales(nutriPlato);
+  const tipo = TIPOS_COMIDA.find(x => x.id === nutriTipoActual());
+  el.innerHTML = `<div class="nutri-platobox">
+    <p class="text-xs text-[var(--muted)] mb-2">Por registrar</p>
+    ${nutriPlato.map((x, i) => `<div class="nutri-li"><span class="flex-1 min-w-0"><span class="block truncate">${esc(x.n)}</span><span class="text-[11px] text-[var(--muted)]">${esc(nutriCantTxt(x.cant, x.porNombre))}${x.porNombre === 'g' ? '' : ` · ${x.g} g`}</span></span>
+      <span class="font-medium whitespace-nowrap">${fmtKcal(x.kcal)}</span><button class="hx-del" onclick="nutriPlato.splice(${i},1);renderNutriPlato()" aria-label="Quitar ${esc(x.n)}">×</button></div>`).join('')}
+    <div class="flex justify-between text-sm font-semibold mt-2 pt-2 border-t border-[var(--border)]"><span>Total</span><span id="nutri-plato-total">${fmtKcal(t.kcal)} kcal</span></div>
+    <p class="text-[11px] text-[var(--muted)]">P ${nutriNum(t.prot)} g · C ${nutriNum(t.carb)} g · G ${nutriNum(t.grasa)} g</p>
+    <button class="btn w-full mt-3" id="nutri-registrar-btn" onclick="nutriRegistrar()">Registrar en ${tipo.icon} ${tipo.label}</button>
+    <div class="flex gap-2 mt-2">
+      <input type="text" id="nutri-plato-nombre" class="input-sm" placeholder="Nombre para guardarlo como plato" aria-label="Nombre del plato">
+      <button class="btn btn-ghost btn-sm whitespace-nowrap" onclick="nutriGuardarPlato()">Guardar plato</button>
+    </div>
+  </div>`;
+}
+function nutriEntrada(x, tipo, i) {
+  return {
+    id: Date.now() + (i || 0), tipo, desc: x.n, kcal: x.kcal, prot: x.prot, carb: x.carb, grasa: x.grasa,
+    ref: x.ref, porcion: x.porNombre, cant: x.cant, g: x.g, xp: true,
+  };
+}
+function nutriRecordar(x) {
+  const rec = state.nutri.recientes || (state.nutri.recientes = []);
+  const i = rec.findIndex(r => r.ref === x.ref);
+  if (i >= 0) rec.splice(i, 1);
+  rec.unshift({ ref: x.ref, n: x.n, porNombre: x.porNombre, porG: x.porG, cant: x.cant });
+  rec.length = Math.min(rec.length, 15);
+}
+// Guarda entradas en el día y da XP (una vez por tipo de comida al día)
+function nutriGuardarEntradas(entradas, tipo) {
+  const key = nutriKey();
+  const d = nutriDay(key, true);
+  const yaTenia = d.comidas.some(c => c.xp && c.tipo === tipo);
+  entradas.forEach(e => d.comidas.push(e));
+  const xp = state.hoyCfg.xpComida;
+  hxRecalc(key);
+  saveState();
+  renderNutricion();
+  const kcal = entradas.reduce((s, e) => s + e.kcal, 0);
+  toast(`+${fmtKcal(kcal)} kcal${!yaTenia && xp ? ` · +${xp} XP` : ''}`);
+}
+function nutriRegistrar() {
+  if (!nutriPlato.length) return;
+  const tipo = nutriTipoActual();
+  const entradas = nutriPlato.map((x, i) => nutriEntrada(x, tipo, i));
+  nutriPlato.forEach(nutriRecordar);
+  nutriPlato = [];
+  nutriGuardarEntradas(entradas, tipo);
+}
+function nutriGuardarPlato() {
+  const inp = document.getElementById('nutri-plato-nombre');
+  const n = inp && inp.value.trim();
+  if (!n) { toast('Escribe un nombre para el plato'); if (inp) inp.focus(); return; }
+  if (!nutriPlato.length) return;
+  const t = nutriTotales(nutriPlato);
+  state.nutri.platos.push({ id: 'pl' + uid(), n: n.slice(0, 80), items: nutriPlato.map(x => ({ ...x })), gramos: t.g, k: t.kcal, p: Math.round(t.prot * 10) / 10, c: Math.round(t.carb * 10) / 10, g: Math.round(t.grasa * 10) / 10 });
+  nutriItemsCache = null;
+  saveState();
+  toast(`Plato "${n}" guardado`);
+  renderNutriPlato();
+  renderNutriPropios();
+}
+function nutriRapido(i) {
+  const r = (state.nutri.recientes || [])[i];
+  const it = r && nutriItem(r.ref);
+  if (!it) { toast('Ese alimento ya no existe'); return; }
+  const x = { ref: it.ref, n: it.n, porNombre: r.porNombre, porG: r.porG, cant: r.cant, ...nutriCalc(it, r.porG, r.cant) };
+  nutriRecordar(x);
+  nutriGuardarEntradas([nutriEntrada(x, nutriTipoActual())], nutriTipoActual());
+}
+function renderNutriRapidos() {
+  const rec = (state.nutri.recientes || []).slice(0, 8);
+  const favs = state.nutri.favoritas;
+  const el = document.getElementById('nutri-rapidos');
+  el.innerHTML = (rec.length ? `<p class="text-xs text-[var(--muted)] mb-2 mt-4">Recientes: un toque y queda registrado</p>
+    <div class="flex flex-wrap gap-2" id="nutri-recientes">${rec.map((r, i) => `<button class="chip" onclick="nutriRapido(${i})">${esc(r.n)} <span class="text-[var(--muted)]">${esc(nutriCantTxt(r.cant, r.porNombre))}</span></button>`).join('')}</div>` : '') +
+    (favs.length ? `<p class="text-xs text-[var(--muted)] mb-2 mt-4">Frecuentes</p>
+    <div class="flex flex-wrap gap-2" id="favoritas">${favs.map((f, i) => `<span class="chip" role="button" tabindex="0" onclick="addFavorita(${i})" onkeydown="if(event.key==='Enter'){addFavorita(${i})}" title="Añadir ${esc(f.desc)}">
+      ${esc(f.desc)} <span class="text-[var(--muted)]">${fmtKcal(f.kcal)}</span>
+      <span class="x" role="button" aria-label="Quitar de frecuentes" onclick="event.stopPropagation();removeFavorita(${i})">×</span></span>`).join('')}</div>` : '');
+}
+function renderNutriPropios() {
+  const el = document.getElementById('nutri-propios');
+  if (!el) return;
+  const pr = state.nutri.propios, pl = state.nutri.platos;
+  el.innerHTML = (pr.length || pl.length) ? `<p class="text-xs text-[var(--muted)] mt-4 mb-2">Tus alimentos y platos (aparecen en la búsqueda)</p>
+    ${pr.map(f => `<div class="nutri-li"><span class="flex-1 truncate">🥄 ${esc(f.n)}</span><span class="text-[11px] text-[var(--muted)]">${fmtKcal(f.k * f.por[0][1] / 100)} kcal / ${esc(f.por[0][0])}</span><button class="hx-del" onclick="nutriBorrarPropio(${jsArg(f.id)})" aria-label="Borrar ${esc(f.n)}">×</button></div>`).join('')}
+    ${pl.map(d => `<div class="nutri-li"><span class="flex-1 truncate">🍽️ ${esc(d.n)}</span><span class="text-[11px] text-[var(--muted)]">${fmtKcal(d.k)} kcal</span><button class="hx-del" onclick="nutriBorrarPlato(${jsArg(d.id)})" aria-label="Borrar ${esc(d.n)}">×</button></div>`).join('')}` : '';
+}
+function nutriBorrarPropio(id) {
+  if (!confirm('¿Borrar este alimento propio? Lo que ya registraste no cambia.')) return;
+  state.nutri.propios = state.nutri.propios.filter(f => f.id !== id);
+  nutriItemsCache = null; saveState(); renderNutriRegistrar();
+}
+function nutriBorrarPlato(id) {
+  if (!confirm('¿Borrar este plato? Lo que ya registraste no cambia.')) return;
+  state.nutri.platos = state.nutri.platos.filter(f => f.id !== id);
+  nutriItemsCache = null; saveState(); renderNutriRegistrar();
+}
+
+// Registro manual (como antes) + opción de guardarlo como alimento propio
+function addComida() {
+  const tipo = nutriTipoActual();
+  const desc = document.getElementById('comida-desc').value.trim();
+  const kcal = num(document.getElementById('comida-kcal').value);
+  const val = id => Math.max(0, parseFloat(String(document.getElementById(id).value).replace(',', '.')) || 0);
+  const prot = val('comida-prot'), carb = val('comida-carb'), grasa = val('comida-grasa');
+  const gramos = val('comida-gramos');
+  if (!desc || kcal <= 0) { toast('Escribe qué comiste y sus calorías'); return; }
+  const fav = document.getElementById('comida-fav');
+  if (fav.checked && !state.nutri.favoritas.some(f => f.desc.toLowerCase() === desc.toLowerCase())) {
+    state.nutri.favoritas.push({ desc, kcal, prot, carb, grasa, tipo });
+  }
+  const propio = document.getElementById('comida-propio');
+  if (propio && propio.checked) {
+    const g = gramos || 100;
+    const f = 100 / g;
+    state.nutri.propios.push({ id: 'u' + uid(), n: desc.slice(0, 80), k: Math.round(kcal * f * 10) / 10, p: Math.round(prot * f * 10) / 10, c: Math.round(carb * f * 10) / 10, g: Math.round(grasa * f * 10) / 10, por: [['porción', g]] });
+    nutriItemsCache = null;
+    propio.checked = false;
+  }
+  fav.checked = false;
+  ['comida-desc', 'comida-kcal', 'comida-prot', 'comida-carb', 'comida-grasa', 'comida-gramos'].forEach(id => { const e = document.getElementById(id); if (e) e.value = ''; });
+  nutriGuardarEntradas([{ id: Date.now(), tipo, desc, kcal, prot, carb, grasa, g: gramos || undefined, xp: true }], tipo);
+}
+function addFavorita(i) {
+  const f = state.nutri.favoritas[i];
+  if (!f) return;
+  const tipo = comidaTipoTocado ? nutriTipoActual() : (f.tipo || tipoPorHora());
+  nutriGuardarEntradas([{ id: Date.now(), tipo, desc: f.desc, kcal: f.kcal, prot: f.prot || 0, carb: f.carb || 0, grasa: f.grasa || 0, ref: f.ref, porcion: f.porcion, cant: f.cant, g: f.g, xp: true }], tipo);
+}
+function nutriFavDe(id) {
+  const d = nutriDay(nutriKey());
+  const x = d && d.comidas.find(c => c.id === id);
+  if (!x) return;
+  const desc = x.porcion && x.cant ? `${x.desc} (${nutriCantTxt(x.cant, x.porcion)})` : x.desc;
+  if (state.nutri.favoritas.some(f => f.desc.toLowerCase() === desc.toLowerCase())) { toast('Ya está en frecuentes'); return; }
+  state.nutri.favoritas.push({ desc, kcal: x.kcal, prot: x.prot || 0, carb: x.carb || 0, grasa: x.grasa || 0, tipo: x.tipo, ref: x.ref, porcion: x.porcion, cant: x.cant, g: x.g });
+  saveState();
+  toast('⭐ Guardado en frecuentes');
+  renderNutriRapidos();
+}
+function removeFavorita(i) {
+  const f = state.nutri.favoritas[i];
+  if (!f || !confirm(`¿Quitar "${f.desc}" de frecuentes?`)) return;
+  state.nutri.favoritas.splice(i, 1);
+  saveState();
+  renderNutricion();
+}
+function removeComida(id) {
+  const d = nutriDay(nutriKey());
+  if (!d) return;
+  d.comidas = d.comidas.filter(x => x.id !== id);
+  hxRecalc(nutriKey());
+  saveState();
+  renderNutricion();
+}
+function renderNutriLista(d) {
+  const list = document.getElementById('comidas-list');
+  if (!hasComidas(d)) { list.innerHTML = '<p class="text-sm text-[var(--muted)]">Aún no hay comidas registradas este día.</p>'; return; }
+  list.innerHTML = TIPOS_COMIDA.map(t => {
+    const items = d.comidas.filter(x => x.tipo === t.id);
+    if (!items.length) return '';
+    const sub = items.reduce((s, x) => s + (Number(x.kcal) || 0), 0);
+    return `<div data-comida-tipo="${t.id}">
+      <div class="flex items-center justify-between text-sm mb-2"><span class="font-medium">${t.icon} ${t.label}</span><span class="text-[var(--muted)]">${fmtKcal(sub)} kcal</span></div>
+      <div class="space-y-1.5">${items.map(x => `
+        <div class="flex items-center gap-2 text-sm p-2 rounded-lg bg-[var(--card2)]">
+          <span class="flex-1 min-w-0"><span class="block truncate">${esc(x.desc)}</span>${x.porcion && x.cant ? `<span class="text-[11px] text-[var(--muted)]">${esc(nutriCantTxt(x.cant, x.porcion))}${x.g && x.porcion !== 'g' ? ` · ${x.g} g` : ''}${x.prot ? ` · ${Math.round(x.prot)} g prot` : ''}</span>` : x.prot ? `<span class="text-[11px] text-[var(--muted)]">${Math.round(x.prot)} g prot</span>` : ''}</span>
+          <span class="font-medium whitespace-nowrap">${fmtKcal(x.kcal)}</span>
+          <button class="px-1 text-[var(--muted)]" onclick="nutriFavDe(${x.id})" aria-label="Guardar ${esc(x.desc)} en frecuentes" title="Guardar en frecuentes">☆</button>
+          <button class="text-[var(--danger)] px-1" onclick="removeComida(${x.id})" aria-label="Eliminar ${esc(x.desc)}">×</button>
+        </div>`).join('')}
+      </div></div>`;
+  }).join('');
 }
 
 function renderPerfil(nc) {
@@ -3858,7 +4968,10 @@ function renderPerfil(nc) {
   const actSel = document.getElementById('perfil-actividad');
   if (!actSel.options.length) actSel.innerHTML = ACTIVIDAD.map(a => `<option value="${a.v}">${a.label}</option>`).join('');
   const defSel = document.getElementById('perfil-deficit');
-  if (!defSel.options.length) defSel.innerHTML = DEFICITS.map(a => `<option value="${a.v}">${a.label}</option>`).join('');
+  const opts = DEFICITS.slice();
+  if (!opts.some(o => o.v === Number(p.deficit))) opts.push({ v: Number(p.deficit), label: `${p.deficit > 0 ? 'Déficit' : 'Superávit'} personalizado: ${p.deficit > 0 ? '-' : '+'}${Math.abs(p.deficit)} kcal/día` });
+  const sig = opts.map(o => o.v).join(',');
+  if (defSel.dataset.sig !== sig) { defSel.innerHTML = opts.map(a => `<option value="${a.v}">${a.label}</option>`).join(''); defSel.dataset.sig = sig; }
   const set = (id, v) => { const el = document.getElementById(id); if (document.activeElement !== el) el.value = v; };
   set('perfil-sexo', p.sexo);
   set('perfil-edad', p.edad);
@@ -3878,30 +4991,30 @@ function renderPerfil(nc) {
   } else if (nc.deficitPct > 0.25) {
     aviso.className = 'text-xs mt-3 text-[var(--warning)]';
     aviso.textContent = 'Este déficit es más del 25% de tu gasto. Puede costar mantenerlo y hacerte perder músculo; considera el recomendado.';
+  } else if (nc.modo === 'subir') {
+    aviso.className = 'text-xs mt-3 text-[var(--muted)]';
+    aviso.textContent = `Para subir de peso comes ${fmtKcal(-p.deficit)} kcal por encima de tu gasto. Proteína sugerida: ≈ ${nc.prot} g al día (1.6 g por kg) y entrena fuerza para que sea músculo.`;
   } else {
     aviso.className = 'text-xs mt-3 text-[var(--muted)]';
-    aviso.textContent = `Proteína sugerida: ≈ ${nc.prot} g al día (1.6 g por kg) para cuidar el músculo mientras bajas.`;
+    aviso.textContent = `Proteína sugerida: ≈ ${nc.prot} g al día (1.6 g por kg) para cuidar el músculo${nc.modo === 'bajar' ? ' mientras bajas' : ''}.`;
   }
 }
-
 function abrirPerfil() {
   const det = document.getElementById('perfil-details');
   det.open = true;
   det.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
 function setPerfil(campo, val) {
   const p = state.nutri.perfil;
   if (campo === 'sexo') p.sexo = val === 'm' || val === 'h' ? val : '';
   else if (campo === 'edad') p.edad = val === '' ? '' : Math.min(90, Math.max(15, num(val)));
   else if (campo === 'estatura') p.estatura = val === '' ? '' : Math.min(220, Math.max(130, num(val)));
   else if (campo === 'actividad') p.actividad = parseFloat(val) || 1.55;
-  else if (campo === 'deficit') p.deficit = Math.max(0, num(val));
+  else if (campo === 'deficit') p.deficit = Math.min(1000, Math.max(-1000, num(val)));
   p.confirmado = perfilListo(p);
   saveState();
   renderNutricion();
 }
-
 function setPerfilPeso(val) {
   if (savePeso(parseFloat(val))) {
     state.nutri.perfil.confirmado = true;
@@ -3911,60 +5024,73 @@ function setPerfilPeso(val) {
   renderNutricion();
 }
 
+// ================= GUÍA DE PORCIONES =================
+let guiaQ = '';
+let guiaCat = '';
+let guiaAbierto = null;
+const guiaGramos = {};
+function renderGuia() {
+  const items = nutriItems();
+  const cats = [...new Set(items.map(x => x.cat))];
+  document.getElementById('guia-cats').innerHTML = ['', ...cats].map(c =>
+    `<button class="chip ${guiaCat === c ? 'on' : ''}" onclick="guiaCat=${jsArg(c)};renderGuia()">${c ? esc(c) : 'Todos'}</button>`).join('');
+  const inp = document.getElementById('guia-buscar');
+  if (document.activeElement !== inp) inp.value = guiaQ;
+  let lista = guiaQ.trim() ? nutriBuscarItems(guiaQ, 400) : items.slice().sort((a, b) => a.n.localeCompare(b.n, 'es'));
+  if (guiaCat) lista = lista.filter(x => x.cat === guiaCat);
+  document.getElementById('guia-cuenta').textContent = `${lista.length} ${lista.length === 1 ? 'alimento' : 'alimentos'}`;
+  document.getElementById('guia-lista').innerHTML = lista.length ? lista.map(x => {
+    const abierto = guiaAbierto === x.ref;
+    const p0 = x.por[0];
+    return `<div class="guia-item ${abierto ? 'on' : ''}" data-guia="${esc(x.ref)}">
+      <button class="guia-head" onclick="guiaToggle(${jsArg(x.ref)})" aria-expanded="${abierto}">
+        <span class="flex-1 min-w-0"><span class="block font-medium text-sm truncate">${esc(x.n)}</span>
+          <span class="text-[11px] text-[var(--muted)]">1 ${esc(p0[0])} = ${nutriNum(p0[1])} g = ${Math.round(x.k * p0[1] / 100)} kcal</span></span>
+        <span class="text-[11px] text-[var(--muted)] whitespace-nowrap">${Math.round(x.k)} kcal<br>/100 ${x.cat === 'Bebidas' ? 'ml' : 'g'}</span>
+      </button>
+      ${abierto ? guiaDetalle(x) : ''}
+    </div>`;
+  }).join('') : '<p class="text-sm text-[var(--muted)] p-3">No encontramos ese alimento.</p>';
+  const nota = document.getElementById('guia-nota');
+  if (nota) nota.textContent = NUTRI_DB.nota || '';
+}
+function guiaDetalle(x) {
+  const pors = x.por;
+  const gr = guiaGramos[x.ref] || Math.round(pors[0][1] * 1.5) || 100;
+  const ml = x.cat === 'Bebidas' ? 'ml' : 'g';
+  return `<div class="guia-body">
+    <table class="pet-tabla"><thead><tr><th>Porción</th><th>${ml === 'ml' ? 'ml' : 'Gramos'}</th><th>kcal</th></tr></thead><tbody>
+      <tr><td>100 ${ml}</td><td>100</td><td>${Math.round(x.k)}</td></tr>
+      ${pors.map(p => `<tr><td>1 ${esc(p[0])}${p[2] ? ' ' + esc(p[2]) : ''}</td><td>${nutriNum(p[1])}</td><td>${Math.round(x.k * p[1] / 100)}</td></tr>`).join('')}
+    </tbody></table>
+    <p class="text-[11px] text-[var(--muted)] mt-2">Por 100 ${ml}: proteína ${nutriNum(x.p)} g · carbohidratos ${nutriNum(x.c)} g · grasa ${nutriNum(x.g)} g${x.items ? ' · incluye ' + x.items.map(i => esc(Array.isArray(i) ? (nutriItem('a:' + i[0]) || { n: i[0] }).n.toLowerCase() : String(i.n || '').toLowerCase())).join(', ') : ''}</p>
+    <div class="flex items-center gap-2 mt-3">
+      <input type="number" class="input-sm w-24" id="guia-g" inputmode="numeric" min="1" value="${gr}" aria-label="Gramos" oninput="guiaCalc(${jsArg(x.ref)}, this.value)">
+      <span class="text-sm">${ml}</span>
+    </div>
+    <p class="text-sm mt-2" id="guia-res">${guiaTexto(x, gr)}</p>
+  </div>`;
+}
+function guiaTexto(x, gr) {
+  gr = Number(gr) || 0;
+  const ml = x.cat === 'Bebidas' ? 'ml' : 'g';
+  const kcal = Math.round(x.k * gr / 100);
+  const equiv = x.por.map(p => nutriFraccion(gr / p[1], p[0])).slice(0, 2).join(' o ');
+  return `<strong>${nutriNum(gr)} ${ml} de ${esc(x.n.charAt(0).toLowerCase() + x.n.slice(1))}</strong> = ~${fmtKcal(kcal)} kcal = ~${esc(equiv)}`;
+}
+function guiaCalc(ref, v) {
+  const x = nutriItem(ref);
+  if (!x) return;
+  guiaGramos[ref] = Number(v) || 0;
+  document.getElementById('guia-res').innerHTML = guiaTexto(x, v);
+}
+function guiaToggle(ref) { guiaAbierto = guiaAbierto === ref ? null : ref; renderGuia(); }
 function autofillAlimento(v) {
   const f = state.nutri.favoritas.find(x => x.desc === v);
-  const a = ALIMENTOS.find(x => x.n === v);
-  const src = f ? { k: f.kcal, p: f.prot } : a ? { k: a.k, p: a.p } : null;
-  if (!src) return;
-  document.getElementById('comida-kcal').value = src.k;
-  document.getElementById('comida-prot').value = src.p || '';
-  if (f && f.tipo && !comidaTipoTocado) document.getElementById('comida-tipo').value = f.tipo;
-}
-
-function addComida() {
-  const tipo = document.getElementById('comida-tipo').value;
-  const desc = document.getElementById('comida-desc').value.trim();
-  const kcal = num(document.getElementById('comida-kcal').value);
-  const prot = Math.max(0, parseFloat(document.getElementById('comida-prot').value) || 0);
-  if (!desc || kcal <= 0) { toast('Escribe qué comiste y sus calorías'); return; }
-  const d = nutriDay(nutriKey(), true);
-  d.comidas.push({ id: Date.now(), tipo, desc, kcal, prot });
-  const fav = document.getElementById('comida-fav');
-  if (fav.checked && !state.nutri.favoritas.some(f => f.desc.toLowerCase() === desc.toLowerCase())) {
-    state.nutri.favoritas.push({ desc, kcal, prot, tipo });
-  }
-  fav.checked = false;
-  ['comida-desc', 'comida-kcal', 'comida-prot'].forEach(id => document.getElementById(id).value = '');
-  saveState();
-  renderNutricion();
-  toast(`+${fmtKcal(kcal)} kcal`);
-}
-
-function addFavorita(i) {
-  const f = state.nutri.favoritas[i];
   if (!f) return;
-  const d = nutriDay(nutriKey(), true);
-  const tipo = comidaTipoTocado ? document.getElementById('comida-tipo').value : (f.tipo || tipoPorHora());
-  d.comidas.push({ id: Date.now(), tipo, desc: f.desc, kcal: f.kcal, prot: f.prot || 0 });
-  saveState();
-  renderNutricion();
-  toast(`${f.desc}: +${fmtKcal(f.kcal)} kcal`);
-}
-
-function removeFavorita(i) {
-  const f = state.nutri.favoritas[i];
-  if (!f || !confirm(`¿Quitar "${f.desc}" de frecuentes?`)) return;
-  state.nutri.favoritas.splice(i, 1);
-  saveState();
-  renderNutricion();
-}
-
-function removeComida(id) {
-  const d = nutriDay(nutriKey());
-  if (!d) return;
-  d.comidas = d.comidas.filter(x => x.id !== id);
-  saveState();
-  renderNutricion();
+  const set = (id, val) => { const e = document.getElementById(id); if (e) e.value = val || ''; };
+  set('comida-kcal', f.kcal); set('comida-prot', f.prot); set('comida-carb', f.carb); set('comida-grasa', f.grasa); set('comida-gramos', f.g);
+  if (f.tipo && !comidaTipoTocado) { nutriTipoSel = f.tipo; renderNutriRegistrar(); }
 }
 
 function setQuemadas(val) {
@@ -5721,7 +6847,7 @@ function autoBkDiario() {
     const blob = new Blob([backupPayloadJSON()], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `andres-panel-respaldo-${hoy}.json`;
+    a.href = url; a.download = `mi-panel-respaldo-${hoy}.json`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 2000);
     autoBkSetMeta({ lastDaily: hoy, last: new Date().toISOString() });

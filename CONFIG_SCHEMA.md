@@ -127,7 +127,13 @@ Estos campos viven en el estado completo (respaldo y Google Drive), no en `Impor
 | Campo | Qué guarda |
 | --- | --- |
 | `profile` | Respuestas de la entrevista inicial: nombre, objetivos, edad, sexo, estatura, peso, peso meta, actividad, ejercicios, moneda, secciones y `calorias` (`bmr`, `tdee`, `ajuste`, `meta`, fórmula Mifflin-St Jeor: -500 para bajar, +300 para subir). `{ "saltada": true }` si se saltó. |
-| `gamification` | `{ xp, level, streak, bestStreak, history }`. `history` guarda `{ xp, hechas }` por día. Sirve de base para una futura mascota (`window.panelHooks.onXp`). |
+| `gamification` | `{ xp, level, streak, bestStreak, history }`. `history` guarda `{ xp, hechas }` por día. La mascota escucha la XP con `window.panelHooks.onXp`. |
+| `mascota` | `{ activa, inicial, nombres: { id: nombre }, desbloqueadas: [ids], accesorios: [ids], equipo: { cabeza, otro }, etapaVista, creada, cfg: { etapa2, etapa3, metaXpDia } }`. `activa` es `null` hasta adoptar. `etapaVista` evita repetir la celebración de una etapa. `cfg.etapa2` / `etapa3` son los niveles de evolución (5 y 10 por defecto); `metaXpDia` es la XP diaria que llena el hambre. |
+| `nutri.perfil.deficit` | Ajuste diario: positivo resta (bajar), negativo suma (subir, -300 por defecto). Límite ±1000. `modoMigrado` marca que ya se corrigió el modo subir de versiones anteriores. |
+| `nutri.dias[fecha].comidas[]` | `{ id, tipo, desc, kcal, prot, carb, grasa, ref, porcion, cant, g, xp }` (`g` son gramos totales). `tipo`: desayuno, almuerzo, cena o snack. `ref` apunta al alimento (`a:` base, `p:` plato, `u:` propio, `up:` plato propio). |
+| `nutri.recientes` / `propios` / `platos` | Últimos alimentos usados, alimentos propios `{ id, n, k, p, c, g, por }` (kcal, proteína, carbohidratos y grasa por 100 g; `por` es una lista de porciones `[nombre, gramos]`) y platos propios `{ id, n, items, gramos, k, p, c, g }`. |
+| `hoyCfg.xpComida` | XP por la primera comida registrada de cada tipo en el día (3 por defecto, 0 la apaga). |
+| `schema` | Versión del esquema de datos (6). |
 | `tareas` | Tareas de Hoy: `{ id, texto, creada, hecha, hechaEn, subtareas: [{ id, texto, hecha, hechaEn }] }`. |
 | `recordatorios` | `{ id, texto, fecha, hecho, hechoEn, creado }`. `fecha` puede ir vacía. |
 | `timer` | Temporizador en curso (Solo 5 minutos o Pomodoro), o `null`. |
