@@ -1,6 +1,6 @@
 // Service worker: cache-first para el HTML y los recursos locales.
 // Sube CACHE (v2 -> v3...) cuando publiques una nueva versión del panel.
-const CACHE = 'panel-v4';
+const CACHE = 'panel-v5';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
