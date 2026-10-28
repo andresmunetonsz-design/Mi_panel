@@ -230,6 +230,129 @@ input[type="search"]::placeholder { color: var(--muted); }
 .nutri-macro { min-width: 0; }
 .nutri-macro .mac-lbl { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nutri-macro .mac-val { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  /* ===== v9: entrevistas por sección ===== */
+  #sx { position: fixed; inset: 0; z-index: 88; background: var(--bg); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  #sx.hidden { display: none; }
+  #sx-body { flex: 1; }
+  .sx-sec { font-size: 13px; font-weight: 700; color: var(--accent2); white-space: nowrap; }
+  .sx-btn { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; background: var(--card2); border: 1px solid var(--border); color: var(--muted); border-radius: 999px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+  .sx-btn:hover { color: var(--text); border-color: var(--accent); }
+  .sx-fijo { display: grid; grid-template-columns: 1fr 120px; gap: 8px; align-items: center; margin-top: 6px; font-size: 14px; }
+  .sx-lista { display: grid; gap: 8px; }
+  .sx-fila { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--card2); font-size: 14px; }
+  .sx-fila small { display: block; color: var(--muted); font-size: 11px; }
+  /* ===== Cuerpo: tarjetas de ejercicio ===== */
+  .ej-grid { display: grid; gap: 10px; }
+  @media (min-width: 640px) { .ej-grid { grid-template-columns: 1fr 1fr; } }
+  .ej-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; transition: border-color .2s, background .2s; }
+  .ej-card.on { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, var(--card)); }
+  .ej-top { display: flex; align-items: center; gap: 10px; }
+  .ej-ico { font-size: 26px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: var(--card2); border-radius: 12px; flex-shrink: 0; }
+  .ej-tit { flex: 1; min-width: 0; }
+  .ej-tit strong { display: block; font-size: 15px; line-height: 1.2; }
+  .ej-sub { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .ej-check { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--muted); cursor: pointer; flex-shrink: 0; }
+  .ej-check input { width: 26px; height: 26px; accent-color: var(--success); cursor: pointer; }
+  .ej-campos { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; margin-top: 10px; }
+  .ej-campos label { font-size: 11px; color: var(--muted); display: block; }
+  .ej-in { display: flex; gap: 4px; margin-top: 2px; }
+  .ej-in input, .ej-campos input { min-width: 0; padding: 8px 10px; font-size: 15px; }
+  .ej-in select { width: auto; padding: 8px 6px; font-size: 13px; }
+  .ej-bar { height: 6px; background: var(--card2); border-radius: 999px; overflow: hidden; margin-top: 10px; }
+  .ej-bar > div { height: 100%; background: var(--success); border-radius: 999px; transition: width .3s; }
+  .ej-meta { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .ej-tabla { width: 100%; font-size: 13px; border-collapse: collapse; }
+  .ej-tabla th { text-align: left; font-weight: 500; color: var(--muted); font-size: 11px; padding: 4px 4px 6px; }
+  .ej-tabla td { padding: 6px 4px; border-top: 1px solid var(--border); }
+  .ej-tabla td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ej-log { display: flex; gap: 8px; align-items: baseline; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .ej-log:last-child { border-bottom: none; }
+  .ej-log .f { color: var(--muted); font-size: 11px; white-space: nowrap; min-width: 52px; }
+  .ej-edit-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; padding: 10px; background: var(--card2); border-radius: 12px; margin-bottom: 8px; }
+  .ej-edit-row .fila { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
+  .ej-edit-row .fila input, .ej-edit-row .fila select { width: auto; padding: 6px 8px; font-size: 13px; }
+  /* ===== Diario ===== */
+  .dia-moods { display: flex; justify-content: space-between; gap: 6px; margin: 6px 0 12px; }
+  .dia-mood { flex: 1; font-size: 30px; line-height: 1; padding: 10px 0 6px; border-radius: 14px; background: var(--card2); border: 2px solid transparent; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .dia-mood span { font-size: 10px; color: var(--muted); }
+  .dia-mood.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--card2)); transform: scale(1.04); }
+  .dia-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .dia-cal .h { font-size: 10px; color: var(--muted); padding-bottom: 2px; }
+  .dia-cal button { aspect-ratio: 1 / 1; border-radius: 10px; background: var(--card2); border: 1px solid transparent; font-size: 11px; color: var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; cursor: pointer; padding: 0; }
+  .dia-cal button .e { font-size: 17px; }
+  .dia-cal button.hoy { border-color: var(--accent); color: var(--text); }
+  .dia-cal button.sel { background: color-mix(in srgb, var(--accent) 22%, var(--card2)); }
+  .dia-cal button:disabled { opacity: .35; cursor: default; }
+  .dia-trend { display: flex; align-items: flex-end; gap: 4px; height: 92px; }
+  .dia-trend .b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 2px; }
+  .dia-trend .b i { display: block; width: 100%; border-radius: 6px 6px 3px 3px; background: var(--accent); min-height: 3px; opacity: .85; }
+  .dia-trend .b i.vacio { background: var(--card2); opacity: 1; }
+  .dia-trend .b span { font-size: 9px; color: var(--muted); }
+  .dia-entrada { padding: 10px 12px; border-radius: 12px; background: var(--card2); font-size: 14px; }
+  .dia-entrada .f { font-size: 11px; color: var(--muted); }
+  .dia-prompt { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dia-prompt .dia-moods { margin: 0; flex: 1; min-width: 220px; }
+  .dia-prompt .dia-mood { font-size: 24px; padding: 6px 0; }
+  /* ===== Conexión ===== */
+  .cx-grid { display: grid; gap: 10px; }
+  @media (min-width: 640px) { .cx-grid { grid-template-columns: 1fr 1fr; } }
+  .cx-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
+  .cx-card.on { border-color: var(--success); background: color-mix(in srgb, var(--success) 8%, var(--card)); }
+  .cx-top { display: flex; align-items: flex-start; gap: 10px; }
+  .cx-ico { font-size: 26px; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; background: var(--card2); border-radius: 12px; flex-shrink: 0; }
+  .cx-tit { flex: 1; min-width: 0; }
+  .cx-tit strong { display: block; font-size: 15px; line-height: 1.25; }
+  .cx-tit span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .cx-acc { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .cx-msg { margin-top: 10px; padding: 12px; border-radius: 12px; background: var(--card2); font-size: 14px; line-height: 1.45; }
+  .cx-wa { display: inline-flex; align-items: center; gap: 4px; background: #25d366; color: #06351a; font-weight: 600; border-radius: 10px; padding: 6px 12px; font-size: 13px; }
+  .cx-sem { display: flex; align-items: center; gap: 12px; }
+  .cx-sem .ej-bar { flex: 1; margin-top: 0; height: 10px; }
+  .cx-dias { display: flex; gap: 4px; margin-top: 10px; }
+  .cx-dias div { flex: 1; text-align: center; font-size: 10px; color: var(--muted); }
+  .cx-dias b { display: block; height: 26px; border-radius: 8px; background: var(--card2); margin-bottom: 2px; font-size: 12px; line-height: 26px; color: var(--text); font-weight: 600; }
+  .cx-dias b.on { background: color-mix(in srgb, var(--success) 45%, var(--card2)); }
+  #cx-med { position: fixed; inset: 0; z-index: 92; background: radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--accent) 22%, var(--bg)), var(--bg) 70%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 18px calc(24px + env(safe-area-inset-bottom, 0px)); text-align: center; }
+  #cx-med.hidden { display: none; }
+  .cx-circ-wrap { width: 230px; height: 230px; display: flex; align-items: center; justify-content: center; margin: 22px 0; }
+  .cx-circ { width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--accent2) 80%, #fff), var(--accent)); box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 55%, transparent); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; transform: scale(.8); transition: transform 4s ease-in-out; }
+  .cx-reloj { font-size: 40px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .cx-durs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  /* ===== Planes: línea de tiempo ===== */
+  .pl-filtros { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .pl-filtros .chip { white-space: nowrap; flex-shrink: 0; }
+  .pl-tl { position: relative; padding-left: 26px; }
+  .pl-tl::before { content: ''; position: absolute; left: 13px; top: 6px; bottom: 6px; width: 2px; background: var(--border); border-radius: 2px; }
+  .pl-item { position: relative; margin-bottom: 12px; }
+  .pl-dot { position: absolute; left: -27px; top: 10px; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; border: 3px solid var(--bg); z-index: 1; }
+  .pl-box { background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--c, var(--accent)); border-radius: var(--radius); margin-left: 10px; }
+  .pl-head { display: block; width: 100%; text-align: left; padding: 10px 12px; background: none; border: none; color: var(--text); cursor: pointer; }
+  .pl-head .t { display: block; font-weight: 600; font-size: 15px; line-height: 1.25; }
+  .pl-head .f { font-size: 11px; color: var(--muted); }
+  .pl-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+  .pl-cuenta { font-size: 12px; font-weight: 700; color: var(--accent2); background: color-mix(in srgb, var(--accent) 14%, transparent); border-radius: 999px; padding: 2px 8px; }
+  .pl-cuenta.pronto { color: var(--warning); background: color-mix(in srgb, var(--warning) 16%, transparent); }
+  .pl-ok { font-size: 12px; font-weight: 700; color: var(--success); background: color-mix(in srgb, var(--success) 15%, transparent); border-radius: 999px; padding: 2px 8px; }
+  .pl-tag { font-size: 11px; color: var(--muted); background: var(--card2); border-radius: 999px; padding: 2px 8px; }
+  .pl-item.pasado .pl-box, .pl-item.pasado .pl-dot { opacity: .55; }
+  .pl-item.pasado .pl-head .t { text-decoration: line-through; text-decoration-thickness: 1px; }
+  .pl-body { padding: 0 12px 12px; font-size: 14px; }
+  .pl-body .nota { color: var(--muted); font-size: 13px; margin-bottom: 8px; white-space: pre-wrap; }
+  .pl-ck { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 14px; }
+  .pl-ck input { width: 20px; height: 20px; accent-color: var(--success); }
+  .pl-ck.hecho span { text-decoration: line-through; color: var(--muted); }
+  .pl-hoy { position: relative; margin: 4px 0 14px -26px; display: flex; align-items: center; gap: 8px; }
+  .pl-hoy::after { content: ''; flex: 1; height: 2px; background: var(--accent); border-radius: 2px; }
+  .pl-hoy span { background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; z-index: 1; white-space: nowrap; }
+  .pl-sw { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pl-sw button { width: 28px; height: 28px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; }
+  .pl-sw button.on { border-color: var(--text); }
+  .pl-form { display: grid; gap: 8px; }
+  .pl-form label { font-size: 12px; color: var(--muted); }
+  .pl-hero { display: flex; align-items: center; gap: 12px; }
+  .pl-hero .big { font-size: 34px; font-weight: 800; line-height: 1; color: var(--accent2); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  #sx select, #sec-plan select, #sec-diario select, #sec-conexion select { padding: 10px 14px; border: 1px solid var(--border); min-height: 44px; }
 </style>
 <script>/* Chart.js 4.4.1 */
 /*!
@@ -475,7 +598,7 @@ input[type="search"]::placeholder { color: var(--muted); }
       <!-- Nivel, XP y racha -->
       <div class="card p-4 mb-4" id="hx-nivel"></div>
 
-      <!-- Recordatorios de hoy -->
+      <!-- Diario: invitación del día -->
       <div id="hx-recs" class="mb-4"></div>
 
       <!-- Tarea clave del día -->
@@ -674,7 +797,7 @@ input[type="search"]::placeholder { color: var(--muted); }
 
       <div class="card p-5 mb-6">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="font-semibold">Gastos variables / vicios</h3>
+          <h3 class="font-semibold">Gastos variables</h3>
           <span class="text-sm text-[var(--muted)]" id="variables-total-label"></span>
         </div>
         <p class="text-xs text-[var(--muted)] mb-3">Gastos que cambian de un mes a otro. Ponles una meta para seguirlos.</p>
@@ -736,7 +859,7 @@ input[type="search"]::placeholder { color: var(--muted); }
           <button class="btn btn-sm" onclick="addPresupuesto()">+</button>
         </div>
         <div class="mt-4 pt-3 border-t border-[var(--border)] text-sm" id="presupuesto-check"></div>
-        <p class="text-xs text-[var(--muted)] mt-3">Orden de prioridad sin ingreso: 1) Techo, comida y servicios → 2) Salud → 3) Lo que necesitas para buscar trabajo (transporte, datos) → 4) Mínimos de deudas → 5) Todo lo demás.</p>
+        <p class="text-xs text-[var(--muted)] mt-3">Orden de prioridad sin ingreso: 1) Techo, comida y servicios → 2) Salud → 3) Transporte y conectividad → 4) Mínimos de deudas → 5) Todo lo demás.</p>
       </div>
     </section>
 
@@ -889,10 +1012,21 @@ input[type="search"]::placeholder { color: var(--muted); }
 
     <!-- ========== CUERPO ========== -->
     <section id="sec-cuerpo" class="section">
-      <div class="mb-6">
+      <div class="mb-5">
         <h2 class="text-2xl font-bold">Cuerpo</h2>
-        <p class="text-[var(--muted)] text-sm mt-1">Peso, movimiento y notas que tú definas</p>
+        <p class="text-[var(--muted)] text-sm mt-1">Tus ejercicios, tu peso y tus notas</p>
       </div>
+      <div class="card p-4 mb-4" id="ej-hoy"></div>
+      <div class="ej-grid mb-4" id="ej-cards"></div>
+      <div class="card p-4 mb-4" id="ej-semana"></div>
+      <details class="card p-4 mb-4" id="ej-hist-wrap">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> 📜 Historial</summary>
+        <div class="mt-3" id="ej-hist"></div>
+      </details>
+      <details class="card p-4 mb-6" id="ej-ajustes">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> ✏️ Editar ejercicios, metas y XP</summary>
+        <div class="mt-3" id="ej-edit"></div>
+      </details>
       <div class="card p-5 mb-6">
         <h3 class="font-semibold mb-4">Registro de peso</h3>
         <div class="flex gap-3 mb-4">
@@ -908,164 +1042,27 @@ input[type="search"]::placeholder { color: var(--muted); }
         </div>
         <p class="text-sm text-[var(--muted)]" id="peso-resumen">Regístrate una vez por semana.</p>
       </div>
-      <div class="card p-5 mb-6">
-        <h3 class="font-semibold mb-3">Plan de ejercicio (empezar suave)</h3>
-        <ul class="space-y-2 text-sm text-[var(--muted)]">
-          <li><strong class="text-[var(--text)]">Sem 1-2:</strong> Caminata 30-40 min × 4 días + movilidad</li>
-          <li><strong class="text-[var(--text)]">Sem 3-4:</strong> + 2 días de fuerza (sentadillas, flexiones, planks)</li>
-          <li><strong class="text-[var(--text)]">Sem 5-8:</strong> 3 fuerza + 1-2 cardio</li>
-          <li><strong class="text-[var(--text)]">Sem 9-12:</strong> Mantener 4 días + meta de rendimiento</li>
-        </ul>
-        <p class="mt-3 text-sm font-medium text-[var(--accent2)]">Regla: nunca falles 2 días seguidos.</p>
-      </div>
       <div class="card p-5">
         <h3 class="font-semibold mb-1">Notas de cuerpo</h3>
-        <p class="text-xs text-[var(--muted)] mb-3">Planes, reglas o recordatorios. Solo se guardan en este navegador.</p>
+        <p class="text-xs text-[var(--muted)] mb-3">Planes, reglas o lo que quieras tener a mano.</p>
         <div id="cuerpo-bloques"></div>
       </div>
     </section>
 
-    <!-- ========== RECORDATORIOS ========== -->
-    <section id="sec-recordatorios" class="section">
-      <div class="mb-6">
-        <h2 class="text-2xl font-bold">Recordatorios</h2>
-        <p class="text-[var(--muted)] text-sm mt-1">Pendientes con fecha. Márcalos cuando los hagas.</p>
+    <!-- ========== DIARIO ========== -->
+    <section id="sec-diario" class="section">
+      <div class="mb-5">
+        <h2 class="text-2xl font-bold">Diario</h2>
+        <p class="text-[var(--muted)] text-sm mt-1">Una entrada al día: cómo te sentiste y qué agradeces.</p>
       </div>
-      <div class="card p-4 mb-5">
-        <div class="grid gap-2 rec-form">
-          <input type="text" id="rec-texto" placeholder="¿Qué tienes que recordar?" aria-label="Recordatorio" onkeydown="if(event.key==='Enter')recAdd()">
-          <input type="date" id="rec-fecha" aria-label="Fecha">
-          <button class="btn btn-sm" onclick="recAdd()">+ Añadir</button>
-        </div>
-      </div>
-      <div class="space-y-2" id="rec-list"></div>
-      <details class="card p-4 mt-5" id="rec-hechos-wrap">
-        <summary class="text-sm font-medium flex items-center gap-2"><span class="chev">›</span> Hechos <span class="text-[var(--muted)]" id="rec-hechos-n"></span></summary>
-        <div class="space-y-2 mt-3" id="rec-hechos"></div>
+      <div class="card p-4 mb-4" id="dia-hoy"></div>
+      <div class="card p-4 mb-4" id="dia-tendencia"></div>
+      <div class="card p-4 mb-4" id="dia-cal"></div>
+      <div class="card p-4 mb-4" id="dia-lista"></div>
+      <details class="card p-4" id="dia-ajustes">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> ⚙️ Ajustes del diario</summary>
+        <div class="mt-3" id="dia-cfg"></div>
       </details>
-    </section>
-
-    <!-- ========== CARRERA Y EMPLEO ========== -->
-    <section id="sec-trabajo" class="section">
-      <div class="mb-6">
-        <h2 class="text-2xl font-bold">Carrera y búsqueda de empleo</h2>
-        <p class="text-[var(--muted)] text-sm mt-1">Buscar trabajo es un trabajo: horario, metas semanales y seguimiento a cada proceso.</p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Postulaciones (7 días)</p>
-          <p class="text-2xl font-bold" id="car-semana">0</p>
-          <p class="text-[10px] text-[var(--muted)]" id="car-semana-meta"></p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">En proceso</p>
-          <p class="text-2xl font-bold text-[var(--accent2)]" id="car-proceso">0</p>
-          <p class="text-[10px] text-[var(--muted)]">entrevistas y pruebas</p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Contactos (7 días)</p>
-          <p class="text-2xl font-bold" id="car-contactos">0</p>
-          <p class="text-[10px] text-[var(--muted)]" id="car-contactos-meta"></p>
-        </div>
-        <div class="card p-4">
-          <p class="text-xs text-[var(--muted)] mb-1">Seguimientos pendientes</p>
-          <p class="text-2xl font-bold" id="car-pendientes">0</p>
-          <p class="text-[10px] text-[var(--muted)]">para hoy o atrasados</p>
-        </div>
-      </div>
-
-      <div class="card p-5 mb-6">
-        <h3 class="font-semibold mb-3">Rutina de búsqueda</h3>
-        <ul class="text-sm space-y-1.5 text-[var(--muted)] mb-4">
-          <li>• <strong class="text-[var(--text)]">9:00-12:00:</strong> postulaciones de calidad y seguimientos (como si fuera tu horario laboral)</li>
-          <li>• <strong class="text-[var(--text)]">Tarde:</strong> 1-2 h de formación o de un proyecto que sume a tu portafolio</li>
-          <li>• <strong class="text-[var(--text)]">Cada día:</strong> mejor 2 postulaciones adaptadas que 10 genéricas + 1 contacto nuevo</li>
-          <li>• <strong class="text-[var(--text)]">Viernes:</strong> revisa qué procesos avanzaron y ajusta tu hoja de vida según las respuestas</li>
-        </ul>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label for="car-meta-apl" class="text-xs text-[var(--muted)]">Meta de postulaciones por semana</label>
-            <input type="number" id="car-meta-apl" min="1" max="100" inputmode="numeric" onchange="setMetaCarrera('aplicaciones', this.value)">
-          </div>
-          <div>
-            <label for="car-meta-con" class="text-xs text-[var(--muted)]">Meta de contactos por semana</label>
-            <input type="number" id="car-meta-con" min="0" max="100" inputmode="numeric" onchange="setMetaCarrera('contactos', this.value)">
-          </div>
-        </div>
-      </div>
-
-      <div class="card p-5 mb-6">
-        <div class="flex items-center justify-between gap-2 mb-1 flex-wrap">
-          <h3 class="font-semibold">Postulaciones</h3>
-          <span class="text-xs text-[var(--muted)]" id="post-resumen"></span>
-        </div>
-        <p class="text-xs text-[var(--muted)] mb-3">Anota cada vacante. Ponle un próximo paso con fecha para no dejar procesos en el aire.</p>
-        <div class="grid gap-2 sm:grid-cols-2">
-          <input type="text" id="post-empresa" placeholder="Empresa" aria-label="Empresa">
-          <input type="text" id="post-cargo" placeholder="Cargo" aria-label="Cargo">
-          <input type="text" id="post-enlace" placeholder="Enlace de la vacante (opcional)" aria-label="Enlace de la vacante">
-          <div class="flex gap-2">
-            <select id="post-estado" aria-label="Estado" class="flex-1"></select>
-            <button class="btn btn-sm whitespace-nowrap" onclick="addPostulacion()">+ Añadir</button>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-2 mt-4" id="post-filtros"></div>
-        <div class="space-y-2 mt-4" id="post-list"></div>
-      </div>
-
-      <div class="card p-5 mb-6">
-        <h3 class="font-semibold mb-1">Contactos y networking</h3>
-        <p class="text-xs text-[var(--muted)] mb-3">Excompañeros, jefes anteriores, amigos del sector, reclutadores. La mayoría de trabajos llegan por alguien que te conoce.</p>
-        <div class="grid gap-2 sm:grid-cols-[1fr_1fr_1.4fr_auto]">
-          <input type="text" id="con-nombre" placeholder="Nombre" aria-label="Nombre del contacto">
-          <input type="text" id="con-empresa" placeholder="Empresa / rol" aria-label="Empresa o rol">
-          <input type="text" id="con-nota" placeholder="¿Qué hablaron / próximo paso?" aria-label="Nota">
-          <button class="btn btn-sm whitespace-nowrap" onclick="addContacto()">+ Añadir</button>
-        </div>
-        <div class="space-y-2 mt-4 max-h-72 overflow-y-auto" id="con-list"></div>
-      </div>
-
-      <div class="card p-5 mb-6">
-        <div class="flex items-center justify-between gap-2 mb-1">
-          <h3 class="font-semibold">Checklist para arrancar</h3>
-          <span class="text-sm font-medium" id="check-pct"></span>
-        </div>
-        <div class="w-full h-1.5 bg-[var(--card2)] rounded-full overflow-hidden mb-4 mt-2">
-          <div id="check-bar" class="h-full bg-[var(--success)] rounded-full transition-all" style="width:0%"></div>
-        </div>
-        <div class="space-y-1.5" id="check-list"></div>
-        <div class="flex gap-2 mt-4">
-          <input type="text" id="check-nuevo" placeholder="Añadir otra tarea a la lista" onkeydown="if(event.key==='Enter')addCheck()" aria-label="Nueva tarea">
-          <button class="btn btn-sm" onclick="addCheck()">+</button>
-        </div>
-      </div>
-
-      <div class="card p-5 mb-6">
-        <h3 class="font-semibold mb-1">Formación y habilidades</h3>
-        <p class="text-xs text-[var(--muted)] mb-3">Cursos, certificaciones o habilidades que te hacen más competitivo. Elige pocas y termínalas.</p>
-        <div class="grid gap-2 sm:grid-cols-[1.6fr_1fr_auto]">
-          <input type="text" id="form-nombre" placeholder="Ej: Google Analytics 4, inglés B2, Excel avanzado" aria-label="Curso o habilidad">
-          <select id="form-tipo" aria-label="Tipo">
-            <option value="Curso">Curso</option>
-            <option value="Certificación">Certificación</option>
-            <option value="Habilidad">Habilidad</option>
-            <option value="Idioma">Idioma</option>
-          </select>
-          <button class="btn btn-sm whitespace-nowrap" onclick="addFormacion()">+ Añadir</button>
-        </div>
-        <div class="space-y-2 mt-4" id="form-list"></div>
-      </div>
-
-      <div class="card p-5">
-        <h3 class="font-semibold mb-1">Logros y avances</h3>
-        <p class="text-xs text-[var(--muted)] mb-3">Logros de trabajos anteriores (para tu hoja de vida y entrevistas) y avances de esta etapa.</p>
-        <div class="flex gap-2 mb-4">
-          <input type="text" id="logro-input" placeholder="Ej: Aumenté 30% los leads de una campaña en 2025" onkeydown="if(event.key==='Enter')addLogro()">
-          <button class="btn btn-sm" onclick="addLogro()">Añadir</button>
-        </div>
-        <div class="space-y-2" id="logros-list"></div>
-      </div>
     </section>
 
     <!-- ========== PROYECTOS ========== -->
@@ -1136,47 +1133,37 @@ input[type="search"]::placeholder { color: var(--muted); }
       <div class="space-y-3" id="proy-list"></div>
     </section>
 
-    <!-- ========== RELACIONES ========== -->
-    <section id="sec-relaciones" class="section">
-      <div class="mb-6">
-        <h2 class="text-2xl font-bold">Relaciones y espíritu</h2>
-        <p class="text-[var(--muted)] text-sm mt-1">Conexión con otros y contigo</p>
+    <!-- ========== CONEXIÓN ========== -->
+    <section id="sec-conexion" class="section">
+      <div class="mb-5">
+        <h2 class="text-2xl font-bold">Conexión</h2>
+        <p class="text-[var(--muted)] text-sm mt-1">Pequeñas acciones para estar en paz y cerca de quienes quieres.</p>
       </div>
-      <div id="relaciones-list" class="space-y-4 mb-4"></div>
-      <div class="card p-5 mb-4">
-        <h3 class="font-semibold mb-3">Espiritualidad (10-15 min diarios)</h3>
-        <div class="space-y-2 text-sm text-[var(--muted)]">
-          <p><strong class="text-[var(--text)]">A:</strong> Meditación de respiración</p>
-          <p><strong class="text-[var(--text)]">B:</strong> Journaling (3 agradecimientos + 1 intención)</p>
-          <p><strong class="text-[var(--text)]">C:</strong> Lectura que nutra</p>
-        </div>
-        <p class="mt-3 text-sm font-medium text-[var(--accent2)]">Elige UNA y hazla 30 días seguidos.</p>
-      </div>
-      <div class="card p-5">
-        <h3 class="font-semibold mb-4">Registro de práctica</h3>
-        <div class="flex gap-2 mb-4">
-          <input type="text" id="espiritu-input" placeholder="¿Qué practicaste hoy?">
-          <button class="btn btn-sm" onclick="addEspiritu()">Añadir</button>
-        </div>
-        <div class="space-y-2" id="espiritu-list"></div>
-      </div>
+      <div class="card p-4 mb-4" id="cx-semana"></div>
+      <div class="cx-grid mb-4" id="cx-cards"></div>
+      <details class="card p-4" id="cx-ajustes">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> ✏️ Elegir tarjetas y crear las tuyas</summary>
+        <div class="mt-3" id="cx-edit"></div>
+      </details>
     </section>
 
-    <!-- ========== PLAN 90 DÍAS ========== -->
+    <!-- ========== PLANES Y FECHAS ========== -->
     <section id="sec-plan" class="section">
-      <div class="mb-6">
-        <h2 class="text-2xl font-bold" id="plan-titulo">Plan 90 días</h2>
-        <p class="text-[var(--muted)] text-sm mt-1" id="plan-rango"></p>
+      <div class="mb-5">
+        <h2 class="text-2xl font-bold">Planes y fechas</h2>
+        <p class="text-[var(--muted)] text-sm mt-1">Tu línea de tiempo: lo que viene y lo que ya cumpliste.</p>
       </div>
-      <div class="card p-5 mb-6">
-        <h3 class="font-semibold mb-3">📅 Fechas del plan</h3>
-        <div id="fechas-plan"></div>
-      </div>
-      <div id="plan-fases" class="space-y-4"></div>
-      <div class="card p-5 mt-6">
-        <p class="font-semibold text-[var(--accent2)]">Regla de oro</p>
-        <p class="text-sm mt-2 text-[var(--muted)]">No busques la perfección. Busca no romper la cadena más de 1 día. 90 días de “bastante bien” superan 10 días perfectos y 80 de abandono.</p>
-      </div>
+      <div class="card p-4 mb-4" id="pl-proximo"></div>
+      <details class="card p-4 mb-4" id="pl-nuevo">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> ➕ Nuevo plan o fecha</summary>
+        <div class="mt-3" id="pl-form"></div>
+      </details>
+      <div class="pl-filtros mb-4" id="pl-filtros"></div>
+      <div class="pl-tl" id="pl-tl"></div>
+      <details class="card p-4 mt-6" id="pl-fechas-wrap">
+        <summary class="font-semibold flex items-center gap-2"><span class="chev">›</span> <span id="pl-fechas-tit">📅 Duración del plan</span></summary>
+        <div class="mt-3" id="fechas-plan"></div>
+      </details>
     </section>
 
     <!-- ========== SUEÑOS ========== -->
@@ -1232,6 +1219,9 @@ input[type="search"]::placeholder { color: var(--muted); }
         <h3 class="font-semibold mb-1">🗣️ Entrevista inicial</h3>
         <p class="text-sm text-[var(--muted)] mb-3" id="aj-perfil-txt"></p>
         <button class="btn btn-sm" onclick="wizAbrir()">Repetir entrevista</button>
+        <p class="text-sm font-semibold mt-5 mb-1">Preguntas por sección</p>
+        <p class="text-xs text-[var(--muted)] mb-3">Aparecen la primera vez que abres cada sección. Puedes repetirlas aquí o con el botón 🗣️ Preguntas de la sección.</p>
+        <div class="sx-lista" id="aj-sx"></div>
       </div>
 
       <div class="card p-5 mb-6">
@@ -1338,10 +1328,29 @@ input[type="search"]::placeholder { color: var(--muted); }
   </div>
 </div>
 
+<!-- ENTREVISTAS POR SECCIÓN -->
+<div id="sx" class="hidden" role="dialog" aria-modal="true" aria-labelledby="sx-titulo">
+  <div class="wiz-box">
+    <div class="wiz-top">
+      <span class="sx-sec" id="sx-sec"></span>
+      <div class="wiz-prog"><div id="sx-prog-bar"></div></div>
+      <button class="wiz-skip" id="sx-saltar" onclick="sxSaltar()">Saltar</button>
+    </div>
+    <div id="sx-body"></div>
+    <div class="wiz-foot">
+      <button class="btn btn-ghost" id="sx-atras" onclick="sxPaso(-1)">Atrás</button>
+      <button class="btn" id="sx-sig" onclick="sxPaso(1)">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEDITACIÓN Y RESPIRACIÓN -->
+<div id="cx-med" class="hidden" role="dialog" aria-modal="true" aria-labelledby="cx-med-tit"></div>
+
 <script src="alimentos.js"></script>
 <script>
 // ================= CONSTANTES =================
-const APP_VERSION = '8.0';
+const APP_VERSION = '9.0';
 const STORAGE_KEY = 'andres_panel_v1';
 const LOCK_KEY = 'andres_panel_lock';
 const DEFAULT_PLAN_DAYS = 90;
@@ -1369,11 +1378,7 @@ const EXTRAS_NEUTRAL = [
   { id: 'agua', label: 'Agua', icon: '💧', desc: 'Te hidrataste' },
   { id: 'sueno', label: 'Descanso', icon: '😴', desc: 'Dormiste lo suficiente' },
 ];
-const CHECKLIST_NEUTRAL = [
-  'Define la meta de esta semana',
-  'Actualiza tu hoja de vida',
-  'Revisa los procesos que tienes abiertos',
-];
+const CHECKLIST_NEUTRAL = [];
 const PRESUPUESTO_NEUTRAL = [
   { id: 'fijos', cat: 'Gastos fijos (tu parte)', auto: 'fijos', esencial: true },
   { id: 'deudas', cat: 'Abonos a deudas', auto: 'abonos', esencial: true },
@@ -1389,11 +1394,10 @@ const NAV = [
   { id: 'porciones', label: 'Guía de porciones', icon: '📏' },
   { id: 'finanzas', label: 'Finanzas', icon: '💰' },
   { id: 'cuerpo', label: 'Cuerpo', icon: '💪' },
-  { id: 'recordatorios', label: 'Recordatorios', icon: '🔔' },
-  { id: 'trabajo', label: 'Carrera', icon: '💼' },
+  { id: 'diario', label: 'Diario', icon: '📔' },
+  { id: 'conexion', label: 'Conexión', icon: '💞' },
+  { id: 'plan', label: 'Planes y fechas', icon: '📅' },
   { id: 'proyectos', label: 'Proyectos', icon: '🚀' },
-  { id: 'relaciones', label: 'Relaciones', icon: '❤️' },
-  { id: 'plan', label: 'Plan y fechas', icon: '📅' },
   { id: 'suenos', label: 'Sueños', icon: '✨' },
   { id: 'galeria', label: 'Galería', icon: '📷' },
   { id: 'ajustes', label: 'Ajustes y respaldo', icon: '⚙️' },
@@ -1426,7 +1430,7 @@ const COLORES = [
 const TEMAS = [['oscuro', 'Oscuro', '#0f1117'], ['oled', 'Negro', '#000000'], ['light', 'Claro', '#f4f5f9']];
 const UI_DEFAULT = {
   tema: 'oscuro', acento: '#6366f1', texto: 'normal', radio: 16, nombre: 'Mi Panel', avatar: null,
-  ocultas: [], barra: ['habitos', 'mascota', 'recordatorios', 'nutricion', 'finanzas'],
+  ocultas: [], barra: ['habitos', 'mascota', 'diario', 'nutricion', 'finanzas'],
 };
 const NAV_FIJAS = ['habitos', 'ajustes'];
 const BARRA_MAX = 5;
@@ -1816,6 +1820,7 @@ function migrate(raw) {
   s.schema = 4;
   migrateV5(s, raw);
   migrateV6(s, raw);
+  migrateV7(s, raw);
   return s;
 }
 
@@ -1868,9 +1873,9 @@ const OBJETIVOS = [
   { id: 'subir', label: 'Subir de peso', icon: '📈' },
   { id: 'mantener', label: 'Mantener mi peso', icon: '⚖️' },
   { id: 'ahorrar', label: 'Ahorrar dinero', icon: '💰' },
-  { id: 'trabajo', label: 'Conseguir trabajo', icon: '💼' },
   { id: 'productivo', label: 'Ser más productivo', icon: '🎯' },
   { id: 'relaciones', label: 'Mejorar relaciones', icon: '❤️' },
+  { id: 'paz', label: 'Sentirme en paz y con calma', icon: '🧘' },
 ];
 const OBJ_PESO = ['bajar', 'subir', 'mantener'];
 const EJERCICIOS = [
@@ -1900,15 +1905,15 @@ const SUGERENCIAS = {
     { id: 's_gastos', label: 'Anotar mis gastos', icon: '📒', xp: 10 },
     { id: 's_sin_hormiga', label: 'Día sin gastos hormiga', icon: '🐜', xp: 10 },
   ],
-  trabajo: [
-    { id: 's_postular', label: 'Enviar 2 postulaciones', icon: '📨', xp: 15 },
-    { id: 's_contacto', label: 'Escribirle a un contacto', icon: '🤝', xp: 10 },
-    { id: 's_aprender', label: 'Aprender 30 minutos', icon: '📚', xp: 10 },
-  ],
   productivo: [
     { id: 's_planear', label: 'Planear el día', icon: '📝', xp: 10 },
     { id: 's_enfoque', label: 'Un bloque de enfoque profundo', icon: '🎯', xp: 15 },
+    { id: 's_aprender', label: 'Aprender 30 minutos', icon: '📚', xp: 10 },
     { id: 's_orden', label: 'Ordenar mi espacio 10 minutos', icon: '🧹', xp: 5 },
+  ],
+  paz: [
+    { id: 's_respirar', label: 'Respirar 3 minutos', icon: '🌬️', xp: 5 },
+    { id: 's_pantallas', label: 'Una hora sin pantallas antes de dormir', icon: '📵', xp: 10 },
   ],
   relaciones: [
     { id: 's_llamar', label: 'Hablar con alguien importante', icon: '📞', xp: 10 },
@@ -1922,7 +1927,7 @@ const SUGERENCIAS = {
 };
 const SECCIONES_OBJ = {
   bajar: ['nutricion', 'cuerpo'], subir: ['nutricion', 'cuerpo'], mantener: ['nutricion', 'cuerpo'],
-  ahorrar: ['finanzas'], trabajo: ['trabajo', 'proyectos'], productivo: ['proyectos', 'plan'], relaciones: ['relaciones'],
+  ahorrar: ['finanzas'], productivo: ['proyectos', 'plan'], relaciones: ['conexion'], paz: ['diario', 'conexion'],
 };
 const MONEDAS = [
   ['COP', 'Peso colombiano'], ['MXN', 'Peso mexicano'], ['USD', 'Dólar'], ['EUR', 'Euro'],
@@ -1982,12 +1987,14 @@ function hxDayXp(s, k) {
     const tipos = new Set(nd.comidas.filter(c => c && c.xp).map(c => c.tipo));
     xp += Math.min(4, tipos.size) * cfg.xpComida;
   }
+  // v9: tarjetas de ejercicio, entrada del diario y tarjetas de Conexión
+  xp += ejDiaXp(s, k) + diaDiaXp(s, k) + cxDiaXp(s, k);
   return xp;
 }
 function hxDayHechas(s, k) {
   const day = s.days && s.days[k];
-  if (!day || !day.habits) return 0;
-  return s.actividades.reduce((n, a) => n + (day.habits[a.id] === true ? 1 : 0), 0);
+  const acts = day && day.habits ? s.actividades.reduce((n, a) => n + (day.habits[a.id] === true ? 1 : 0), 0) : 0;
+  return acts + ejDiaHechos(s, k) + cxDiaHechos(s, k);
 }
 function levelInfo(xp) {
   let level = 1, base = 0, need = 100;
@@ -2684,7 +2691,7 @@ function renderRecordatorios() {
   document.getElementById('rec-hechos-wrap').classList.toggle('hidden', !hechos.length);
   document.getElementById('rec-hechos').innerHTML = hechos.map(r => recRow(r)).join('');
 }
-function hxRenderRecs() {
+function hxRenderRecsV5() {
   const el = document.getElementById('hx-recs');
   const lista = currentDayOffset === 0 && !state.ui.ocultas.includes('recordatorios') ? recPendHoy() : [];
   el.classList.toggle('hidden', !lista.length);
@@ -2762,6 +2769,8 @@ function hxRenderAjustes() {
     : p.saltada ? 'La saltaste. Puedes hacerla cuando quieras para ajustar el panel a ti.'
     : `Hecha el ${fmtDate(p.fecha || todayKey(), { day: 'numeric', month: 'long' })}${(p.objetivos || []).length ? '. Objetivos: ' + p.objetivos.map(id => (OBJETIVOS.find(o => o.id === id) || { label: id }).label.toLowerCase()).join(', ') : ''}${p.kcalMeta ? `. Meta: ${p.kcalMeta} kcal al día` : ''}.`;
   document.getElementById('aj-perfil-txt').textContent = txt;
+  const sx = document.getElementById('aj-sx');
+  if (sx) sx.innerHTML = sxAjustesHtml();
 }
 function hxSetCfg(path, valor) {
   const c = state.hoyCfg;
@@ -2787,7 +2796,7 @@ function hxSetTool(id, on) {
 }
 
 // ---------- Entrevista inicial (onboarding) ----------
-const WIZ_PASOS = ['hola', 'objetivos', 'datos', 'peso', 'actividad', 'ejercicios', 'actividades', 'herramientas', 'moneda', 'secciones', 'mascota', 'listo'];
+const WIZ_PASOS = ['hola', 'objetivos', 'secciones', 'mascota', 'listo'];
 let wizI = 0;
 let wizD = null;
 
@@ -2805,7 +2814,7 @@ function hxSugeridas(d) {
   return out;
 }
 function wizSeccionesSugeridas(objs) {
-  const set = new Set(['mascota', 'recordatorios']);
+  const set = new Set(['mascota', 'diario']);
   (objs || []).forEach(o => (SECCIONES_OBJ[o] || []).forEach(x => set.add(x)));
   if (!(objs || []).length) ['nutricion', 'finanzas', 'proyectos'].forEach(x => set.add(x));
   if (set.has('nutricion')) set.add('porciones');
@@ -2929,7 +2938,7 @@ function wizRender() {
   const H = (emoji, titulo, txt) => `<div class="wiz-emoji">${emoji}</div><h2 class="wiz-h" id="wiz-titulo">${titulo}</h2>${txt ? `<p class="wiz-p">${txt}</p>` : ''}`;
   let html = '';
   if (paso === 'hola') {
-    html = H('👋', 'Armemos tu panel', 'Unas preguntas rápidas para ajustar el panel a ti. Todo queda guardado solo en tu dispositivo (y en tu Google Drive si lo conectas). Puedes saltar cualquier pregunta.') + `
+    html = H('👋', 'Armemos tu panel', 'Solo cuatro preguntas. Cada sección te hará las suyas la primera vez que la abras. Todo queda guardado en tu dispositivo (y en tu Google Drive si lo conectas).') + `
       <label class="wiz-lbl" for="wiz-nombre">¿Cómo te llamas?</label>
       <input type="text" id="wiz-nombre" autocomplete="given-name" placeholder="Tu nombre" value="${esc(d.nombre)}" oninput="wizSet('nombre', this.value)">`;
   } else if (paso === 'objetivos') {
@@ -2994,19 +3003,16 @@ function wizRender() {
       ${d.mascota ? `<label class="wiz-lbl" for="wiz-petnombre">¿Cómo se llama?</label>
       <input type="text" id="wiz-petnombre" maxlength="24" value="${esc(nom)}" oninput="wizSet('mascotaNombre', this.value)">` : ''}`;
   } else if (paso === 'listo') {
-    const k = wizCalorias(d);
     const objs = d.objetivos.map(id => (OBJETIVOS.find(o => o.id === id) || {}).label).filter(Boolean);
+    const secs = (d.secciones || wizSeccionesSugeridas(d.objetivos)).map(id => NAV.find(n => n.id === id)).filter(Boolean);
     html = H('🎉', d.nombre.trim() ? `¡Listo, ${esc(d.nombre.trim().split(/\s+/)[0])}!` : '¡Listo!', 'Así queda tu panel:') + `
-      ${k ? `<div class="wiz-res"><p class="text-xs text-[var(--muted)]">Tu meta diaria de calorías</p>
-        <p class="wiz-kcal" id="wiz-kcal">${k.meta.toLocaleString('es-CO')} kcal</p>
-        <p class="text-xs text-[var(--muted)]">Gasto estimado ${k.tdee.toLocaleString('es-CO')} kcal${k.ajuste ? (k.ajuste < 0 ? ` menos ${-k.ajuste} para bajar de peso` : ` más ${k.ajuste} para subir de peso`) : ''}. Es una estimación (${k.formula}); ajústala si lo necesitas.</p></div>` : ''}
       <div class="wiz-res text-sm">
         <p><strong>Objetivos:</strong> ${objs.length ? esc(objs.join(', ')) : 'sin definir'}</p>
-        <p class="mt-1"><strong>Actividades:</strong> ${wizSel().length} · el día cuenta con ${d.minActividades}</p>
-        <p class="mt-1"><strong>Herramientas:</strong> ${HERRAMIENTAS.filter(h => d.herramientas[h.id]).map(h => h.icon).join(' ') || 'ninguna'}</p>
-        <p class="mt-1"><strong>Moneda:</strong> ${esc(d.moneda)}</p>
+        <p class="mt-1"><strong>Secciones:</strong> ${secs.length ? secs.map(n => n.icon).join(' ') : 'solo Hoy'}</p>
+        <p class="mt-1"><strong>Actividades en Hoy:</strong> ${wizSel().length} · el día cuenta con ${d.minActividades}</p>
         ${d.mascota ? `<p class="mt-1"><strong>Mascota:</strong> ${esc((d.mascotaNombre || '').trim() || petNombre(d.mascota))} (${esc(petAnimal(d.mascota).label.toLowerCase())})</p>` : ''}
-      </div>`;
+      </div>
+      <p class="wiz-p mt-3">🗣️ Cuando abras Finanzas, Nutrición, Cuerpo y las demás por primera vez, te haremos 2 a 4 preguntas para ajustarlas. Puedes saltarlas.</p>`;
   }
   const body = document.getElementById('wiz-body');
   body.innerHTML = html;
@@ -3037,39 +3043,27 @@ function wizTerminar() {
     elegidas.forEach(a => { if (!out.some(x => x.id === a.id || x.label.toLowerCase() === a.label.toLowerCase())) out.push(a); });
     state.actividades = out;
   } else state.actividades = elegidas;
-  const k = wizCalorias(d);
-  const n = x => (x === '' || x == null || !Number.isFinite(Number(x))) ? null : Number(x);
+  const prev = state.profile && !state.profile.saltada ? state.profile : {};
+  const k = prev.edad ? wizCalorias({ ...prev, objetivos: d.objetivos }) : (prev.calorias || null);
   state.profile = {
-    version: 1, completado: true, fecha: todayKey(),
+    ...prev,
+    version: 2, completado: true, fecha: todayKey(), saltada: undefined,
     nombre: d.nombre.trim(), objetivos: d.objetivos.slice(),
-    edad: n(d.edad), sexo: d.sexo || '', estatura: n(d.estatura), peso: n(d.peso), pesoMeta: n(d.pesoMeta),
-    actividad: Number(d.actividad) || 1.2,
-    ejercicios: d.ejercicios.slice(), ejercicioOtro: d.ejercicioOtro.trim(),
     actividades: state.actividades.map(a => a.label),
     herramientas: { ...d.herramientas },
-    moneda: d.moneda, secciones: (d.secciones || []).slice(),
-    calorias: k, kcalMeta: k ? k.meta : null,
+    secciones: (d.secciones || []).slice(),
+    calorias: k, kcalMeta: k ? k.meta : (prev.kcalMeta || null),
   };
+  delete state.profile.saltada;
   state.hoyCfg.minActividades = d.minActividades;
   state.hoyCfg.herramientas = { ...d.herramientas };
   state.hoyCfg = hxNormCfg(state.hoyCfg);
-  state.config.moneda = d.moneda;
+  // El objetivo de peso solo cambia el déficit si elegiste uno (el resto se pregunta en Nutrición)
   const np = state.nutri.perfil;
-  if (d.sexo === 'h' || d.sexo === 'm') np.sexo = d.sexo;
-  if (n(d.edad)) np.edad = n(d.edad);
-  if (n(d.estatura)) np.estatura = n(d.estatura);
-  np.actividad = Number(d.actividad) || np.actividad;
-  np.deficit = d.objetivos.includes('bajar') ? 500 : d.objetivos.includes('subir') ? -300 : 0;
-  np.modoMigrado = true;
-  if (k) np.confirmado = true;
-  const p = n(d.peso);
-  if (p && p >= 30 && p <= 300) {
-    const hoy = todayKey();
-    const ex = state.pesos.find(x => x.fecha === hoy);
-    if (ex) ex.peso = p; else state.pesos.push({ fecha: hoy, peso: p });
-    state.pesos.sort((a, b) => a.fecha.localeCompare(b.fecha));
+  if (d.objetivos.some(o => OBJ_PESO.includes(o))) {
+    np.deficit = d.objetivos.includes('bajar') ? 500 : d.objetivos.includes('subir') ? -300 : 0;
+    np.modoMigrado = true;
   }
-  if (n(d.pesoMeta)) state.config.metaPeso = n(d.pesoMeta);
   const secs = d.secciones || wizSeccionesSugeridas(d.objetivos);
   state.ui.ocultas = wizSeccionesDisponibles().map(x => x.id).filter(id => !secs.includes(id));
   state.ui.barra = ['habitos'].concat(secs.filter(id => !NAV_FIJAS.includes(id) && id !== 'porciones')).slice(0, BARRA_MAX);
@@ -3126,7 +3120,7 @@ const PET_ACCESORIOS = [
   { id: 'auriculares', label: 'Auriculares', slot: 'cabeza', req: 'Tu primer Pomodoro', p: st => [st.pomos, 1] },
   { id: 'gorra', label: 'Gorra', slot: 'cabeza', req: 'Llega al nivel 5', p: st => [st.nivel, 5] },
   { id: 'casco', label: 'Casco', slot: 'cabeza', req: '5 sesiones de enfoque (Pomodoro o 5 minutos)', p: st => [st.enfoque, 5] },
-  { id: 'birrete', label: 'Birrete', slot: 'cabeza', req: 'Completa 10 tareas', p: st => [st.tareas, 10] },
+  { id: 'birrete', label: 'Birrete', slot: 'cabeza', req: 'Completa un proyecto o llega al nivel 7', p: st => petMejor([st.proyectos, 1], [st.nivel, 7]) },
   { id: 'banda', label: 'Banda deportiva', slot: 'cabeza', req: '10 actividades de ejercicio', p: st => [st.ejercicio, 10] },
   { id: 'gafas', label: 'Gafas', slot: 'otro', req: 'Racha de 14 días', p: st => [st.racha, 14] },
   { id: 'raqueta', label: 'Raqueta', slot: 'otro', req: '5 días de tenis o 20 actividades de ejercicio', p: st => petMejor([st.tenis, 5], [st.ejercicio, 20]) },
@@ -3241,7 +3235,26 @@ function petStats(s) {
     if (ten.some(a => h[a.id] === true)) st.tenis++;
     if (cue.some(a => h[a.id] === true)) st.cuerda++;
   });
+  // v9: tarjetas de ejercicio de Cuerpo (cuentan para la banda, la raqueta y la cuerda)
+  const E = s.ejercicios;
+  if (E && E.log && Array.isArray(E.tarjetas)) {
+    const tar = {};
+    E.tarjetas.forEach(t => { tar[t.id] = t; });
+    Object.values(E.log).forEach(d => {
+      let te = false, cu = false;
+      Object.entries(d || {}).forEach(([id, e]) => {
+        const t = tar[id];
+        if (!t || !e || !e.hecho) return;
+        st.ejercicio++;
+        if (t.ej === 'tenis' || /tenis|raqueta|p[aá]del|squash|b[aá]dminton/i.test(t.label)) te = true;
+        if (t.ej === 'cuerda' || /cuerda/i.test(t.label)) cu = true;
+      });
+      if (te) st.tenis++;
+      if (cu) st.cuerda++;
+    });
+  }
   st.tareas = (s.tareas || []).filter(t => t.hecha).length;
+  st.proyectos = (s.proyectos || []).filter(p => p && p.estado === 'terminado').length;
   st.enfoque = st.pomos + st.cinco;
   return st;
 }
@@ -3655,6 +3668,1441 @@ function petCerrarEvo() {
   else if (currentSection === 'habitos') petRenderHoy();
 }
 
+// ================= v9: CUERPO (tarjetas de ejercicio) =================
+// state.ejercicios = {
+//   tarjetas: [{ id, ej, label, icon, unidad, meta: { tipo: 'veces' | 'cantidad', n } }],
+//   log: { 'AAAA-MM-DD': { idTarjeta: { hecho, cant, min } } },
+//   cfg: { xp, nivel, metaSemana }
+// }
+const EJ_UNIDADES = ['reps', 'km', 'saltos', 'series', 'pasos', 'vueltas', 'min'];
+const EJ_DEF = {
+  trotar: { unidad: 'km', cant: 3 }, cuerda: { unidad: 'saltos', cant: 200 }, tenis: { unidad: 'series', cant: 3 },
+  bici: { unidad: 'km', cant: 10 }, caminar: { unidad: 'km', cant: 3 }, yoga: { unidad: 'series', cant: 1 },
+  casa: { unidad: 'reps', cant: 30 }, otro: { unidad: 'reps', cant: 10 },
+};
+const EJ_NIVELES = [
+  { id: 'principiante', label: 'Principiante', desc: 'Estoy empezando o volviendo después de un tiempo' },
+  { id: 'intermedio', label: 'Intermedio', desc: 'Me muevo varias veces por semana' },
+  { id: 'avanzado', label: 'Avanzado', desc: 'Entreno seguido y quiero retarme' },
+];
+const EJ_TIPS = {
+  principiante: 'Empieza suave: 10 a 20 minutos bastan. Lo importante es repetir, no agotarte.',
+  intermedio: 'Alterna días fuertes y suaves. Sube un poco la cantidad cada semana.',
+  avanzado: 'Ponte metas de cantidad por semana y cuida el descanso para no lesionarte.',
+  '': 'Marca cada ejercicio cuando lo hagas. Nunca falles dos días seguidos.',
+};
+function ejIcono(v, def) { const a = Array.from(String(v || '').trim()); return a.length ? a.slice(0, 3).join('') : def; }
+function ejNormCard(t) {
+  const cat = EJERCICIOS.find(e => e.id === t.ej);
+  const def = EJ_DEF[cat ? cat.id : 'otro'];
+  const meta = t.meta && typeof t.meta === 'object' ? t.meta : {};
+  const tipo = meta.tipo === 'cantidad' ? 'cantidad' : 'veces';
+  return {
+    id: String(t.id),
+    ej: cat ? cat.id : 'otro',
+    label: String(t.label || (cat && cat.label) || 'Ejercicio').trim().slice(0, 40) || 'Ejercicio',
+    icon: ejIcono(t.icon, (cat && cat.icon) || '🏅'),
+    unidad: EJ_UNIDADES.includes(t.unidad) ? t.unidad : def.unidad,
+    meta: { tipo, n: hxNum(meta.n, tipo === 'cantidad' ? def.cant * 3 : 3, 1, 99999) },
+  };
+}
+function ejNorm(r) {
+  r = r && typeof r === 'object' ? r : {};
+  const c = r.cfg && typeof r.cfg === 'object' ? r.cfg : {};
+  const out = {
+    tarjetas: [], log: {},
+    cfg: { xp: hxNum(c.xp, 15, 0, 500), nivel: EJ_NIVELES.some(n => n.id === c.nivel) ? c.nivel : '', metaSemana: hxNum(c.metaSemana, 3, 1, 14) },
+  };
+  const vistos = new Set();
+  (Array.isArray(r.tarjetas) ? r.tarjetas : []).forEach(t => {
+    if (!t || t.id == null || vistos.has(String(t.id))) return;
+    vistos.add(String(t.id));
+    out.tarjetas.push(ejNormCard(t));
+  });
+  if (r.log && typeof r.log === 'object') Object.entries(r.log).forEach(([k, d]) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !d || typeof d !== 'object') return;
+    const dia = {};
+    Object.entries(d).forEach(([id, e]) => {
+      if (!e || typeof e !== 'object') return;
+      dia[id] = { hecho: !!e.hecho, cant: Math.max(0, Number(e.cant) || 0), min: Math.max(0, Number(e.min) || 0) };
+    });
+    if (Object.keys(dia).length) out.log[k] = dia;
+  });
+  return out;
+}
+function ejNuevaTarjeta(ejId, label, icon, metaN) {
+  const cat = EJERCICIOS.find(e => e.id === ejId);
+  return ejNormCard({
+    id: cat ? 'ej_' + cat.id : 'ej_' + uid(), ej: cat ? cat.id : 'otro',
+    label: label || (cat && cat.label), icon: icon || (cat && cat.icon),
+    meta: { tipo: 'veces', n: metaN || 3 },
+  });
+}
+// Cuántos ejercicios se marcaron como hechos ese día (solo tarjetas que siguen existiendo)
+function ejDiaHechos(s, k) {
+  const E = s && s.ejercicios;
+  if (!E || !E.log || !Array.isArray(E.tarjetas)) return 0;
+  const d = E.log[k];
+  if (!d) return 0;
+  return E.tarjetas.filter(t => d[t.id] && d[t.id].hecho).length;
+}
+function ejDiaXp(s, k) {
+  const E = s && s.ejercicios;
+  return ejDiaHechos(s, k) * ((E && E.cfg && Number(E.cfg.xp)) || 0);
+}
+function semLunes(k) { return addDays(k, -((parseKey(k).getDay() + 6) % 7)); }
+function ejEntrada(k, id) { const d = state.ejercicios.log[k]; return (d && d[id]) || null; }
+function ejRacha(id) {
+  let k = todayKey();
+  const hecho = x => { const e = ejEntrada(x, id); return !!(e && e.hecho); };
+  if (!hecho(k)) k = addDays(k, -1);
+  let n = 0;
+  while (n < 3660 && hecho(k)) { n++; k = addDays(k, -1); }
+  return n;
+}
+function ejSemana(id, lunes) {
+  lunes = lunes || semLunes(todayKey());
+  const r = { veces: 0, cant: 0, min: 0 };
+  for (let i = 0; i < 7; i++) {
+    const e = ejEntrada(addDays(lunes, i), id);
+    if (!e) continue;
+    if (e.hecho) r.veces++;
+    r.cant += Number(e.cant) || 0;
+    r.min += Number(e.min) || 0;
+  }
+  return r;
+}
+function ejFmt(n) { return (Math.round((Number(n) || 0) * 10) / 10).toLocaleString('es-CO'); }
+function ejProgreso(t, sem) {
+  const v = t.meta.tipo === 'cantidad' ? sem.cant : sem.veces;
+  return { v, n: t.meta.n, pct: Math.min(100, Math.round(v / Math.max(1, t.meta.n) * 100)) };
+}
+function ejMetaTxt(t) { return t.meta.tipo === 'cantidad' ? `${ejFmt(t.meta.n)} ${t.unidad} por semana` : `${t.meta.n} ${t.meta.n === 1 ? 'vez' : 'veces'} por semana`; }
+function ejTarjeta(id) { return state.ejercicios.tarjetas.find(t => t.id === id); }
+
+function ejGuardarDia(k) {
+  hxRecalc(k);
+  saveState();
+  renderCuerpo();
+}
+function ejToggle(id, on) {
+  const k = todayKey();
+  const E = state.ejercicios;
+  const t = ejTarjeta(id); if (!t) return;
+  if (!E.log[k]) E.log[k] = {};
+  const prev = E.log[k][id] || { hecho: false, cant: 0, min: 0 };
+  prev.hecho = !!on;
+  E.log[k][id] = prev;
+  if (!prev.hecho && !prev.cant && !prev.min) delete E.log[k][id];
+  if (!Object.keys(E.log[k]).length) delete E.log[k];
+  ejGuardarDia(k);
+  if (on && E.cfg.xp) toast(`💪 ${t.label}: +${E.cfg.xp} XP`);
+}
+function ejSet(id, campo, valor) {
+  const k = todayKey();
+  const E = state.ejercicios;
+  if (!ejTarjeta(id) || !['cant', 'min'].includes(campo)) return;
+  if (!E.log[k]) E.log[k] = {};
+  const e = E.log[k][id] || { hecho: false, cant: 0, min: 0 };
+  const n = Math.max(0, Number(String(valor).replace(',', '.')) || 0);
+  e[campo] = Math.round(n * 100) / 100;
+  const antes = e.hecho;
+  if (e[campo] > 0) e.hecho = true; // Anotar cantidad o tiempo cuenta como hecho
+  E.log[k][id] = e;
+  if (!e.hecho && !e.cant && !e.min) delete E.log[k][id];
+  if (!Object.keys(E.log[k]).length) delete E.log[k];
+  ejGuardarDia(k);
+  if (!antes && e.hecho && E.cfg.xp) toast(`💪 Hecho: +${E.cfg.xp} XP`);
+}
+function ejUnidad(id, u) {
+  const t = ejTarjeta(id); if (!t || !EJ_UNIDADES.includes(u)) return;
+  t.unidad = u; saveState(); renderCuerpo();
+}
+
+function renderCuerpo() {
+  if (!document.getElementById('ej-cards')) return;
+  const E = state.ejercicios;
+  const k = todayKey();
+  const lunes = semLunes(k);
+  const hechosHoy = ejDiaHechos(state, k);
+  const xpHoy = ejDiaXp(state, k);
+  const hoy = E.log[k] || {};
+  const lineas = E.tarjetas.filter(t => hoy[t.id] && (hoy[t.id].hecho || hoy[t.id].cant || hoy[t.id].min)).map(t => {
+    const e = hoy[t.id];
+    const partes = [e.cant ? `${ejFmt(e.cant)} ${t.unidad}` : '', e.min ? `${ejFmt(e.min)} min` : ''].filter(Boolean).join(' · ');
+    return `<div class="ej-log"><span>${esc(t.icon)}</span><span class="flex-1">${esc(t.label)}${partes ? ` <span class="text-[var(--muted)]">· ${partes}</span>` : ''}</span>${e.hecho ? '<span class="text-[var(--success)]">✓</span>' : ''}</div>`;
+  });
+  document.getElementById('ej-hoy').innerHTML = `
+    <div class="flex items-center justify-between gap-3 mb-2">
+      <div><h3 class="font-semibold">Registro de hoy</h3>
+      <p class="text-xs text-[var(--muted)]">${E.tarjetas.length ? `${hechosHoy} de ${E.tarjetas.length} ejercicios · ${EJ_TIPS[E.cfg.nivel] || EJ_TIPS['']}` : 'Agrega tus ejercicios para empezar.'}</p></div>
+      <span class="badge badge-media" id="ej-xp-hoy">+${xpHoy} XP</span>
+    </div>
+    ${lineas.length ? lineas.join('') : `<p class="text-sm text-[var(--muted)]">Todavía no registras ejercicio hoy.</p>`}`;
+  document.getElementById('ej-cards').innerHTML = E.tarjetas.length ? E.tarjetas.map(t => {
+    const e = hoy[t.id] || { hecho: false, cant: 0, min: 0 };
+    const sem = ejSemana(t.id, lunes);
+    const pr = ejProgreso(t, sem);
+    const racha = ejRacha(t.id);
+    return `<div class="ej-card ${e.hecho ? 'on' : ''}" data-ej="${esc(t.id)}">
+      <div class="ej-top">
+        <span class="ej-ico" aria-hidden="true">${esc(t.icon)}</span>
+        <div class="ej-tit"><strong>${esc(t.label)}</strong><span class="ej-sub">${racha ? `🔥 ${racha} ${racha === 1 ? 'día seguido' : 'días seguidos'}` : 'Sin racha todavía'} · +${E.cfg.xp} XP</span></div>
+        <label class="ej-check"><input type="checkbox" data-ej-check ${e.hecho ? 'checked' : ''} aria-label="${esc(t.label)}: hecho hoy" onchange="ejToggle(${jsArg(t.id)}, this.checked)">Hecho hoy</label>
+      </div>
+      <div class="ej-campos">
+        <label>Cantidad<div class="ej-in">
+          <input type="number" inputmode="decimal" min="0" step="any" placeholder="0" value="${e.cant || ''}" data-ej-cant aria-label="${esc(t.label)}: cantidad" onchange="ejSet(${jsArg(t.id)}, 'cant', this.value)">
+          <select data-ej-unidad aria-label="Unidad" onchange="ejUnidad(${jsArg(t.id)}, this.value)">${EJ_UNIDADES.map(u => `<option value="${u}" ${t.unidad === u ? 'selected' : ''}>${u}</option>`).join('')}</select>
+        </div></label>
+        <label>Minutos<input type="number" inputmode="numeric" min="0" placeholder="0" value="${e.min || ''}" data-ej-min aria-label="${esc(t.label)}: minutos" onchange="ejSet(${jsArg(t.id)}, 'min', this.value)"></label>
+      </div>
+      <div class="ej-bar"><div style="width:${pr.pct}%"></div></div>
+      <div class="ej-meta"><span>Meta: ${esc(ejMetaTxt(t))}</span><span>${ejFmt(pr.v)}/${ejFmt(pr.n)}</span></div>
+    </div>`;
+  }).join('') : `<div class="card p-4 text-sm text-[var(--muted)]">No tienes tarjetas de ejercicio. Agrégalas en "Editar ejercicios" o con el botón 🗣️ Preguntas.</div>`;
+  // Totales de la semana
+  const filas = E.tarjetas.map(t => { const s = ejSemana(t.id, lunes); return { t, s }; });
+  const tot = filas.reduce((a, f) => ({ veces: a.veces + f.s.veces, min: a.min + f.s.min }), { veces: 0, min: 0 });
+  document.getElementById('ej-semana').innerHTML = `
+    <div class="flex items-center justify-between gap-2 mb-2"><h3 class="font-semibold">Esta semana</h3>
+    <span class="text-xs text-[var(--muted)]">desde el ${fmtDate(lunes, { weekday: 'short', day: 'numeric', month: 'short' })}</span></div>
+    <p class="text-sm mb-3"><strong>${tot.veces}</strong> ${tot.veces === 1 ? 'sesión' : 'sesiones'} · <strong>${ejFmt(tot.min)}</strong> minutos</p>
+    ${filas.length ? `<table class="ej-tabla"><thead><tr><th>Ejercicio</th><th class="n">Veces</th><th class="n">Cantidad</th><th class="n">Min</th><th class="n">Meta</th></tr></thead><tbody>
+    ${filas.map(({ t, s }) => { const pr = ejProgreso(t, s); return `<tr><td>${esc(t.icon)} ${esc(t.label)}</td><td class="n">${s.veces}</td><td class="n">${s.cant ? ejFmt(s.cant) + ' ' + esc(t.unidad) : '-'}</td><td class="n">${s.min ? ejFmt(s.min) : '-'}</td><td class="n">${pr.pct >= 100 ? '✅' : pr.pct + '%'}</td></tr>`; }).join('')}
+    </tbody></table>` : ''}`;
+  // Historial (últimos 30 días)
+  const hist = [];
+  for (let i = 0; i < 30; i++) {
+    const kk = addDays(k, -i);
+    const d = E.log[kk];
+    if (!d) continue;
+    Object.entries(d).forEach(([id, e]) => {
+      const t = ejTarjeta(id);
+      if (!t || !(e.hecho || e.cant || e.min)) return;
+      const partes = [e.cant ? `${ejFmt(e.cant)} ${t.unidad}` : '', e.min ? `${ejFmt(e.min)} min` : ''].filter(Boolean).join(' · ');
+      hist.push(`<div class="ej-log"><span class="f">${fmtDate(kk, { day: 'numeric', month: 'short' })}</span><span class="flex-1">${esc(t.icon)} ${esc(t.label)}${partes ? ` <span class="text-[var(--muted)]">· ${partes}</span>` : ''}</span></div>`);
+    });
+  }
+  document.getElementById('ej-hist').innerHTML = hist.length ? hist.join('') : '<p class="text-sm text-[var(--muted)]">Aquí verás lo que registres.</p>';
+  ejRenderEdit();
+  renderPesoChart();
+}
+function ejRenderEdit() {
+  const E = state.ejercicios;
+  const libres = EJERCICIOS.filter(e => !E.tarjetas.some(t => t.ej === e.id));
+  document.getElementById('ej-edit').innerHTML = `
+    ${E.tarjetas.map(t => `<div class="ej-edit-row">
+      <input type="text" class="input-sm" value="${esc(t.label)}" maxlength="40" aria-label="Nombre del ejercicio" onchange="ejEditar(${jsArg(t.id)}, 'label', this.value)">
+      <button class="hx-del" onclick="ejQuitar(${jsArg(t.id)})" aria-label="Quitar ${esc(t.label)}">×</button>
+      <div class="fila">Meta:
+        <input type="number" min="1" inputmode="decimal" value="${t.meta.n}" style="width:76px" aria-label="Meta de ${esc(t.label)}" onchange="ejEditar(${jsArg(t.id)}, 'metaN', this.value)">
+        <select aria-label="Tipo de meta" onchange="ejEditar(${jsArg(t.id)}, 'metaTipo', this.value)">
+          <option value="veces" ${t.meta.tipo === 'veces' ? 'selected' : ''}>veces por semana</option>
+          <option value="cantidad" ${t.meta.tipo === 'cantidad' ? 'selected' : ''}>${esc(t.unidad)} por semana</option>
+        </select>
+      </div>
+    </div>`).join('') || '<p class="text-sm text-[var(--muted)] mb-2">Sin ejercicios todavía.</p>'}
+    ${libres.length ? `<p class="text-xs text-[var(--muted)] mt-3 mb-2">Agregar de tu lista</p>
+    <div class="flex flex-wrap gap-2">${libres.map(e => `<button class="chip" onclick="ejAgregar('${e.id}')">${e.icon} ${esc(e.label)}</button>`).join('')}</div>` : ''}
+    <p class="text-xs text-[var(--muted)] mt-4 mb-2">Otro ejercicio</p>
+    <div class="flex gap-2">
+      <input type="text" id="ej-nuevo-icono" class="input-sm text-center" style="width:56px" placeholder="🏅" aria-label="Icono">
+      <input type="text" id="ej-nuevo" class="input-sm flex-1" maxlength="40" placeholder="Ej: natación, fútbol, baile" aria-label="Nombre del ejercicio nuevo" onkeydown="if(event.key==='Enter')ejAgregarOtro()">
+      <button class="btn btn-sm" onclick="ejAgregarOtro()">+</button>
+    </div>
+    <div class="hx-grid2 mt-4">
+      <label class="block"><span class="text-xs text-[var(--muted)]">XP por ejercicio marcado</span>
+        <input type="number" min="0" inputmode="numeric" id="ej-cfg-xp" value="${E.cfg.xp}" onchange="ejCfg('xp', this.value)"></label>
+      <label class="block"><span class="text-xs text-[var(--muted)]">Nivel</span>
+        <select id="ej-cfg-nivel" onchange="ejCfg('nivel', this.value)"><option value="">Sin definir</option>${EJ_NIVELES.map(n => `<option value="${n.id}" ${E.cfg.nivel === n.id ? 'selected' : ''}>${n.label}</option>`).join('')}</select></label>
+    </div>`;
+}
+function ejEditar(id, campo, val) {
+  const t = ejTarjeta(id); if (!t) return;
+  if (campo === 'label') t.label = String(val).trim().slice(0, 40) || t.label;
+  else if (campo === 'metaN') t.meta.n = hxNum(String(val).replace(',', '.'), t.meta.n, 1, 99999);
+  else if (campo === 'metaTipo') t.meta.tipo = val === 'cantidad' ? 'cantidad' : 'veces';
+  saveState(); renderCuerpo();
+}
+function ejAgregar(ejId) {
+  const E = state.ejercicios;
+  if (E.tarjetas.some(t => t.ej === ejId && ejId !== 'otro')) return;
+  E.tarjetas.push(ejNuevaTarjeta(ejId, null, null, E.cfg.metaSemana));
+  saveState(); renderCuerpo();
+  toast('Ejercicio agregado');
+}
+function ejAgregarOtro() {
+  const inp = document.getElementById('ej-nuevo');
+  const label = inp.value.trim();
+  if (!label) { toast('Escribe el nombre del ejercicio'); return; }
+  const icon = document.getElementById('ej-nuevo-icono').value;
+  state.ejercicios.tarjetas.push(ejNuevaTarjeta('otro', label, icon, state.ejercicios.cfg.metaSemana));
+  saveState(); renderCuerpo();
+  toast('Ejercicio agregado');
+}
+function ejQuitar(id) {
+  const t = ejTarjeta(id); if (!t) return;
+  if (!confirm(`¿Quitar "${t.label}"? Su historial queda guardado.`)) return;
+  state.ejercicios.tarjetas = state.ejercicios.tarjetas.filter(x => x.id !== id);
+  hxRecalc(todayKey());
+  saveState(); renderCuerpo();
+}
+function ejCfg(campo, val) {
+  const c = state.ejercicios.cfg;
+  if (campo === 'xp') c.xp = hxNum(val, c.xp, 0, 500);
+  else if (campo === 'nivel') c.nivel = EJ_NIVELES.some(n => n.id === val) ? val : '';
+  // Solo se recalcula hoy: los días anteriores conservan el XP que ya ganaste
+  hxRecalc(todayKey());
+  saveState(); renderCuerpo();
+  toast('Guardado');
+}
+
+// ================= v9: DIARIO =================
+// state.diario = { entradas: { 'AAAA-MM-DD': { animo: 1-5, texto, gracias, ts } }, cfg: { hora, gratitud, xp } }
+// Los recordatorios antiguos siguen guardados en state.recordatorios, pero ya no se muestran.
+const DIA_ANIMOS = [
+  { v: 1, e: '😢', l: 'Muy mal' }, { v: 2, e: '😕', l: 'Mal' }, { v: 3, e: '😐', l: 'Normal' },
+  { v: 4, e: '🙂', l: 'Bien' }, { v: 5, e: '😄', l: 'Muy bien' },
+];
+const DIA_HORAS = [
+  { id: 'manana', label: 'En la mañana', icon: '🌅', h: 6 },
+  { id: 'tarde', label: 'En la tarde', icon: '☀️', h: 13 },
+  { id: 'noche', label: 'En la noche', icon: '🌙', h: 19 },
+];
+function diaNorm(r) {
+  r = r && typeof r === 'object' ? r : {};
+  const c = r.cfg && typeof r.cfg === 'object' ? r.cfg : {};
+  const out = {
+    entradas: {},
+    cfg: { hora: DIA_HORAS.some(h => h.id === c.hora) ? c.hora : 'noche', gratitud: c.gratitud !== false, xp: hxNum(c.xp, 5, 0, 500) },
+  };
+  if (r.entradas && typeof r.entradas === 'object') Object.entries(r.entradas).forEach(([k, e]) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !e || typeof e !== 'object') return;
+    const animo = hxNum(e.animo, 0, 0, 5);
+    const texto = String(e.texto || '').slice(0, 500);
+    const gracias = String(e.gracias || '').slice(0, 300);
+    if (!animo && !texto.trim() && !gracias.trim()) return;
+    out.entradas[k] = { animo, texto, gracias, ts: e.ts || null };
+  });
+  return out;
+}
+function diaDiaXp(s, k) {
+  const D = s && s.diario;
+  const e = D && D.entradas && D.entradas[k];
+  return e && (e.animo || String(e.texto || '').trim()) ? (Number(D.cfg && D.cfg.xp) || 0) : 0;
+}
+function diaAnimo(v) { return DIA_ANIMOS.find(a => a.v === Number(v)) || null; }
+let diaFecha = null;     // día que se está editando (null = hoy)
+let diaBorr = null;      // { animo } elegido antes de guardar
+let diaMes = null;       // 'AAAA-MM' del calendario
+function diaKey() { return diaFecha || todayKey(); }
+function diaElegir(v) {
+  diaBorr = diaBorr || {};
+  diaBorr.animo = v;
+  document.querySelectorAll('#dia-hoy .dia-mood').forEach(b => {
+    const on = Number(b.dataset.v) === v;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+}
+function diaGuardar() {
+  const k = diaKey();
+  const prev = state.diario.entradas[k] || {};
+  const animo = (diaBorr && diaBorr.animo) || prev.animo || 0;
+  const texto = (document.getElementById('dia-texto') || {}).value || '';
+  const grEl = document.getElementById('dia-gracias');
+  const gracias = grEl ? grEl.value : (prev.gracias || '');
+  if (!animo) { toast('Elige cómo te sientes'); return; }
+  const nueva = !state.diario.entradas[k];
+  state.diario.entradas[k] = { animo, texto: texto.trim().slice(0, 500), gracias: gracias.trim().slice(0, 300), ts: new Date().toISOString() };
+  diaBorr = null;
+  hxRecalc(k);
+  saveState();
+  renderDiario();
+  toast(nueva && state.diario.cfg.xp ? `📔 Entrada guardada: +${state.diario.cfg.xp} XP` : '📔 Entrada guardada');
+}
+function diaRapido(v) {
+  const k = todayKey();
+  const prev = state.diario.entradas[k];
+  state.diario.entradas[k] = { animo: v, texto: prev ? prev.texto : '', gracias: prev ? prev.gracias : '', ts: new Date().toISOString() };
+  hxRecalc(k);
+  saveState();
+  if (currentSection === 'habitos') renderHabitos();
+  toast(`${diaAnimo(v).e} Guardado. Puedes escribir más en Diario.`);
+}
+function diaBorrar(k) {
+  if (!state.diario.entradas[k] || !confirm('¿Borrar la entrada de este día?')) return;
+  delete state.diario.entradas[k];
+  hxRecalc(k);
+  saveState();
+  renderDiario();
+}
+function diaEditar(k) {
+  if (k > todayKey()) return;
+  diaFecha = k === todayKey() ? null : k;
+  diaBorr = null;
+  renderDiario();
+  const el = document.getElementById('dia-hoy');
+  if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function diaCambiarMes(dir) {
+  const [y, m] = (diaMes || todayKey().slice(0, 7)).split('-').map(Number);
+  const d = new Date(y, m - 1 + dir, 1);
+  diaMes = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  diaRenderCal();
+}
+function diaCfg(campo, val) {
+  const c = state.diario.cfg;
+  if (campo === 'hora' && DIA_HORAS.some(h => h.id === val)) c.hora = val;
+  else if (campo === 'gratitud') c.gratitud = !!val;
+  else if (campo === 'xp') { c.xp = hxNum(val, c.xp, 0, 500); hxRecalc(todayKey()); }
+  saveState();
+  renderDiario();
+  toast('Guardado');
+}
+function diaPromedio(desde, hasta) {
+  const vals = [];
+  for (let k = desde; k <= hasta; k = addDays(k, 1)) { const e = state.diario.entradas[k]; if (e && e.animo) vals.push(e.animo); }
+  return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+}
+function renderDiario() {
+  if (!document.getElementById('dia-hoy')) return;
+  const D = state.diario;
+  const k = diaKey();
+  const e = D.entradas[k] || {};
+  const animo = (diaBorr && diaBorr.animo) || e.animo || 0;
+  const esHoy = k === todayKey();
+  document.getElementById('dia-hoy').innerHTML = `
+    <div class="flex items-center justify-between gap-2 mb-1">
+      <h3 class="font-semibold">${esHoy ? '¿Cómo te sientes hoy?' : '¿Cómo te sentiste?'}</h3>
+      <span class="text-xs text-[var(--muted)]">${fmtDate(k, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+    </div>
+    <div class="dia-moods" role="group" aria-label="Estado de ánimo">
+      ${DIA_ANIMOS.map(a => `<button type="button" class="dia-mood ${animo === a.v ? 'on' : ''}" data-v="${a.v}" aria-pressed="${animo === a.v}" aria-label="${a.l}" onclick="diaElegir(${a.v})">${a.e}<span>${a.l}</span></button>`).join('')}
+    </div>
+    <label for="dia-texto" class="text-xs text-[var(--muted)]">Unas palabras (opcional)</label>
+    <textarea id="dia-texto" rows="3" maxlength="500" placeholder="¿Qué pasó hoy? ¿Qué te dejó pensando?">${esc(e.texto || '')}</textarea>
+    ${D.cfg.gratitud ? `<label for="dia-gracias" class="text-xs text-[var(--muted)] block mt-3">Algo por lo que estoy agradecido (opcional)</label>
+    <input type="text" id="dia-gracias" maxlength="300" placeholder="Hoy agradezco..." value="${esc(e.gracias || '')}">` : ''}
+    <div class="flex gap-2 mt-3 flex-wrap">
+      <button class="btn btn-sm" id="dia-guardar" onclick="diaGuardar()">${D.entradas[k] ? 'Actualizar entrada' : 'Guardar entrada'}</button>
+      ${!esHoy ? `<button class="btn btn-ghost btn-sm" onclick="diaEditar(todayKey())">Volver a hoy</button>` : ''}
+      ${D.entradas[k] ? `<button class="btn btn-ghost btn-sm text-[var(--danger)]" onclick="diaBorrar('${k}')">Borrar</button>` : ''}
+    </div>
+    <p class="text-[11px] text-[var(--muted)] mt-2">${D.cfg.xp ? `Escribir tu entrada del día da +${D.cfg.xp} XP. ` : ''}Se guarda solo en tu dispositivo (y en tu Drive si lo conectas).</p>`;
+  // Tendencia: últimos 14 días
+  const hoy = todayKey();
+  const barras = [];
+  for (let i = 13; i >= 0; i--) {
+    const kk = addDays(hoy, -i);
+    const en = D.entradas[kk];
+    const a = en && diaAnimo(en.animo);
+    barras.push(`<div class="b" title="${fmtDate(kk, { day: 'numeric', month: 'short' })}">${a ? `<span style="font-size:12px">${a.e}</span><i style="height:${a.v * 15}px"></i>` : '<i class="vacio" style="height:6px"></i>'}<span>${parseKey(kk).getDate()}</span></div>`);
+  }
+  const p7 = diaPromedio(addDays(hoy, -6), hoy), p7a = diaPromedio(addDays(hoy, -13), addDays(hoy, -7));
+  const tend = p7 == null ? 'Escribe unos días seguidos para ver tu tendencia.'
+    : `Promedio de los últimos 7 días: ${diaAnimo(Math.round(p7)).e} ${p7.toFixed(1).replace('.', ',')}` +
+      (p7a == null ? '' : p7 > p7a + 0.2 ? ' · va subiendo 📈' : p7 < p7a - 0.2 ? ' · va bajando, cuídate 💛' : ' · estable');
+  document.getElementById('dia-tendencia').innerHTML = `<h3 class="font-semibold mb-1">Tu ánimo</h3>
+    <p class="text-xs text-[var(--muted)] mb-3" id="dia-tend-txt">${tend}</p><div class="dia-trend">${barras.join('')}</div>`;
+  diaRenderCal();
+  const ks = Object.keys(D.entradas).sort().reverse().slice(0, 20);
+  document.getElementById('dia-lista').innerHTML = `<h3 class="font-semibold mb-3">Entradas anteriores</h3>
+    ${ks.length ? `<div class="space-y-2">${ks.map(kk => { const en = D.entradas[kk]; const a = diaAnimo(en.animo); return `<button class="dia-entrada w-full text-left block" onclick="diaEditar('${kk}')">
+      <div class="flex items-center gap-2"><span class="text-xl">${a ? a.e : '📝'}</span><span class="f flex-1">${fmtDate(kk, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</span></div>
+      ${en.texto ? `<p class="mt-1">${esc(en.texto)}</p>` : ''}${en.gracias ? `<p class="mt-1 text-xs text-[var(--muted)]">🙏 ${esc(en.gracias)}</p>` : ''}</button>`; }).join('')}</div>`
+      : '<p class="text-sm text-[var(--muted)]">Aún no hay entradas. La primera es la de hoy.</p>'}`;
+  document.getElementById('dia-cfg').innerHTML = `
+    <p class="text-xs text-[var(--muted)] mb-2">¿Cuándo prefieres escribir? A esa hora verás una invitación en Hoy.</p>
+    <div class="flex flex-wrap gap-2 mb-4">${DIA_HORAS.map(h => `<button class="chip ${D.cfg.hora === h.id ? 'on' : ''}" onclick="diaCfg('hora', '${h.id}')">${h.icon} ${h.label}</button>`).join('')}</div>
+    <label class="hx-sw" for="dia-cfg-gr"><span>🙏 Mostrar "Algo por lo que estoy agradecido"</span><input type="checkbox" id="dia-cfg-gr" ${D.cfg.gratitud ? 'checked' : ''} onchange="diaCfg('gratitud', this.checked)"></label>
+    <label class="block mt-3"><span class="text-xs text-[var(--muted)]">XP por escribir la entrada del día</span>
+      <input type="number" min="0" inputmode="numeric" value="${D.cfg.xp}" onchange="diaCfg('xp', this.value)"></label>`;
+}
+function diaRenderCal() {
+  const el = document.getElementById('dia-cal');
+  if (!el) return;
+  const hoy = todayKey();
+  const mes = diaMes || hoy.slice(0, 7);
+  const [y, m] = mes.split('-').map(Number);
+  const primero = new Date(y, m - 1, 1);
+  const dias = new Date(y, m, 0).getDate();
+  const offset = (primero.getDay() + 6) % 7;
+  const celdas = [];
+  for (let i = 0; i < offset; i++) celdas.push('<span></span>');
+  for (let d = 1; d <= dias; d++) {
+    const k = mes + '-' + String(d).padStart(2, '0');
+    const en = state.diario.entradas[k];
+    const a = en && diaAnimo(en.animo);
+    celdas.push(`<button class="${k === hoy ? 'hoy' : ''} ${k === diaKey() ? 'sel' : ''}" ${k > hoy ? 'disabled' : ''} data-dia="${k}" aria-label="${fmtDate(k, { day: 'numeric', month: 'long' })}${a ? ': ' + a.l : ''}" onclick="diaEditar('${k}')"><span class="e">${a ? a.e : ''}</span>${d}</button>`);
+  }
+  const titulo = primero.toLocaleDateString('es-CO', { month: 'long', year: 'numeric' });
+  el.innerHTML = `<div class="flex items-center justify-between mb-3">
+      <button class="btn btn-ghost btn-sm" onclick="diaCambiarMes(-1)" aria-label="Mes anterior">←</button>
+      <h3 class="font-semibold" style="text-transform:capitalize">${titulo}</h3>
+      <button class="btn btn-ghost btn-sm" onclick="diaCambiarMes(1)" aria-label="Mes siguiente" ${mes >= hoy.slice(0, 7) ? 'disabled' : ''}>→</button>
+    </div>
+    <div class="dia-cal">${['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(x => `<span class="h">${x}</span>`).join('')}${celdas.join('')}</div>`;
+}
+// Invitación en Hoy (reemplaza los recordatorios)
+function hxRenderRecs() {
+  const el = document.getElementById('hx-recs');
+  if (!el) return;
+  const D = state.diario;
+  const hora = (DIA_HORAS.find(h => h.id === D.cfg.hora) || DIA_HORAS[2]).h;
+  const mostrar = currentDayOffset === 0 && !state.ui.ocultas.includes('diario') && !D.entradas[todayKey()] && new Date().getHours() >= hora;
+  el.classList.toggle('hidden', !mostrar);
+  el.innerHTML = mostrar ? `<div class="card p-3 dia-prompt">
+      <div style="min-width:140px"><p class="text-sm font-semibold">📔 ¿Cómo te sientes hoy?</p>
+      <button class="text-xs text-[var(--accent2)]" onclick="showSection('diario')">Escribir en el diario</button></div>
+      <div class="dia-moods">${DIA_ANIMOS.map(a => `<button type="button" class="dia-mood" aria-label="${a.l}" onclick="diaRapido(${a.v})">${a.e}</button>`).join('')}</div>
+    </div>` : '';
+}
+
+// ================= v9: CONEXIÓN =================
+// state.conexion = {
+//   cfg: { pareja: null | true | false, focos: [], visibles: null | [ids], xp, metaSemana },
+//   propias: [{ id, label, icon, desc }], log: { 'AAAA-MM-DD': { id: true } },
+//   meditaciones: [{ fecha, min }], gratitud: [{ fecha, texto }]
+// }
+const CX_FOCOS = [
+  { id: 'paz', label: 'Paz mental', icon: '🧘' },
+  { id: 'pareja', label: 'Pareja', icon: '💞' },
+  { id: 'familia', label: 'Familia', icon: '👨‍👩‍👧' },
+  { id: 'amigos', label: 'Amigos', icon: '🤝' },
+];
+const CX_CARDS = [
+  { id: 'meditacion', icon: '🧘', label: 'Meditación', desc: 'Siéntate, cierra los ojos y sigue el círculo.', foco: 'paz', tipo: 'meditacion' },
+  { id: 'respiracion', icon: '🌬️', label: 'Respiración 4-7-8', desc: 'Inhala 4, sostén 7, exhala 8. Cuatro ciclos.', foco: 'paz', tipo: 'respiracion' },
+  { id: 'gratitud', icon: '🙏', label: 'Gratitud', desc: 'Escribe una cosa buena de hoy.', foco: 'paz', tipo: 'gratitud' },
+  { id: 'pareja', icon: '💌', label: 'Envía un mensaje bonito a tu pareja', desc: 'Elige uno, cópialo o ábrelo en WhatsApp.', foco: 'pareja', tipo: 'mensaje', pareja: true },
+  { id: 'cita', icon: '🌹', label: 'Plan de cita', desc: 'Una idea sencilla para compartir tiempo juntos.', foco: 'pareja', tipo: 'idea', pareja: true },
+  { id: 'familia', icon: '📞', label: 'Llama a un familiar', desc: 'Cinco minutos de voz valen más que un "me gusta".', foco: 'familia', tipo: 'simple' },
+  { id: 'amigo', icon: '💬', label: 'Escribe a un amigo', desc: 'Pregúntale cómo está de verdad.', foco: 'amigos', tipo: 'simple' },
+  { id: 'bondad', icon: '🤲', label: 'Acto de bondad', desc: 'Algo pequeño por alguien, sin esperar nada.', foco: 'paz', tipo: 'idea' },
+];
+const CX_MENSAJES = [
+  'Hoy pensé en ti y se me escapó una sonrisa. Gracias por existir.',
+  'Contigo hasta los días normales se sienten especiales.',
+  'Me encanta la persona que eres y la forma en que me haces sentir en casa.',
+  'Gracias por tu paciencia, por tu risa y por quedarte.',
+  'Eres mi lugar favorito para descansar el corazón.',
+  'No sé qué hice para merecerte, pero lo seguiría haciendo mil veces.',
+  'Cada día a tu lado aprendo algo bonito. Te quiero.',
+  'Me haces falta incluso cuando te acabo de ver.',
+  'Gracias por creer en mí, incluso cuando yo no lo hago.',
+  'Eres la mejor parte de mis días.',
+  'Quiero que sepas que estoy orgulloso de ti, de todo lo que eres y lo que logras.',
+  'Si hoy fue difícil, recuerda que aquí estoy para ti, siempre.',
+  'Tu sonrisa me arregla cualquier día.',
+  'Gracias por los detalles pequeños: son los que más me llegan.',
+  'Me encanta construir la vida contigo, paso a paso.',
+  'Pienso en nuestro próximo plan juntos y ya estoy feliz.',
+  'Contigo aprendí que el amor también es calma.',
+  'Eres mi persona favorita en todo el mundo.',
+  'Hoy solo quería recordarte lo mucho que te quiero.',
+  'Gracias por hacerme reír incluso en los días grises.',
+  'Me gusta quién soy cuando estoy contigo.',
+  'Tengo suerte de compartir mis días contigo. Que tengas un día precioso.',
+];
+const CX_CITAS = [
+  'Picnic en un parque con algo hecho en casa',
+  'Noche de película con palomitas y cobija',
+  'Cocinar juntos una receta que nunca han probado',
+  'Caminata al atardecer sin celulares',
+  'Visitar un café o un lugar nuevo de la ciudad',
+  'Escribirse una carta y leerla en voz alta',
+  'Armar una lista de lugares que quieren conocer juntos',
+  'Desayuno en la cama el fin de semana',
+  'Noche de baile en la sala con su música favorita',
+  'Ver fotos viejas y contar historias',
+  'Mirar las estrellas o la ciudad desde un lugar alto',
+  'Un museo, una feria o un evento gratis',
+  'Ir a una clase juntos: cocina, baile o yoga',
+  'Preparar un postre y comerlo en el balcón',
+  'Un paseo en bici por un lugar bonito',
+];
+const CX_BONDAD = [
+  'Deja una nota amable para alguien de tu casa',
+  'Agradece de verdad a quien te atiende hoy',
+  'Comparte algo de comida con alguien',
+  'Ayuda con una tarea de la casa que no te toca',
+  'Escribe una reseña positiva a un negocio pequeño',
+  'Dona ropa que ya no usas',
+  'Felicita a alguien por algo que hizo bien',
+  'Escucha a alguien sin mirar el celular',
+  'Recoge una basura que no es tuya',
+  'Deja pasar a alguien en la fila o en el tráfico',
+  'Envía un audio de ánimo a alguien que lo necesita',
+  'Ofrece ayuda a un vecino',
+];
+const CX_TIPOS_PROPIA = 'simple';
+function cxNorm(r) {
+  r = r && typeof r === 'object' ? r : {};
+  const c = r.cfg && typeof r.cfg === 'object' ? r.cfg : {};
+  const out = {
+    cfg: {
+      pareja: c.pareja === true ? true : c.pareja === false ? false : null,
+      focos: Array.isArray(c.focos) ? c.focos.filter(f => CX_FOCOS.some(x => x.id === f)) : [],
+      visibles: Array.isArray(c.visibles) ? c.visibles.map(String) : null,
+      xp: hxNum(c.xp, 10, 0, 500),
+      metaSemana: hxNum(c.metaSemana, 5, 1, 70),
+    },
+    propias: [], log: {}, meditaciones: [], gratitud: [],
+  };
+  (Array.isArray(r.propias) ? r.propias : []).forEach(p => {
+    if (!p || !String(p.label || '').trim()) return;
+    out.propias.push({ id: String(p.id || 'cxp_' + uid()), label: String(p.label).trim().slice(0, 60), icon: ejIcono(p.icon, '✨'), desc: String(p.desc || '').slice(0, 120) });
+  });
+  if (r.log && typeof r.log === 'object') Object.entries(r.log).forEach(([k, d]) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(k) || !d || typeof d !== 'object') return;
+    const dia = {};
+    Object.keys(d).forEach(id => { if (d[id]) dia[id] = true; });
+    if (Object.keys(dia).length) out.log[k] = dia;
+  });
+  (Array.isArray(r.meditaciones) ? r.meditaciones : []).forEach(m => { if (m && m.fecha) out.meditaciones.push({ fecha: String(m.fecha), min: Math.max(0, Number(m.min) || 0) }); });
+  (Array.isArray(r.gratitud) ? r.gratitud : []).forEach(g => { if (g && g.fecha && String(g.texto || '').trim()) out.gratitud.push({ fecha: String(g.fecha), texto: String(g.texto).slice(0, 300) }); });
+  out.meditaciones = out.meditaciones.slice(-500);
+  out.gratitud = out.gratitud.slice(-500);
+  return out;
+}
+function cxTodas() {
+  const C = state.conexion;
+  return CX_CARDS.concat(C.propias.map(p => ({ ...p, tipo: 'simple', propia: true })));
+}
+function cxVisibles() {
+  const C = state.conexion;
+  return cxTodas().filter(c => {
+    if (c.pareja && C.cfg.pareja === false) return false;
+    if (C.cfg.visibles) return C.cfg.visibles.includes(c.id);
+    return true;
+  });
+}
+function cxDiaHechos(s, k) {
+  const C = s && s.conexion;
+  if (!C || !C.log || !C.log[k]) return 0;
+  const validos = new Set(CX_CARDS.map(c => c.id).concat((C.propias || []).map(p => p.id)));
+  return Object.keys(C.log[k]).filter(id => C.log[k][id] && validos.has(id)).length;
+}
+function cxDiaXp(s, k) { const C = s && s.conexion; return cxDiaHechos(s, k) * ((C && C.cfg && Number(C.cfg.xp)) || 0); }
+function cxHecho(id, k) { const d = state.conexion.log[k || todayKey()]; return !!(d && d[id]); }
+function cxMarcar(id, on, silencio) {
+  const k = todayKey();
+  const C = state.conexion;
+  const ya = cxHecho(id, k);
+  if (!!on === ya) { if (!silencio) renderConexion(); return; }
+  if (on) { C.log[k] = C.log[k] || {}; C.log[k][id] = true; }
+  else if (C.log[k]) { delete C.log[k][id]; if (!Object.keys(C.log[k]).length) delete C.log[k]; }
+  hxRecalc(k);
+  saveState();
+  renderConexion();
+  if (on && C.cfg.xp) toast(`💞 +${C.cfg.xp} XP`);
+}
+let cxIdx = { msg: null, cita: null, bondad: null };
+function cxDiaIdx(n, sal) { const k = todayKey(); let h = sal; for (const ch of k) h = (h * 31 + ch.charCodeAt(0)) % 100003; return h % n; }
+function cxMensaje() { if (cxIdx.msg == null) cxIdx.msg = cxDiaIdx(CX_MENSAJES.length, 7); return CX_MENSAJES[cxIdx.msg]; }
+function cxOtro(tipo) {
+  const lista = tipo === 'msg' ? CX_MENSAJES : tipo === 'cita' ? CX_CITAS : CX_BONDAD;
+  const act = cxIdx[tipo] == null ? cxDiaIdx(lista.length, tipo === 'msg' ? 7 : tipo === 'cita' ? 13 : 17) : cxIdx[tipo];
+  cxIdx[tipo] = (act + 1 + Math.floor(Math.random() * (lista.length - 1))) % lista.length;
+  renderConexion();
+}
+function cxIdea(tipo) {
+  const lista = tipo === 'cita' ? CX_CITAS : CX_BONDAD;
+  if (cxIdx[tipo] == null) cxIdx[tipo] = cxDiaIdx(lista.length, tipo === 'cita' ? 13 : 17);
+  return lista[cxIdx[tipo]];
+}
+let cxUltimoCopiado = '';
+async function cxCopiar() {
+  const txt = cxMensaje();
+  let ok = false;
+  try {
+    if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(txt); ok = true; }
+  } catch (e) { ok = false; }
+  if (!ok) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      ok = document.execCommand('copy');
+      ta.remove();
+    } catch (e) { ok = false; }
+  }
+  cxUltimoCopiado = txt;
+  toast(ok ? '📋 Mensaje copiado. Pégalo en tu chat.' : 'No se pudo copiar. Mantén presionado el texto para copiarlo.');
+}
+function cxWaLink() { return 'https://wa.me/?text=' + encodeURIComponent(cxMensaje()); }
+function cxGratitud() {
+  const inp = document.getElementById('cx-gr-txt');
+  const t = (inp && inp.value || '').trim();
+  if (!t) { toast('Escribe algo por lo que estás agradecido'); return; }
+  state.conexion.gratitud.push({ fecha: todayKey(), texto: t.slice(0, 300) });
+  if (inp) inp.value = '';
+  if (!cxHecho('gratitud')) cxMarcar('gratitud', true);
+  else { saveState(); renderConexion(); toast('🙏 Guardado'); }
+}
+function cxSemana() {
+  const lunes = semLunes(todayKey());
+  const dias = [];
+  let total = 0;
+  for (let i = 0; i < 7; i++) { const k = addDays(lunes, i); const n = cxDiaHechos(state, k); total += n; dias.push({ k, n }); }
+  return { lunes, dias, total };
+}
+function renderConexion() {
+  if (!document.getElementById('cx-cards')) return;
+  const C = state.conexion;
+  const sem = cxSemana();
+  const meta = C.cfg.metaSemana;
+  const pct = Math.min(100, Math.round(sem.total / meta * 100));
+  const minSem = C.meditaciones.filter(m => m.fecha >= sem.lunes).reduce((a, m) => a + m.min, 0);
+  document.getElementById('cx-semana').innerHTML = `
+    <div class="flex items-center justify-between gap-2 mb-2"><h3 class="font-semibold">Tu semana</h3>
+      <span class="text-xs text-[var(--muted)]" id="cx-sem-txt">${sem.total} de ${meta} acciones${minSem ? ` · ${ejFmt(minSem)} min de calma` : ''}</span></div>
+    <div class="cx-sem"><div class="ej-bar"><div style="width:${pct}%"></div></div><strong>${pct}%</strong></div>
+    <div class="cx-dias">${sem.dias.map((d, i) => `<div><b class="${d.n ? 'on' : ''}">${d.n || ''}</b>${['L', 'M', 'M', 'J', 'V', 'S', 'D'][i]}</div>`).join('')}</div>
+    ${C.cfg.pareja === null ? `<div class="mt-3 p-3 rounded-xl bg-[var(--card2)] text-sm"><p class="mb-2">¿Tienes pareja? Así sabemos si mostrarte ideas para ella o él.</p>
+      <div class="flex gap-2"><button class="chip" onclick="cxSetPareja(true)">Sí 💞</button><button class="chip" onclick="cxSetPareja(false)">No por ahora</button></div></div>` : ''}`;
+  const vis = cxVisibles();
+  document.getElementById('cx-cards').innerHTML = vis.length ? vis.map(c => {
+    const on = cxHecho(c.id);
+    let extra = '';
+    if (c.tipo === 'meditacion') extra = `<div class="cx-acc">${[1, 3, 5, 10].map(m => `<button class="chip" data-med="${m}" onclick="cxMedAbrir(${m})">▶ ${m} min</button>`).join('')}</div>`;
+    else if (c.tipo === 'respiracion') extra = `<div class="cx-acc"><button class="chip" id="cx-478-btn" onclick="cxRespAbrir()">▶ Empezar</button></div>`;
+    else if (c.tipo === 'gratitud') extra = `<div class="flex gap-2 mt-3"><input type="text" class="input-sm flex-1" id="cx-gr-txt" maxlength="300" placeholder="Hoy agradezco..." onkeydown="if(event.key==='Enter')cxGratitud()"><button class="btn btn-sm" onclick="cxGratitud()">Guardar</button></div>
+      ${C.gratitud.length ? `<p class="text-xs text-[var(--muted)] mt-2">Lo último: "${esc(C.gratitud[C.gratitud.length - 1].texto)}"</p>` : ''}`;
+    else if (c.tipo === 'mensaje') extra = `<div class="cx-msg" id="cx-msg">${esc(cxMensaje())}</div>
+      <div class="cx-acc"><button class="chip" id="cx-copiar" onclick="cxCopiar()">📋 Copiar</button>
+      <a class="cx-wa" id="cx-wa" href="${esc(cxWaLink())}" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="chip" onclick="cxOtro('msg')">🔀 Otro</button></div>`;
+    else if (c.tipo === 'idea') { const t = c.id === 'cita' ? 'cita' : 'bondad'; extra = `<div class="cx-msg">${esc(cxIdea(t))}</div><div class="cx-acc"><button class="chip" onclick="cxOtro('${t}')">🔀 Otra idea</button></div>`; }
+    return `<div class="cx-card ${on ? 'on' : ''}" data-cx="${esc(c.id)}">
+      <div class="cx-top"><span class="cx-ico" aria-hidden="true">${esc(c.icon)}</span>
+        <div class="cx-tit"><strong>${esc(c.label)}</strong><span>${esc(c.desc || '')}</span></div>
+        <label class="ej-check"><input type="checkbox" data-cx-check ${on ? 'checked' : ''} aria-label="${esc(c.label)}: hecho hoy" onchange="cxMarcar(${jsArg(c.id)}, this.checked)">${on ? '¡Hecho!' : 'Hecho'}</label>
+      </div>${extra}</div>`;
+  }).join('') : '<div class="card p-4 text-sm text-[var(--muted)]">No tienes tarjetas visibles. Elígelas abajo.</div>';
+  // Ajustes
+  const todas = cxTodas().filter(c => !(c.pareja && C.cfg.pareja === false));
+  const visIds = new Set(vis.map(c => c.id));
+  document.getElementById('cx-edit').innerHTML = `
+    <label class="hx-sw" for="cx-cfg-pareja"><span>💞 Tengo pareja (muestra sus tarjetas)</span><input type="checkbox" id="cx-cfg-pareja" ${C.cfg.pareja ? 'checked' : ''} onchange="cxSetPareja(this.checked)"></label>
+    <p class="text-xs text-[var(--muted)] mt-3 mb-2">Tarjetas visibles</p>
+    ${todas.map(c => `<label class="hx-sw"><span>${esc(c.icon)} ${esc(c.label)}</span><span class="flex items-center gap-2">${c.propia ? `<button class="hx-del" onclick="cxQuitarPropia(${jsArg(c.id)})" aria-label="Borrar ${esc(c.label)}">×</button>` : ''}<input type="checkbox" ${visIds.has(c.id) ? 'checked' : ''} onchange="cxVisible(${jsArg(c.id)}, this.checked)"></span></label>`).join('')}
+    <p class="text-xs text-[var(--muted)] mt-4 mb-2">Crear tu propia tarjeta</p>
+    <div class="flex gap-2">
+      <input type="text" id="cx-nueva-icono" class="input-sm text-center" style="width:56px" placeholder="✨" aria-label="Icono">
+      <input type="text" id="cx-nueva" class="input-sm flex-1" maxlength="60" placeholder="Ej: Leer 10 páginas, orar, abrazar a mamá" aria-label="Nombre de la tarjeta" onkeydown="if(event.key==='Enter')cxAgregarPropia()">
+      <button class="btn btn-sm" onclick="cxAgregarPropia()">+</button>
+    </div>
+    <div class="hx-grid2 mt-4">
+      <label class="block"><span class="text-xs text-[var(--muted)]">XP por tarjeta</span><input type="number" min="0" inputmode="numeric" value="${C.cfg.xp}" onchange="cxCfg('xp', this.value)"></label>
+      <label class="block"><span class="text-xs text-[var(--muted)]">Meta por semana</span><input type="number" min="1" inputmode="numeric" value="${C.cfg.metaSemana}" onchange="cxCfg('metaSemana', this.value)"></label>
+    </div>`;
+}
+function cxSetPareja(v) {
+  state.conexion.cfg.pareja = !!v;
+  if (v && state.conexion.cfg.visibles) CX_CARDS.filter(c => c.pareja).forEach(c => { if (!state.conexion.cfg.visibles.includes(c.id)) state.conexion.cfg.visibles.push(c.id); });
+  hxRecalc(todayKey());
+  saveState(); renderConexion();
+}
+function cxVisible(id, on) {
+  const C = state.conexion;
+  if (!C.cfg.visibles) C.cfg.visibles = cxVisibles().map(c => c.id);
+  C.cfg.visibles = C.cfg.visibles.filter(x => x !== id);
+  if (on) C.cfg.visibles.push(id);
+  saveState(); renderConexion();
+}
+function cxAgregarPropia() {
+  const inp = document.getElementById('cx-nueva');
+  const label = inp.value.trim();
+  if (!label) { toast('Escribe el nombre de la tarjeta'); return; }
+  const C = state.conexion;
+  const p = { id: 'cxp_' + uid(), label: label.slice(0, 60), icon: ejIcono(document.getElementById('cx-nueva-icono').value, '✨'), desc: '' };
+  C.propias.push(p);
+  if (C.cfg.visibles) C.cfg.visibles.push(p.id);
+  saveState(); renderConexion();
+  toast('Tarjeta creada');
+}
+function cxQuitarPropia(id) {
+  const C = state.conexion;
+  if (!confirm('¿Borrar esta tarjeta?')) return;
+  C.propias = C.propias.filter(p => p.id !== id);
+  if (C.cfg.visibles) C.cfg.visibles = C.cfg.visibles.filter(x => x !== id);
+  hxRecalc(todayKey());
+  saveState(); renderConexion();
+}
+function cxCfg(campo, val) {
+  const c = state.conexion.cfg;
+  if (campo === 'xp') { c.xp = hxNum(val, c.xp, 0, 500); hxRecalc(todayKey()); }
+  else if (campo === 'metaSemana') c.metaSemana = hxNum(val, c.metaSemana, 1, 70);
+  saveState(); renderConexion();
+  toast('Guardado');
+}
+
+// ---------- Meditación guiada y respiración 4-7-8 ----------
+// cxMed = { tipo, fin (ms), t (intervalo), pasos } se expone para las pruebas
+let cxMed = null;
+function cxMedCerrar(completo) {
+  if (cxMed) { clearInterval(cxMed.t); clearTimeout(cxMed.r); }
+  const m = cxMed;
+  cxMed = null;
+  document.getElementById('cx-med').classList.add('hidden');
+  document.body.style.overflow = '';
+  if (completo && m) {
+    if (m.tipo === 'meditacion') state.conexion.meditaciones.push({ fecha: todayKey(), min: m.min });
+    const id = m.tipo === 'meditacion' ? 'meditacion' : 'respiracion';
+    if (!cxHecho(id)) cxMarcar(id, true);
+    else { saveState(); renderConexion(); }
+    toast(m.tipo === 'meditacion' ? `🧘 ${m.min} min de calma. Bien hecho.` : '🌬️ Respiración completa.');
+  }
+}
+function cxFase(txt, escala, seg) {
+  const c = document.getElementById('cx-circ');
+  const f = document.getElementById('cx-fase');
+  if (!c) return;
+  c.style.transitionDuration = seg + 's';
+  c.style.transform = `scale(${escala})`;
+  c.textContent = txt;
+  if (f) f.textContent = txt;
+}
+function cxMedHtml(titulo, sub) {
+  return `<h2 class="text-xl font-bold" id="cx-med-tit">${titulo}</h2>
+    <p class="text-sm text-[var(--muted)] mt-1">${sub}</p>
+    <div class="cx-circ-wrap"><div class="cx-circ" id="cx-circ">Listo</div></div>
+    <p class="sr-only" id="cx-fase" aria-live="polite"></p>
+    <div class="cx-reloj" id="cx-reloj">0:00</div>
+    <div class="flex gap-2 mt-6">
+      <button class="btn btn-ghost" onclick="cxMedCerrar(false)">Cerrar</button>
+      <button class="btn" id="cx-med-fin" onclick="cxMedCerrar(true)">Terminar</button>
+    </div>`;
+}
+function cxMedAbrir(min) {
+  min = [1, 3, 5, 10].includes(Number(min)) ? Number(min) : 3;
+  const el = document.getElementById('cx-med');
+  el.innerHTML = cxMedHtml('Meditación de ' + min + ' min', 'Sigue el círculo: inhala cuando crece, exhala cuando se encoge.')
+    .replace('<div class="flex gap-2 mt-6">', `<div class="cx-durs mt-4">${[1, 3, 5, 10].map(m => `<button class="chip ${m === min ? 'on' : ''}" onclick="cxMedAbrir(${m})">${m} min</button>`).join('')}</div><div class="flex gap-2 mt-6">`);
+  el.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  if (cxMed) { clearInterval(cxMed.t); clearTimeout(cxMed.r); }
+  cxMed = { tipo: 'meditacion', min, inicio: Date.now(), fin: Date.now() + min * 60000 };
+  const ciclo = () => {
+    if (!cxMed) return;
+    cxFase('Inhala', 1.25, 4);
+    cxMed.r = setTimeout(() => { if (!cxMed) return; cxFase('Exhala', 0.8, 6); cxMed.r = setTimeout(ciclo, 6000); }, 4000);
+  };
+  const tick = () => {
+    if (!cxMed) return;
+    const rest = Math.max(0, cxMed.fin - Date.now());
+    const s = Math.ceil(rest / 1000);
+    const r = document.getElementById('cx-reloj');
+    if (r) r.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    if (rest <= 0) cxMedCerrar(true);
+  };
+  setTimeout(ciclo, 50);
+  tick();
+  cxMed.t = setInterval(tick, 250);
+}
+function cxRespAbrir() {
+  const el = document.getElementById('cx-med');
+  el.innerHTML = cxMedHtml('Respiración 4-7-8', 'Inhala por la nariz 4 s, sostén 7 s y exhala por la boca 8 s. Cuatro ciclos.');
+  el.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  if (cxMed) { clearInterval(cxMed.t); clearTimeout(cxMed.r); }
+  const CICLOS = 4, TOTAL = 19 * CICLOS;
+  cxMed = { tipo: 'respiracion', ciclos: CICLOS, inicio: Date.now(), fin: Date.now() + TOTAL * 1000 };
+  let n = 0;
+  const ciclo = () => {
+    if (!cxMed) return;
+    if (n >= CICLOS) return;
+    n++;
+    cxFase('Inhala', 1.25, 4);
+    cxMed.r = setTimeout(() => {
+      if (!cxMed) return;
+      cxFase('Sostén', 1.25, 0.2);
+      cxMed.r = setTimeout(() => { if (!cxMed) return; cxFase('Exhala', 0.8, 8); cxMed.r = setTimeout(ciclo, 8000); }, 7000);
+    }, 4000);
+  };
+  const tick = () => {
+    if (!cxMed) return;
+    const rest = Math.max(0, cxMed.fin - Date.now());
+    const s = Math.ceil(rest / 1000);
+    const r = document.getElementById('cx-reloj');
+    if (r) r.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    if (rest <= 0) cxMedCerrar(true);
+  };
+  setTimeout(ciclo, 50);
+  tick();
+  cxMed.t = setInterval(tick, 250);
+}
+
+// ================= v9: PLANES Y FECHAS (línea de tiempo) =================
+// state.planes = { eventos: [{ id, titulo, fecha, emoji, color, cat, nota, checklist: [{ id, texto, hecho }] }], cats: [ids], migrado }
+const PL_CATS = [
+  { id: 'viaje', label: 'Viajes', icon: '✈️' }, { id: 'cumple', label: 'Cumpleaños', icon: '🎂' },
+  { id: 'cita', label: 'Citas y aniversarios', icon: '💞' }, { id: 'meta', label: 'Metas', icon: '🎯' },
+  { id: 'evento', label: 'Eventos', icon: '🎉' }, { id: 'tramite', label: 'Trámites y pagos', icon: '📋' },
+  { id: 'salud', label: 'Salud', icon: '🩺' }, { id: 'estudio', label: 'Estudio', icon: '📚' },
+  { id: 'plan', label: 'Mi plan', icon: '📅' },
+];
+const PL_COLORES = ['#8b5cf6', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
+function plCat(id) { return PL_CATS.find(c => c.id === id) || PL_CATS[PL_CATS.length - 1]; }
+function plNormEv(e) {
+  const cat = plCat(e.cat).id;
+  return {
+    id: String(e.id || 'pl_' + uid()),
+    titulo: String(e.titulo || 'Plan').trim().slice(0, 80) || 'Plan',
+    fecha: /^\d{4}-\d{2}-\d{2}$/.test(e.fecha) ? e.fecha : todayKey(),
+    emoji: ejIcono(e.emoji, plCat(cat).icon),
+    color: /^#[0-9a-f]{6}$/i.test(e.color) ? e.color : PL_COLORES[0],
+    cat, nota: String(e.nota || '').slice(0, 500),
+    checklist: (Array.isArray(e.checklist) ? e.checklist : []).filter(c => c && String(c.texto || '').trim())
+      .map(c => ({ id: String(c.id || uid()), texto: String(c.texto).trim().slice(0, 120), hecho: !!c.hecho })),
+  };
+}
+function plNorm(r) {
+  r = r && typeof r === 'object' ? r : {};
+  const vistos = new Set();
+  return {
+    eventos: (Array.isArray(r.eventos) ? r.eventos : []).filter(e => e && typeof e === 'object').map(plNormEv)
+      .filter(e => (vistos.has(e.id) ? false : vistos.add(e.id))),
+    cats: Array.isArray(r.cats) ? r.cats.filter(c => PL_CATS.some(x => x.id === c)) : [],
+    migrado: !!r.migrado,
+  };
+}
+function plDias(k) { return Math.round((parseKey(k) - parseKey(todayKey())) / 86400000); }
+function plCuenta(k) {
+  const d = plDias(k);
+  if (d === 0) return 'Es hoy';
+  if (d === 1) return 'Mañana';
+  if (d > 1) return `Faltan ${d} días`;
+  return d === -1 ? 'Fue ayer' : `Hace ${-d} días`;
+}
+let plFiltro = 'todas';
+let plAbierto = null;
+let plEditando = null;
+let plColorSel = PL_COLORES[0];
+function plSetFiltro(f) { plFiltro = f; renderPlan(); }
+function plToggle(id) { plAbierto = plAbierto === id ? null : id; plEditando = null; renderPlan(); }
+function plEvento(id) { return state.planes.eventos.find(e => e.id === id); }
+function plCheck(id, cid, on) {
+  const e = plEvento(id); if (!e) return;
+  const c = e.checklist.find(x => x.id === cid); if (!c) return;
+  c.hecho = !!on;
+  saveState(); renderPlan();
+}
+function plBorrar(id) {
+  const e = plEvento(id);
+  if (!e || !confirm(`¿Borrar "${e.titulo}"?`)) return;
+  state.planes.eventos = state.planes.eventos.filter(x => x.id !== id);
+  plAbierto = null; plEditando = null;
+  saveState(); renderPlan();
+  toast('Borrado');
+}
+function plEditar(id) {
+  plEditando = id;
+  const e = plEvento(id);
+  if (e) plColorSel = e.color;
+  renderPlan();
+}
+function plColor(c, pref) {
+  plColorSel = c;
+  document.querySelectorAll(`#${pref}-colores button`).forEach(b => b.classList.toggle('on', b.dataset.c === c));
+}
+function plFormHtml(pref, e) {
+  e = e || { titulo: '', fecha: '', emoji: '', cat: (state.planes.cats[0] || 'evento'), nota: '', checklist: [] };
+  return `<div class="pl-form">
+    <label>Qué es<input type="text" id="${pref}-titulo" maxlength="80" value="${esc(e.titulo)}" placeholder="Ej: Viaje a la playa, cumpleaños de mamá"></label>
+    <div class="hx-grid2">
+      <label>Fecha<input type="date" id="${pref}-fecha" value="${esc(e.fecha)}"></label>
+      <label>Categoría<select id="${pref}-cat">${PL_CATS.map(c => `<option value="${c.id}" ${e.cat === c.id ? 'selected' : ''}>${c.icon} ${c.label}</option>`).join('')}</select></label>
+    </div>
+    <div class="hx-grid2">
+      <label>Emoji (opcional)<input type="text" id="${pref}-emoji" value="${esc(e.emoji || '')}" placeholder="Según la categoría"></label>
+      <div><span class="text-xs text-[var(--muted)]">Color</span><div class="pl-sw mt-1" id="${pref}-colores">${PL_COLORES.map(c => `<button type="button" data-c="${c}" class="${plColorSel === c ? 'on' : ''}" style="background:${c}" aria-label="Color ${c}" onclick="plColor('${c}', '${pref}')"></button>`).join('')}</div></div>
+    </div>
+    <label>Nota (opcional)<textarea id="${pref}-nota" rows="2" maxlength="500">${esc(e.nota || '')}</textarea></label>
+    <label>Lista de pendientes (una por línea, opcional)<textarea id="${pref}-check" rows="3" placeholder="Comprar tiquetes&#10;Reservar hotel">${esc((e.checklist || []).map(c => c.texto).join('\n'))}</textarea></label>
+    <div class="flex gap-2"><button class="btn btn-sm" id="${pref}-guardar" onclick="plGuardar('${pref}')">${e.id ? 'Guardar cambios' : 'Agregar a mi línea de tiempo'}</button>
+    ${e.id ? `<button class="btn btn-ghost btn-sm" onclick="plEditando=null;renderPlan()">Cancelar</button>` : ''}</div>
+  </div>`;
+}
+function plGuardar(pref) {
+  const v = id => (document.getElementById(pref + '-' + id) || {}).value || '';
+  const titulo = v('titulo').trim();
+  const fecha = v('fecha');
+  if (!titulo) { toast('Escribe qué es'); return; }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) { toast('Elige una fecha'); return; }
+  const editando = pref === 'pl-ed' ? plEvento(plEditando) : null;
+  const lineas = v('check').split('\n').map(x => x.trim()).filter(Boolean);
+  const prevCk = editando ? editando.checklist : [];
+  const checklist = lineas.map(t => { const p = prevCk.find(c => c.texto === t); return p ? p : { id: uid(), texto: t, hecho: false }; });
+  const datos = plNormEv({ id: editando ? editando.id : null, titulo, fecha, cat: v('cat'), emoji: v('emoji'), color: plColorSel, nota: v('nota'), checklist });
+  if (editando) Object.assign(editando, datos);
+  else state.planes.eventos.push(datos);
+  plAbierto = datos.id; plEditando = null;
+  if (!editando) { const d = document.getElementById('pl-nuevo'); if (d) d.open = false; }
+  saveState(); renderPlan();
+  toast(editando ? 'Guardado' : '📅 Agregado a tu línea de tiempo');
+}
+function renderPlan() {
+  if (!document.getElementById('pl-tl')) return;
+  const P = state.planes;
+  const hoy = todayKey();
+  const evs = P.eventos.slice().sort((a, b) => a.fecha.localeCompare(b.fecha) || a.titulo.localeCompare(b.titulo));
+  const prox = evs.find(e => e.fecha >= hoy);
+  document.getElementById('pl-proximo').innerHTML = prox ? `<div class="pl-hero">
+      <span style="font-size:40px">${esc(prox.emoji)}</span>
+      <div class="flex-1"><p class="text-xs text-[var(--muted)]">Lo próximo</p><p class="font-semibold">${esc(prox.titulo)}</p>
+      <p class="text-xs text-[var(--muted)]">${fmtDate(prox.fecha, { weekday: 'long', day: 'numeric', month: 'long' })}</p></div>
+      <div class="text-center"><div class="big">${plDias(prox.fecha) <= 1 ? (plDias(prox.fecha) === 0 ? '¡Hoy!' : '1') : plDias(prox.fecha)}</div><p class="text-xs text-[var(--muted)]">${plDias(prox.fecha) === 0 ? '' : plDias(prox.fecha) === 1 ? 'día' : 'días'}</p></div>
+    </div>` : `<p class="text-sm text-[var(--muted)]">No tienes planes próximos. Agrega uno: un viaje, un cumpleaños, una meta con fecha.</p>`;
+  const fn = document.getElementById('pl-form');
+  if (fn && !fn.dataset.listo) { fn.innerHTML = plFormHtml('pl-nuevo'); fn.dataset.listo = '1'; }
+  const usadas = PL_CATS.filter(c => evs.some(e => e.cat === c.id));
+  if (plFiltro !== 'todas' && !usadas.some(c => c.id === plFiltro)) plFiltro = 'todas';
+  document.getElementById('pl-filtros').innerHTML = evs.length ? [`<button class="chip ${plFiltro === 'todas' ? 'on' : ''}" onclick="plSetFiltro('todas')">Todas</button>`]
+    .concat(usadas.map(c => `<button class="chip ${plFiltro === c.id ? 'on' : ''}" data-cat="${c.id}" onclick="plSetFiltro('${c.id}')">${c.icon} ${c.label}</button>`)).join('') : '';
+  const vis = evs.filter(e => plFiltro === 'todas' || e.cat === plFiltro);
+  const items = [];
+  let hoyPuesto = false;
+  const marcaHoy = `<div class="pl-hoy" id="pl-hoy"><span>Hoy · ${fmtDate(hoy, { day: 'numeric', month: 'short' })}</span></div>`;
+  vis.forEach(e => {
+    if (!hoyPuesto && e.fecha >= hoy) { items.push(marcaHoy); hoyPuesto = true; }
+    const pasado = e.fecha < hoy;
+    const d = plDias(e.fecha);
+    const hechos = e.checklist.filter(c => c.hecho).length;
+    const abierto = plAbierto === e.id;
+    items.push(`<div class="pl-item ${pasado ? 'pasado' : ''}" data-pl="${esc(e.id)}">
+      <span class="pl-dot" style="background:${e.color}">${esc(e.emoji)}</span>
+      <div class="pl-box" style="--c:${e.color}">
+        <button class="pl-head" aria-expanded="${abierto}" onclick="plToggle(${jsArg(e.id)})">
+          <span class="f">${fmtDate(e.fecha, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}</span>
+          <span class="t">${esc(e.titulo)}</span>
+          <span class="pl-meta">
+            ${pasado ? '<span class="pl-ok">✓ Cumplido</span>' : `<span class="pl-cuenta ${d <= 7 ? 'pronto' : ''}">${plCuenta(e.fecha)}</span>`}
+            <span class="pl-tag">${plCat(e.cat).icon} ${esc(plCat(e.cat).label)}</span>
+            ${e.checklist.length ? `<span class="pl-tag">☑ ${hechos}/${e.checklist.length}</span>` : ''}
+          </span>
+        </button>
+        ${abierto ? `<div class="pl-body">${plEditando === e.id ? plFormHtml('pl-ed', e) : `
+          ${e.nota ? `<p class="nota">${esc(e.nota)}</p>` : ''}
+          ${e.checklist.map(c => `<label class="pl-ck ${c.hecho ? 'hecho' : ''}"><input type="checkbox" ${c.hecho ? 'checked' : ''} onchange="plCheck(${jsArg(e.id)}, ${jsArg(c.id)}, this.checked)"><span>${esc(c.texto)}</span></label>`).join('')}
+          <div class="flex gap-2 mt-2"><button class="btn btn-ghost btn-sm" onclick="plEditar(${jsArg(e.id)})">✏️ Editar</button>
+          <button class="btn btn-ghost btn-sm text-[var(--danger)]" onclick="plBorrar(${jsArg(e.id)})">Borrar</button></div>`}</div>` : ''}
+      </div>
+    </div>`);
+  });
+  if (!hoyPuesto) items.push(marcaHoy);
+  document.getElementById('pl-tl').innerHTML = vis.length ? items.join('') : `${marcaHoy}<p class="text-sm text-[var(--muted)] ml-2">Tu línea de tiempo está vacía.</p>`;
+  // Duración del plan (las fechas de siempre)
+  const fp = document.getElementById('fechas-plan');
+  if (fp) {
+    fp.innerHTML = `<p class="text-xs text-[var(--muted)] mb-3">Si sigues un plan de varios días (por ejemplo 90), define aquí su inicio y su duración. Se muestran como hitos en la línea de tiempo.</p>` + fechasForm('pl');
+    const tit = document.getElementById('pl-fechas-tit');
+    if (tit) tit.textContent = `📅 Duración del plan (${PLAN_DAYS} días)`;
+  }
+}
+// Hitos de inicio y fin del plan (se recrean al guardar las fechas)
+function plHitosPlan(s) {
+  const P = s.planes;
+  const c = s.config || {};
+  P.eventos = P.eventos.filter(e => !/^pl_hito_/.test(e.id));
+  if (!c.inicio || !/^\d{4}-\d{2}-\d{2}$/.test(c.inicio)) return;
+  const dur = Math.min(365, Math.max(7, Number(c.duracion) || 90));
+  P.eventos.push(plNormEv({ id: 'pl_hito_ini', titulo: `Inicio del plan de ${dur} días`, fecha: c.inicio, cat: 'plan', emoji: '🚀', color: PL_COLORES[1] }));
+  P.eventos.push(plNormEv({ id: 'pl_hito_fin', titulo: `Fin del plan de ${dur} días`, fecha: addDays(c.inicio, dur - 1), cat: 'plan', emoji: '🏁', color: PL_COLORES[2] }));
+}
+
+// ================= v9: ENTREVISTAS POR SECCIÓN =================
+// La primera vez que abres una sección aparece un mini cuestionario (2 a 4 preguntas).
+// Se puede saltar y repetir desde el botón "🗣️ Preguntas" de la sección o desde Ajustes.
+// state.entrevistas = { idSeccion: { estado: 'hecha' | 'saltada' | 'migrada', fecha } }
+// (La mascota usa el selector que ya aparece en su sección si aún no tienes una.)
+const SX_GASTOS = [
+  { id: 'arriendo', label: 'Arriendo o hipoteca', icon: '🏠' }, { id: 'servicios', label: 'Servicios', icon: '💡' },
+  { id: 'internet', label: 'Internet y celular', icon: '📶' }, { id: 'mercado', label: 'Mercado', icon: '🛒' },
+  { id: 'transporte', label: 'Transporte', icon: '🚌' }, { id: 'salud', label: 'Salud', icon: '🩺' },
+  { id: 'educacion', label: 'Educación', icon: '🎓' }, { id: 'suscripciones', label: 'Suscripciones', icon: '📺' },
+];
+const SX_CATS = [
+  { id: 'comida', label: 'Comida fuera', icon: '🍔' }, { id: 'ocio', label: 'Salidas y ocio', icon: '🎬' },
+  { id: 'ropa', label: 'Ropa', icon: '👕' }, { id: 'regalos', label: 'Regalos', icon: '🎁' },
+  { id: 'mascotas', label: 'Mascotas', icon: '🐶' }, { id: 'hogar', label: 'Hogar', icon: '🛋️' },
+  { id: 'cuidado', label: 'Cuidado personal', icon: '🧴' }, { id: 'imprevistos', label: 'Imprevistos', icon: '🧯' },
+];
+const SX_DEF = {
+  finanzas: { titulo: 'Finanzas', icon: '💰', pasos: ['fin_ingreso', 'fin_fijos', 'fin_ahorro', 'fin_cats'] },
+  nutricion: { titulo: 'Nutrición', icon: '🥗', pasos: ['nu_datos', 'nu_peso', 'nu_act', 'nu_obj'] },
+  cuerpo: { titulo: 'Cuerpo', icon: '💪', pasos: ['cu_ej', 'cu_nivel', 'cu_meta'] },
+  conexion: { titulo: 'Conexión', icon: '💞', pasos: ['cx_pareja', 'cx_foco'] },
+  plan: { titulo: 'Planes y fechas', icon: '📅', pasos: ['pl_tipos', 'pl_primero'] },
+  diario: { titulo: 'Diario', icon: '📔', pasos: ['di_hora', 'di_gracias'] },
+};
+function sxNorm(r) {
+  const out = {};
+  if (r && typeof r === 'object') Object.entries(r).forEach(([k, v]) => {
+    if (SX_DEF[k] && v && typeof v === 'object' && ['hecha', 'saltada', 'migrada'].includes(v.estado)) out[k] = { estado: v.estado, fecha: String(v.fecha || '') };
+  });
+  return out;
+}
+function sxPendiente(id) { return !!SX_DEF[id] && !(state.entrevistas || {})[id]; }
+let sxSec = null, sxI = 0, sxD = null;
+function sxAbierta() { const el = document.getElementById('sx'); return !!el && !el.classList.contains('hidden'); }
+function sxPuedeAbrir() {
+  const w = document.getElementById('wiz');
+  return !(w && !w.classList.contains('hidden')) && !document.body.classList.contains('locked') && !sxAbierta();
+}
+function sxAbrir(id) {
+  const def = SX_DEF[id];
+  if (!def) return;
+  const F = state.finanzas, np = state.nutri.perfil || {}, p = state.profile || {};
+  const E = state.ejercicios, C = state.conexion;
+  sxSec = id; sxI = 0;
+  sxD = {
+    moneda: state.config.moneda || 'COP', ingreso: state.config.ingreso || '',
+    fijos: SX_GASTOS.filter(g => state.gastosFijos.some(x => x.nombre.toLowerCase() === g.label.toLowerCase())).map(g => g.id),
+    fijosMonto: Object.fromEntries(SX_GASTOS.map(g => { const x = state.gastosFijos.find(y => y.nombre.toLowerCase() === g.label.toLowerCase()); return [g.id, x ? x.monto : '']; })),
+    metaFondo: state.config.metaFondo || '', metaMeses: F.metaMeses || 6,
+    cats: SX_CATS.filter(c => F.presupuesto.some(x => String(x.cat).toLowerCase() === c.label.toLowerCase())).map(c => c.id),
+    edad: np.edad || p.edad || '', sexo: np.sexo || p.sexo || '', estatura: np.estatura || p.estatura || '',
+    peso: pesoActual() || p.peso || '', pesoMeta: state.config.metaPeso || p.pesoMeta || '',
+    actividad: Number(np.actividad) || 1.375,
+    objPeso: ((p.objetivos || []).find(o => OBJ_PESO.includes(o))) || (np.deficit > 0 ? 'bajar' : np.deficit < 0 ? 'subir' : 'mantener'),
+    ejercicios: E.tarjetas.length ? EJERCICIOS.filter(e => E.tarjetas.some(t => t.ej === e.id)).map(e => e.id) : (Array.isArray(p.ejercicios) ? p.ejercicios.filter(x => EJERCICIOS.some(e => e.id === x)) : []),
+    ejOtro: '', nivel: E.cfg.nivel || '', metaSemana: E.cfg.metaSemana || 3,
+    pareja: C.cfg.pareja, focos: C.cfg.focos.slice(),
+    plCats: state.planes.cats.slice(), plTitulo: '', plFecha: '', plCat: state.planes.cats[0] || 'evento',
+    hora: state.diario.cfg.hora, gratitud: state.diario.cfg.gratitud,
+  };
+  document.getElementById('sx').classList.remove('hidden');
+  document.body.classList.add('wiz-open');
+  sxRender();
+}
+function sxCerrar() {
+  document.getElementById('sx').classList.add('hidden');
+  document.body.classList.remove('wiz-open');
+  sxSec = null; sxD = null;
+}
+function sxMarcar(id, estado) {
+  state.entrevistas[id] = { estado, fecha: todayKey() };
+  saveState();
+}
+function sxSaltar() {
+  const id = sxSec;
+  if (!id) return;
+  if (!state.entrevistas[id]) sxMarcar(id, 'saltada');
+  sxCerrar();
+  toast('Puedes responder después con el botón 🗣️ Preguntas');
+  if (RENDERERS[currentSection]) RENDERERS[currentSection]();
+}
+function sxSet(k, v) { sxD[k] = v; }
+function sxUno(k, v) { sxD[k] = v; sxRender(); }
+function sxToggle(k, id) { const a = sxD[k]; const i = a.indexOf(id); if (i >= 0) a.splice(i, 1); else a.push(id); sxRender(); }
+function sxMontoFijo(id, v) { sxD.fijosMonto[id] = v; }
+function sxRender() {
+  const def = SX_DEF[sxSec];
+  const paso = def.pasos[sxI];
+  const d = sxD;
+  document.getElementById('sx-sec').textContent = def.icon + ' ' + def.titulo;
+  document.getElementById('sx-prog-bar').style.width = ((sxI + 1) / def.pasos.length * 100) + '%';
+  document.getElementById('sx-atras').style.visibility = sxI === 0 ? 'hidden' : 'visible';
+  document.getElementById('sx-sig').textContent = sxI === def.pasos.length - 1 ? 'Listo' : 'Siguiente';
+  const H = (emoji, titulo, txt) => `<div class="wiz-emoji">${emoji}</div><h2 class="wiz-h" id="sx-titulo">${titulo}</h2>${txt ? `<p class="wiz-p">${txt}</p>` : ''}`;
+  const ch = wizChip;
+  let html = '';
+  if (paso === 'fin_ingreso') {
+    const custom = !MONEDAS.some(m => m[0] === d.moneda);
+    html = H('💰', '¿Cuánto entra cada mes?', 'Con esto calculamos cuánto te dura el dinero y cuánto puedes ahorrar. Si no tienes ingreso fijo, deja 0.') + `
+      <label class="wiz-lbl" for="sx-moneda">Moneda</label>
+      <select id="sx-moneda" onchange="sxUno('moneda', this.value === 'otra' ? '' : this.value)">
+        ${MONEDAS.map(m => `<option value="${m[0]}" ${d.moneda === m[0] ? 'selected' : ''}>${m[0]} · ${m[1]}</option>`).join('')}
+        <option value="otra" ${custom ? 'selected' : ''}>Otra</option>
+      </select>
+      ${custom ? `<label class="wiz-lbl" for="sx-moneda-otra">Código de 3 letras (por ejemplo BRL)</label>
+      <input type="text" id="sx-moneda-otra" maxlength="3" autocapitalize="characters" value="${esc(d.moneda)}" oninput="sxSet('moneda', this.value.toUpperCase().trim())">` : ''}
+      <label class="wiz-lbl" for="sx-ingreso">Ingreso mensual</label>
+      <input type="number" id="sx-ingreso" inputmode="numeric" min="0" placeholder="0" value="${esc(d.ingreso)}" oninput="sxSet('ingreso', this.value)">`;
+  } else if (paso === 'fin_fijos') {
+    html = H('🧾', 'Tus gastos fijos', 'Marca los que pagas cada mes y escribe cuánto (aproximado). Puedes editarlos después.') + `
+      <div class="wiz-chips">${SX_GASTOS.map(g => ch(d.fijos.includes(g.id), `sxToggle('fijos', '${g.id}')`, g.icon + ' ' + g.label)).join('')}</div>
+      ${d.fijos.length ? `<div class="mt-3">${SX_GASTOS.filter(g => d.fijos.includes(g.id)).map(g => `<label class="sx-fijo"><span>${g.icon} ${g.label}</span>
+        <input type="number" inputmode="numeric" min="0" placeholder="Monto" data-sx-fijo="${g.id}" value="${esc(d.fijosMonto[g.id])}" oninput="sxMontoFijo('${g.id}', this.value)"></label>`).join('')}</div>` : ''}`;
+  } else if (paso === 'fin_ahorro') {
+    html = H('🐷', 'Tu meta de ahorro', 'Un fondo de emergencia te da tranquilidad. ¿Cuánto quieres juntar y en cuánto tiempo?') + `
+      <label class="wiz-lbl" for="sx-metafondo">Meta del fondo</label>
+      <input type="number" id="sx-metafondo" inputmode="numeric" min="0" placeholder="Ej: 3 meses de gastos" value="${esc(d.metaFondo)}" oninput="sxSet('metaFondo', this.value)">
+      <span class="wiz-lbl">¿Para cuántos meses de gastos quieres estar cubierto?</span>
+      <div class="wiz-chips">${[3, 6, 12].map(n => ch(Number(d.metaMeses) === n, `sxUno('metaMeses', ${n})`, n + ' meses')).join('')}</div>`;
+  } else if (paso === 'fin_cats') {
+    html = H('🗂️', '¿En qué más se te va el dinero?', 'Elige las categorías que quieres vigilar en tu presupuesto.') + `
+      <div class="wiz-chips">${SX_CATS.map(c => ch(d.cats.includes(c.id), `sxToggle('cats', '${c.id}')`, c.icon + ' ' + c.label)).join('')}</div>`;
+  } else if (paso === 'nu_datos') {
+    html = H('🧍', 'Sobre ti', 'Sirve para calcular tus calorías. Si prefieres no decirlo, déjalo vacío.') + `
+      <label class="wiz-lbl" for="sx-edad">Edad (años)</label>
+      <input type="number" id="sx-edad" inputmode="numeric" min="10" max="100" value="${esc(d.edad)}" oninput="sxSet('edad', this.value)">
+      <span class="wiz-lbl">Sexo</span>
+      <div class="wiz-chips">${ch(d.sexo === 'h', "sxUno('sexo', 'h')", 'Hombre')}${ch(d.sexo === 'm', "sxUno('sexo', 'm')", 'Mujer')}${ch(d.sexo === 'x', "sxUno('sexo', 'x')", 'Prefiero no decir')}</div>
+      <label class="wiz-lbl" for="sx-estatura">Estatura (cm)</label>
+      <input type="number" id="sx-estatura" inputmode="numeric" min="100" max="250" value="${esc(d.estatura)}" oninput="sxSet('estatura', this.value)">`;
+  } else if (paso === 'nu_peso') {
+    html = H('⚖️', 'Tu peso', 'Lo puedes cambiar después en Cuerpo.') + `
+      <label class="wiz-lbl" for="sx-peso">Peso actual (kg)</label>
+      <input type="number" id="sx-peso" inputmode="decimal" step="0.1" min="30" max="300" value="${esc(d.peso)}" oninput="sxSet('peso', this.value)">
+      <label class="wiz-lbl" for="sx-pesometa">Peso meta (kg, opcional)</label>
+      <input type="number" id="sx-pesometa" inputmode="decimal" step="0.1" min="30" max="300" value="${esc(d.pesoMeta)}" oninput="sxSet('pesoMeta', this.value)">`;
+  } else if (paso === 'nu_act') {
+    html = H('🏃', '¿Qué tan activo eres?', 'Piensa en una semana normal.') +
+      ACTIVIDAD.map(a => `<button type="button" class="wiz-opt ${Number(d.actividad) === a.v ? 'on' : ''}" onclick="sxUno('actividad', ${a.v})">${esc(a.label)}</button>`).join('');
+  } else if (paso === 'nu_obj') {
+    const k = wizCalorias({ ...d, objetivos: [d.objPeso] });
+    html = H('🎯', '¿Cuál es tu objetivo?', '') +
+      [['bajar', '⬇️ Bajar de peso'], ['mantener', '⚖️ Mantener mi peso'], ['subir', '⬆️ Subir de peso']].map(([id, l]) =>
+        `<button type="button" class="wiz-opt ${d.objPeso === id ? 'on' : ''}" data-sx-obj="${id}" onclick="sxUno('objPeso', '${id}')">${l}</button>`).join('') +
+      (k ? `<div class="wiz-res"><p class="text-xs text-[var(--muted)]">Tu meta diaria de calorías</p>
+        <p class="wiz-kcal" id="sx-kcal">${k.meta.toLocaleString('es-CO')} kcal</p>
+        <p class="text-xs text-[var(--muted)]">Gasto estimado ${k.tdee.toLocaleString('es-CO')} kcal${k.ajuste ? (k.ajuste < 0 ? `, menos ${-k.ajuste} para bajar` : `, más ${k.ajuste} para subir`) : ''}. Es una estimación (${k.formula}).</p></div>`
+        : `<p class="wiz-p mt-3">Completa edad, sexo, estatura y peso para ver tu meta de calorías.</p>`);
+  } else if (paso === 'cu_ej') {
+    html = H('🤸', '¿Qué ejercicios haces o quieres hacer?', 'Cada uno será una tarjeta para marcar cuando lo hagas.') + `
+      <div class="wiz-chips">${EJERCICIOS.map(e => ch(d.ejercicios.includes(e.id), `sxToggle('ejercicios', '${e.id}')`, e.icon + ' ' + e.label)).join('')}</div>
+      <label class="wiz-lbl" for="sx-ejotro">Otro (opcional)</label>
+      <input type="text" id="sx-ejotro" maxlength="40" placeholder="Ej: natación, fútbol, baile" value="${esc(d.ejOtro)}" oninput="sxSet('ejOtro', this.value)">`;
+  } else if (paso === 'cu_nivel') {
+    html = H('📶', '¿Cuál es tu nivel?', 'Ajustamos los consejos a tu ritmo.') +
+      EJ_NIVELES.map(n => `<button type="button" class="wiz-opt ${d.nivel === n.id ? 'on' : ''}" onclick="sxUno('nivel', '${n.id}')"><strong>${n.label}</strong><br><span class="text-xs text-[var(--muted)]">${n.desc}</span></button>`).join('');
+  } else if (paso === 'cu_meta') {
+    html = H('🎯', '¿Cuántas veces por semana?', 'Es la meta de cada ejercicio. Puedes cambiarla por tarjeta.') + `
+      <div class="wiz-chips">${[1, 2, 3, 4, 5, 6, 7].map(n => ch(Number(d.metaSemana) === n, `sxUno('metaSemana', ${n})`, String(n))).join('')}</div>`;
+  } else if (paso === 'cx_pareja') {
+    html = H('💞', '¿Tienes pareja?', 'Si es así, te mostramos ideas de mensajes y citas para ella o él.') + `
+      <button type="button" class="wiz-opt ${d.pareja === true ? 'on' : ''}" data-sx-pareja="si" onclick="sxUno('pareja', true)">Sí 💞</button>
+      <button type="button" class="wiz-opt ${d.pareja === false ? 'on' : ''}" data-sx-pareja="no" onclick="sxUno('pareja', false)">No por ahora</button>`;
+  } else if (paso === 'cx_foco') {
+    html = H('🧭', '¿En qué te quieres enfocar?', 'Elige uno o varios. Mostramos primero las tarjetas que van con eso.') + `
+      <div class="wiz-chips">${CX_FOCOS.filter(f => f.id !== 'pareja' || d.pareja !== false).map(f => ch(d.focos.includes(f.id), `sxToggle('focos', '${f.id}')`, f.icon + ' ' + f.label)).join('')}</div>`;
+  } else if (paso === 'pl_tipos') {
+    html = H('🗓️', '¿Qué tipo de planes quieres seguir?', 'Así tus filtros y categorías quedan a mano.') + `
+      <div class="wiz-chips">${PL_CATS.map(c => ch(d.plCats.includes(c.id), `sxToggle('plCats', '${c.id}')`, c.icon + ' ' + c.label)).join('')}</div>`;
+  } else if (paso === 'pl_primero') {
+    html = H('✨', '¿Algo que se viene pronto?', 'Agrega tu primer plan o fecha importante. Puedes dejarlo vacío.') + `
+      <label class="wiz-lbl" for="sx-pltitulo">Qué es</label>
+      <input type="text" id="sx-pltitulo" maxlength="80" placeholder="Ej: Viaje, cumpleaños, examen" value="${esc(d.plTitulo)}" oninput="sxSet('plTitulo', this.value)">
+      <label class="wiz-lbl" for="sx-plfecha">Fecha</label>
+      <input type="date" id="sx-plfecha" value="${esc(d.plFecha)}" oninput="sxSet('plFecha', this.value)">
+      <label class="wiz-lbl" for="sx-plcat">Categoría</label>
+      <select id="sx-plcat" onchange="sxSet('plCat', this.value)">${PL_CATS.map(c => `<option value="${c.id}" ${d.plCat === c.id ? 'selected' : ''}>${c.icon} ${c.label}</option>`).join('')}</select>`;
+  } else if (paso === 'di_hora') {
+    html = H('🕰️', '¿Cuándo prefieres escribir?', 'A esa hora te invitamos en Hoy a contar cómo te sientes.') +
+      DIA_HORAS.map(h => `<button type="button" class="wiz-opt ${d.hora === h.id ? 'on' : ''}" onclick="sxUno('hora', '${h.id}')">${h.icon} ${h.label}</button>`).join('');
+  } else if (paso === 'di_gracias') {
+    html = H('🙏', '¿Quieres anotar algo que agradeces?', 'Una línea al día. Ayuda a ver lo bueno, incluso en días difíciles.') + `
+      <button type="button" class="wiz-opt ${d.gratitud ? 'on' : ''}" onclick="sxUno('gratitud', true)">Sí, muéstrame ese espacio</button>
+      <button type="button" class="wiz-opt ${!d.gratitud ? 'on' : ''}" onclick="sxUno('gratitud', false)">No, solo el ánimo y unas palabras</button>`;
+  }
+  const body = document.getElementById('sx-body');
+  body.innerHTML = html;
+  body.dataset.paso = paso;
+}
+function sxPaso(dir) {
+  const def = SX_DEF[sxSec];
+  if (!def) return;
+  const paso = def.pasos[sxI];
+  if (dir > 0 && paso === 'fin_ingreso' && !/^[A-Z]{3}$/.test(sxD.moneda || '')) { toast('Escribe un código de moneda de 3 letras.'); return; }
+  if (dir > 0 && sxI === def.pasos.length - 1) { sxTerminar(); return; }
+  sxI = Math.min(def.pasos.length - 1, Math.max(0, sxI + dir));
+  sxRender();
+  document.getElementById('sx').scrollTop = 0;
+}
+function sxTerminar() {
+  const id = sxSec, d = sxD;
+  const n = x => (x === '' || x == null || !Number.isFinite(Number(x))) ? null : Number(x);
+  if (id === 'finanzas') {
+    state.config.moneda = d.moneda;
+    if (state.profile) state.profile.moneda = d.moneda;
+    if (n(d.ingreso) != null) state.config.ingreso = Math.max(0, n(d.ingreso));
+    SX_GASTOS.filter(g => d.fijos.includes(g.id)).forEach(g => {
+      const monto = Math.max(0, n(d.fijosMonto[g.id]) || 0);
+      const ex = state.gastosFijos.find(x => x.nombre.toLowerCase() === g.label.toLowerCase());
+      if (ex) { if (monto) ex.monto = monto; }
+      else state.gastosFijos.push({ id: 'custom_' + uid(), nombre: g.label, monto, tipo: 'personal' });
+    });
+    if (n(d.metaFondo) != null) state.config.metaFondo = Math.max(0, n(d.metaFondo));
+    state.finanzas.metaMeses = Math.min(36, Math.max(1, Number(d.metaMeses) || 6));
+    SX_CATS.filter(c => d.cats.includes(c.id)).forEach(c => {
+      if (!state.finanzas.presupuesto.some(x => String(x.cat).toLowerCase() === c.label.toLowerCase()))
+        state.finanzas.presupuesto.push({ id: uid(), cat: c.label, monto: 0, esencial: false });
+    });
+  } else if (id === 'nutricion') {
+    const np = state.nutri.perfil;
+    if (d.sexo === 'h' || d.sexo === 'm') np.sexo = d.sexo;
+    if (n(d.edad)) np.edad = n(d.edad);
+    if (n(d.estatura)) np.estatura = n(d.estatura);
+    np.actividad = Number(d.actividad) || np.actividad;
+    np.deficit = d.objPeso === 'bajar' ? 500 : d.objPeso === 'subir' ? -300 : 0;
+    np.modoMigrado = true;
+    const p = n(d.peso);
+    if (p && p >= 30 && p <= 300) {
+      const hoy = todayKey();
+      const ex = state.pesos.find(x => x.fecha === hoy);
+      if (ex) ex.peso = p; else state.pesos.push({ fecha: hoy, peso: p });
+      state.pesos.sort((a, b) => a.fecha.localeCompare(b.fecha));
+    }
+    if (n(d.pesoMeta)) state.config.metaPeso = n(d.pesoMeta);
+    const k = wizCalorias({ ...d, objetivos: [d.objPeso] });
+    if (k) np.confirmado = true;
+    if (state.profile && !state.profile.saltada) {
+      const pr = state.profile;
+      pr.objetivos = (pr.objetivos || []).filter(o => !OBJ_PESO.includes(o)).concat([d.objPeso]);
+      Object.assign(pr, { edad: n(d.edad), sexo: d.sexo || '', estatura: n(d.estatura), peso: p, pesoMeta: n(d.pesoMeta), actividad: Number(d.actividad) || 1.2, calorias: k, kcalMeta: k ? k.meta : null });
+    }
+  } else if (id === 'cuerpo') {
+    const E = state.ejercicios;
+    E.cfg.nivel = d.nivel || E.cfg.nivel;
+    E.cfg.metaSemana = hxNum(d.metaSemana, 3, 1, 14);
+    d.ejercicios.forEach(ej => { if (!E.tarjetas.some(t => t.ej === ej)) E.tarjetas.push(ejNuevaTarjeta(ej, null, null, E.cfg.metaSemana)); });
+    const otro = d.ejOtro.trim();
+    if (otro && !E.tarjetas.some(t => t.label.toLowerCase() === otro.toLowerCase())) E.tarjetas.push(ejNuevaTarjeta('otro', otro, null, E.cfg.metaSemana));
+    E.tarjetas.forEach(t => { if (t.meta.tipo === 'veces') t.meta.n = E.cfg.metaSemana; });
+    if (state.profile && !state.profile.saltada) { state.profile.ejercicios = d.ejercicios.slice(); if (otro) state.profile.ejercicioOtro = otro; }
+  } else if (id === 'conexion') {
+    const C = state.conexion;
+    C.cfg.pareja = d.pareja === true ? true : d.pareja === false ? false : C.cfg.pareja;
+    C.cfg.focos = d.focos.slice();
+    if (d.focos.length) {
+      // Tarjetas visibles según el foco (las propias siempre se ven)
+      C.cfg.visibles = CX_CARDS.filter(c => d.focos.includes(c.foco) && !(c.pareja && C.cfg.pareja === false)).map(c => c.id).concat(C.propias.map(p => p.id));
+      if (!C.cfg.visibles.length) C.cfg.visibles = null;
+    } else C.cfg.visibles = null;
+  } else if (id === 'plan') {
+    state.planes.cats = d.plCats.slice();
+    const t = d.plTitulo.trim();
+    if (t && /^\d{4}-\d{2}-\d{2}$/.test(d.plFecha)) state.planes.eventos.push(plNormEv({ titulo: t, fecha: d.plFecha, cat: d.plCat, color: PL_COLORES[state.planes.eventos.length % PL_COLORES.length] }));
+  } else if (id === 'diario') {
+    state.diario.cfg.hora = d.hora;
+    state.diario.cfg.gratitud = !!d.gratitud;
+  }
+  hxRecalc(todayKey());
+  sxMarcar(id, 'hecha');
+  sxCerrar();
+  toast('¡Listo! Sección ajustada a ti.');
+  if (typeof renderGlobal === 'function') renderGlobal();
+  if (RENDERERS[currentSection]) RENDERERS[currentSection]();
+}
+// Botón "🗣️ Preguntas" en el encabezado de cada sección con entrevista
+function sxBotones() {
+  Object.keys(SX_DEF).forEach(id => {
+    const sec = document.getElementById('sec-' + id);
+    if (!sec || sec.querySelector('.sx-btn')) return;
+    const h2 = sec.querySelector('h2');
+    if (!h2) return;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'sx-btn';
+    b.dataset.sxBtn = id;
+    b.textContent = '🗣️ Preguntas';
+    b.setAttribute('aria-label', 'Responder las preguntas de ' + SX_DEF[id].titulo);
+    b.onclick = () => sxAbrir(id);
+    h2.parentElement.appendChild(b);
+  });
+}
+function sxAjustesHtml() {
+  return Object.entries(SX_DEF).map(([id, def]) => {
+    const e = state.entrevistas[id];
+    const txt = !e ? 'Pendiente: aparece al abrir la sección' : e.estado === 'saltada' ? 'La saltaste' : e.estado === 'migrada' ? 'Tomada de tus datos anteriores' : 'Respondida';
+    return `<div class="sx-fila"><span>${def.icon} ${def.titulo}<small>${txt}</small></span><button class="btn btn-ghost btn-sm" data-sx-rep="${id}" onclick="sxAbrir('${id}')">${e ? 'Repetir' : 'Responder'}</button></div>`;
+  }).join('');
+}
+
+// ================= v9: MIGRACIÓN v7 (idempotente) =================
+// Fases del plan (formato anterior) a hitos de la línea de tiempo. No se duplican: el id viene de la fase.
+function plDesdeFases(s) {
+  const fases = Array.isArray(s.planFases) ? s.planFases : [];
+  if (!fases.length) return 0;
+  const c = s.config || {};
+  const ini = /^\d{4}-\d{2}-\d{2}$/.test(c.inicio || '') ? c.inicio : todayKey();
+  const dur = Math.min(365, Math.max(7, Number(c.duracion) || 90));
+  let n = 0;
+  fases.forEach((f, i) => {
+    if (!f) return;
+    const id = 'pl_fase_' + String(f.id != null ? f.id : i);
+    if (s.planes.eventos.some(e => e.id === id)) return;
+    s.planes.eventos.push(plNormEv({
+      id, titulo: String(f.titulo || 'Fase ' + (i + 1)), fecha: addDays(ini, Math.round(i * dur / fases.length)),
+      cat: 'plan', emoji: ['🌱', '🌿', '🌳', '🏔️', '⭐'][i % 5], color: PL_COLORES[(i + 3) % PL_COLORES.length],
+      checklist: (Array.isArray(f.items) ? f.items : []).map(t => ({ id: uid(), texto: String(t), hecho: false })),
+    }));
+    n++;
+  });
+  return n;
+}
+const V7_MAPA_SECCIONES = { recordatorios: 'diario', relaciones: 'conexion', trabajo: null };
+function migrateV7(s, raw) {
+  raw = raw || {};
+  const esNuevo = !(Number(raw.schema) >= 7);
+  s.ejercicios = ejNorm(raw.ejercicios);
+  s.diario = diaNorm(raw.diario);
+  s.conexion = cxNorm(raw.conexion);
+  s.planes = plNorm(raw.planes);
+  s.entrevistas = sxNorm(raw.entrevistas);
+  s.actividadesOcultas = Array.isArray(raw.actividadesOcultas) ? raw.actividadesOcultas.filter(a => a && a.id) : [];
+  // Secciones renombradas o retiradas (los datos viejos siguen guardados en el estado). Idempotente.
+  const mapa = arr => {
+    const out = [];
+    (arr || []).forEach(id => {
+      const nid = Object.prototype.hasOwnProperty.call(V7_MAPA_SECCIONES, id) ? V7_MAPA_SECCIONES[id] : id;
+      if (nid && !out.includes(nid)) out.push(nid);
+    });
+    return out;
+  };
+  if (s.ui) {
+    s.ui.ocultas = mapa(s.ui.ocultas);
+    s.ui.barra = mapa(s.ui.barra);
+    if (!s.ui.barra.includes('habitos')) s.ui.barra.unshift('habitos');
+  }
+  if (s.profile && Array.isArray(s.profile.secciones)) s.profile.secciones = mapa(s.profile.secciones);
+  if (esNuevo) {
+    // Actividades de búsqueda de empleo: se guardan aparte, ocultas
+    const fuera = ['s_postular', 's_contacto'];
+    const ocultar = (s.actividades || []).filter(a => fuera.includes(a.id));
+    if (ocultar.length) {
+      ocultar.forEach(a => { if (!s.actividadesOcultas.some(x => x.id === a.id)) s.actividadesOcultas.push(a); });
+      s.actividades = s.actividades.filter(a => !fuera.includes(a.id));
+    }
+    const p = s.profile;
+    if (p && Array.isArray(p.objetivos) && p.objetivos.includes('trabajo')) {
+      p.objetivos = p.objetivos.filter(o => o !== 'trabajo');
+      p.objetivosOcultos = Array.from(new Set((p.objetivosOcultos || []).concat(['trabajo'])));
+    }
+    // Tarjetas de ejercicio desde los ejercicios elegidos en la entrevista
+    if (!s.ejercicios.tarjetas.length && p && !p.saltada) {
+      (Array.isArray(p.ejercicios) ? p.ejercicios : []).forEach(id => {
+        if (EJERCICIOS.some(e => e.id === id)) s.ejercicios.tarjetas.push(ejNuevaTarjeta(id, null, null, 3));
+      });
+      const otro = String(p.ejercicioOtro || '').trim();
+      if (otro) s.ejercicios.tarjetas.push(ejNuevaTarjeta('otro', otro, null, 3));
+    }
+    // Plan y fechas: las fases y las fechas del plan pasan a la línea de tiempo (una sola vez)
+    if (!s.planes.migrado) {
+      if (raw.config && raw.config.inicio) plHitosPlan(s);
+      plDesdeFases(s);
+      s.planes.migrado = true;
+    }
+    // Quien ya respondió la entrevista inicial no vuelve a ver las preguntas de lo que ya tiene
+    const hoy = todayKey();
+    const mig = id => { if (!s.entrevistas[id]) s.entrevistas[id] = { estado: 'migrada', fecha: hoy }; };
+    const F = s.finanzas || {};
+    if ((p && p.moneda) || Number((s.config || {}).ingreso) > 0 || (s.gastosFijos || []).length || (F.cuentas || []).length) mig('finanzas');
+    if (perfilListo(s.nutri && s.nutri.perfil)) mig('nutricion');
+    if ((p && Array.isArray(p.ejercicios) && p.ejercicios.length) || s.ejercicios.tarjetas.length || (s.pesos || []).length) mig('cuerpo');
+    if ((s.planFases || []).length) mig('plan');
+  }
+  s.planes.migrado = true;
+  if (s.gamification && s.days) { hxSetHist(s, todayKey()); hxTotals(s); }
+  s.schema = 7;
+  return s;
+}
+
 // ================= ESTADO =================
 let state = loadState();
 function applyPlanConfig() {
@@ -3771,11 +5219,10 @@ const RENDERERS = {
   finanzas: () => renderFinanzas(),
   nutricion: () => renderNutricion(),
   plan: () => renderPlan(),
-  cuerpo: () => renderPesoChart(),
-  recordatorios: () => renderRecordatorios(),
-  trabajo: () => renderCarrera(),
+  cuerpo: () => renderCuerpo(),
+  diario: () => renderDiario(),
+  conexion: () => renderConexion(),
   proyectos: () => renderProyectos(),
-  relaciones: () => renderEspiritu(),
   suenos: () => renderSuenos(),
   galeria: () => renderGaleria(),
   ajustes: () => renderAjustes(),
@@ -3789,12 +5236,17 @@ function showSectionNav(id) {
     b.classList.toggle('active', bid === id || (inMobile && secundaria && bid === 'mas'));
   });
 }
+const SECCIONES_ANTIGUAS = { recordatorios: 'diario', vicios: 'diario', relaciones: 'conexion', trabajo: 'habitos' };
 function showSection(id) {
+  if (SECCIONES_ANTIGUAS[id]) id = SECCIONES_ANTIGUAS[id];
+  if (id !== 'mas' && !document.getElementById('sec-' + id)) id = 'habitos';
   currentSection = id;
   document.querySelectorAll('.section').forEach(s => s.classList.toggle('active', s.id === 'sec-' + id));
   showSectionNav(id);
   window.scrollTo(0, 0);
   if (RENDERERS[id]) RENDERERS[id]();
+  // Primera visita: mini entrevista de la sección
+  if (sxPendiente(id) && sxPuedeAbrir()) sxAbrir(id);
 }
 
 function renderGlobal() {
@@ -3822,13 +5274,6 @@ function renderBanners() {
       <span class="text-xl">💾</span>
       <p class="text-sm flex-1">${txt}</p>
       <button class="btn btn-sm" onclick="exportBackup()">Respaldar</button></div>`);
-  }
-  const seg = seguimientosPendientes().length;
-  if (seg) {
-    out.push(`<div class="card p-3 flex items-center gap-3">
-      <span class="text-xl">📨</span>
-      <p class="text-sm flex-1">Tienes ${seg} ${seg === 1 ? 'seguimiento de postulación pendiente' : 'seguimientos de postulaciones pendientes'}.</p>
-      <button class="btn btn-sm" onclick="postFiltro='activas';showSection('trabajo')">Ver</button></div>`);
   }
   document.getElementById('banners').innerHTML = out.join('');
 }
@@ -4070,11 +5515,11 @@ function calcRunway() {
   };
   const gastoActual = totalFijos() + totalVariables() + hormiga30() + totalAbonos();
   const escenarios = [
-    mk('Como vas ahora', gastoActual, 'Fijos + vicios + hormiga (últimos 30 días) + abonos a deudas'),
+    mk('Como vas ahora', gastoActual, 'Fijos + variables + hormiga (últimos 30 días) + abonos a deudas'),
     mk('Con tu presupuesto', totalPresupuesto(), 'Lo que planeaste en "Presupuesto mensual" (abajo)'),
     mk('Ajustado', totalFijos() + viciosMeta() + Math.round(hormiga30() / 2) + Math.max(0, totalAbonos() - Math.max(0, ...(state.deudasCatalogo || []).map(abonoDeuda), 0)) + presEsencialesExtra(),
       'Variables en su meta, hormiga a la mitad y el abono más grande en pausa'),
-    mk('Mínimo', totalFijos() + presEsencialesExtra(), 'Solo fijos y esenciales (salud, búsqueda). Abonos en pausa'),
+    mk('Mínimo', totalFijos() + presEsencialesExtra(), 'Solo fijos y esenciales. Abonos en pausa'),
   ];
   return { cuentas, fondo, seguros, posibles, total, ingreso, gastoActual, escenarios, actual: escenarios[0] };
 }
@@ -4096,7 +5541,7 @@ function renderRunway() {
   document.getElementById('rw-gasto').textContent = formatMoney(a.gasto);
   document.getElementById('rw-gasto-sub').textContent = R.ingreso > 0
     ? `menos tu ingreso: ${a.neto > 0 ? formatMoney(a.neto) + ' salen del colchón' : 'tu ingreso lo cubre'}`
-    : 'fijos + vicios + hormiga + deudas';
+    : 'fijos + variables + hormiga + deudas';
   const mEl = document.getElementById('rw-meses');
   mEl.textContent = R.total === 0 && a.neto > 0 ? '-' : fmtMeses(a.meses);
   mEl.className = 'text-xl font-bold ' + (R.total === 0 && a.neto > 0 ? '' : mesesColor(a.meses));
@@ -4168,7 +5613,7 @@ function renderRunway() {
   const recos = [];
   const mesesCon = gasto => { const n = gasto - R.ingreso; return n <= 0 ? Infinity : R.total / n; };
   if (R.total === 0) recos.push(['📝', 'Empieza registrando el saldo de tus cuentas y efectivo. Sin eso no se puede saber cuánto te alcanza.']);
-  if (R.total > 0 && a.meses < 3) recos.push(['⚠️', 'Tienes menos de 3 meses de colchón. Gasta solo en lo esencial y considera trabajos temporales o freelance mientras sale el empleo.']);
+  if (R.total > 0 && a.meses < 3) recos.push(['⚠️', 'Tienes menos de 3 meses de colchón. Gasta solo en lo esencial y busca formas de sumar un ingreso extra.']);
   (state.deudasCatalogo || []).forEach(d => {
     const ab = abonoDeuda(d.id);
     if (ab > 0 && a.meses !== Infinity) {
@@ -4189,8 +5634,6 @@ function renderRunway() {
     recos.push(['🔍', `Tu gasto fijo más grande es <strong>${esc(top.nombre)}</strong> (${formatMoney(miParte(top))} tu parte). Revisa si se puede reducir, cambiar de plan o compartir.`]);
   }
   if (R.posibles > 0) recos.push(['⏳', `Tienes ${formatMoney(R.posibles)} en ingresos posibles. No cuentes con ellos hasta que lleguen.`]);
-  const pendFin = state.carrera.checklist.filter(x => !x.hecho).slice(0, 2);
-  if (pendFin.length && a.meses < 6) recos.push(['📋', `Tienes tareas pendientes en Carrera: ${pendFin.map(x => esc(x.texto)).join('; ')}. <button class="underline text-[var(--accent2)]" onclick="showSection('trabajo')">Ir</button>`]);
   if ((state.ahorro || 0) > 0) recos.push(['🛟', 'El fondo de emergencia es justo para esta situación: úsalo sin culpa si hace falta, pero solo para lo esencial.']);
   document.getElementById('rw-recos').innerHTML = recos.map(([i, t]) =>
     `<li class="flex gap-3 text-sm p-3 rounded-xl bg-[var(--card2)]"><span>${i}</span><span class="flex-1">${t}</span></li>`).join('');
@@ -5366,6 +6809,7 @@ function setFechas(inicio, dur) {
   state.config.inicio = inicio;
   state.config.duracion = dur;
   applyPlanConfig();
+  plHitosPlan(state);
   saveState();
   renderGlobal();
   if (RENDERERS[currentSection]) RENDERERS[currentSection]();
@@ -5387,7 +6831,7 @@ function empezarHoy() {
   toast('¡Día 1! A darle 💪');
 }
 
-function renderPlan() {
+function renderPlanV5() {
   document.getElementById('plan-titulo').textContent = `Plan ${PLAN_DAYS} días`;
   document.getElementById('plan-rango').textContent =
     `${fmtDate(START_KEY, { day: 'numeric', month: 'short', year: 'numeric' })} → ${fmtDate(addDays(START_KEY, PLAN_DAYS - 1), { day: 'numeric', month: 'short', year: 'numeric' })}`;
@@ -7240,11 +8684,8 @@ Ejemplo mínimo (valores de muestra, no datos reales):
   "gastosVariables": [{ "id": "v1", "nombre": "Gasto variable de ejemplo", "monto": 0, "meta": 0 }],
   "suenos": [{ "nombre": "Proyecto de ejemplo", "horiz": "1 año", "paso": "Dar el primer paso" }],
   "planFases": [{ "titulo": "Mes 1", "tono": "accent", "items": ["Punto de ejemplo"] }],
-  "relaciones": [{ "titulo": "Persona de ejemplo", "cuerpo": "Una nota" }],
-  "bloques": { "cuerpo": [{ "titulo": "Movimiento", "cuerpo": "Nota de ejemplo" }], "vicios": [] },
-  "caidaOpciones": ["Categoría de ejemplo"],
+  "bloques": { "cuerpo": [{ "titulo": "Movimiento", "cuerpo": "Nota de ejemplo" }] },
   "nutri": { "perfil": { "sexo": "", "edad": "", "estatura": "", "actividad": 1.55, "deficit": 500 } },
-  "carrera": { "metas": { "aplicaciones": 5, "contactos": 3 }, "checklist": ["Tarea de ejemplo"] },
   "finanzas": { "metaMeses": 6, "presupuesto": [{ "id": "otros", "cat": "Otros", "monto": 0, "esencial": false }] }
 }
 Un respaldo con state.days se restaura con «Restaurar desde archivo».
@@ -7309,6 +8750,9 @@ function applyConfigData(data) {
   }
   state = migrate(raw);
   applyPlanConfig();
+  // Fases y fechas importadas pasan a la línea de tiempo
+  if (data.planFases !== undefined) plDesdeFases(state);
+  if (data.config && data.config.inicio) plHitosPlan(state);
   saveState();
   applyUI();
   buildNav();
@@ -7527,6 +8971,7 @@ function init() {
   setInterval(tickAyuno, 1000);
   hxRenderTimer(true);
   setInterval(hxTick, 1000);
+  sxBotones();
   if (!state.profile) setTimeout(wizAbrir, 300);
   // Si la app queda abierta y cambia el día, refrescar
   let lastKey = todayKey();

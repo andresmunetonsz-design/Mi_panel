@@ -1,6 +1,6 @@
 // Service worker: cache-first para el HTML y los recursos locales.
 // Sube CACHE (v5 -> v6...) cuando publiques una nueva versión del panel.
-const CACHE = 'panel-v6';
+const CACHE = 'panel-v7';
 const ASSETS = [
   './', './index.html', './alimentos.js', './manifest.json', './icon-192.png', './icon-512.png',
   './img/accesorio-auriculares.webp',
